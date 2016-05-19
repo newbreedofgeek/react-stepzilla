@@ -3,6 +3,8 @@ is a  multi step component for data collection via forms and other basic compone
 
 
 ### what does it do?
+- something like this of course:
+
 ![react-stepzilla](https://github.com/newbreedofgeek/react-stepzilla/blob/master/stepzilla-eg.png)
 
 ### get started
