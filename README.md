@@ -3,12 +3,7 @@ is a  multi step component for data collection via forms and other basic compone
 
 
 ### what does it do?
-```
-- effectively scales images instead of resizing using width to work out the thumb scales. (so if you have a really tall image it will still use width to generate thumbs, but this should still work well in order to get fixed size thumbs)
-- config driven thumb sizes (support lrg, med and sml sizes)
-- choose to keep original image or delete it (via config)
-- resized images can then be accessed publicly
-```
+![react-stepzilla](https://github.com/newbreedofgeek/react-stepzilla/blob/master/stepzilla-eg.png)
 
 ### get started
 - run
