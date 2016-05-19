@@ -32,7 +32,7 @@ const steps =
 - also if you want some default style, copy the source from `src/css/main.css` code into your project
 
 ### dev
-- all node source is in src/index.js
+- all node source is in src/main.js
 - you need to install dependencies first `npm install`
 - make any changes and run `npm run build` to transpile the jsx into `dist`
 - the transpilation is run as a auto pre-publish task so it should usually be up to date when consumed via npm
