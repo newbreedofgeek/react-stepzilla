@@ -1,0 +1,26 @@
+{
+  "name": "react-stepzilla",
+  "version": "1.0.0",
+  "description": "A react multi step component for data collection forms and other components.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newbreedofgeek/react-stepzilla.git"
+  },
+  "keywords": [
+    "react",
+    "multistep",
+    "react",
+    "wizard",
+    "react"
+  ],
+  "author": "@newbreedofgeek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newbreedofgeek/react-stepzilla/issues"
+  },
+  "homepage": "https://github.com/newbreedofgeek/react-stepzilla#readme"
+}
