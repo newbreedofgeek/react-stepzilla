@@ -5,7 +5,7 @@ is a  multi-step, wizard component for data collection via forms and other sub c
 ### what does it do?
 - something like this of course:
 
-![react-stepzilla](https://github.com/newbreedofgeek/react-stepzilla/blob/master/stepzilla-eg.png)
+![react-stepzilla](https://raw.githubusercontent.com/newbreedofgeek/react-stepzilla/master/stepzilla-eg.png)
 
 ### get started
 - run
