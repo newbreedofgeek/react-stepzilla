@@ -33,10 +33,15 @@ const steps =
 
 ### dev
 - all node source is in src/index.js
+- you need to install dependencies first `npm install`
+- make any changes and run `npm run build` to transpile the jsx into `dist`
+- the transpilation is run as a auto pre-publish task so it should usually be up to date when consumed via npm
 
 ### todo
 - write the tests
 
 #### change log
+- 1.2.0
+  - fixed issue when when consumed via npm the jsx was causing a build error on the host project. Its not transpiled via babel into dist
 - 1.0.0
   - initial working version
