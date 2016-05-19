@@ -1,5 +1,5 @@
 # react stepzilla
-is a  multi step component for data collection via forms and other basic components. It basically lets you throw a bunch of react components at it (data forms, text panels etc) and it will take the user through the forms in steps. If it's a data form it will tigger validation and only proceed if the data is valid.
+is a  multi-step, wizard component for data collection via forms and other sub components. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data entry form it will tigger validation and only proceed if the data is valid.
 
 
 ### what does it do?
@@ -26,6 +26,12 @@ const steps =
       {name: 'Step 4', component: <Step4 />},
       {name: 'Step 5', component: <Step5 />}
     ]
+```
+- and now render it out somewhere in your app
+```
+    <div className='step-progress'>
+        <StepZilla steps={steps}/>
+    </div>
 ```
 - if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
 

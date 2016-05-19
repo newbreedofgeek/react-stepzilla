@@ -1,7 +1,7 @@
 {
   "name": "react-stepzilla",
-  "version": "1.2.0",
-  "description": "A react multi step component for data collection forms and other components.",
+  "version": "1.2.1",
+  "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
