@@ -33,9 +33,35 @@ const steps =
         <StepZilla steps={steps}/>
     </div>
 ```
+
+- pass in following options as well if you want to customise it further
+
+```
+// hide or show Next and Previous Buttons
+showNavigation: true | false
+
+// disable or enable onClick step jumping from the UI navigation summary on top
+stepsNavigation: true | false
+
+// show or hide the previews button in the last step (maybe the last step is a thank you message and you don't want them to go back)
+prevBtnOnLastStep: true | false
+
+// dev control to disable calling and Child form component validation
+dontValidate: true | false
+
+```
+
+example options usage:
+```
+<div className='step-progress'>
+    <StepZilla steps={steps} stepsNavigation={false} prevBtnOnLastStep={false} />
+</div>
+```
+
+
 - if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
 
-- also if you want some default style, copy the source from `src/css/main.css` code into your project
+- also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
 
 ### dev
 - all node source is in src/main.js
@@ -47,6 +73,8 @@ const steps =
 - write the tests
 
 #### change log
+- 1.3.0
+  - added the options showNavigation, stepsNavigation, prevBtnOnLastStep, dontValidate
 - 1.2.0
   - fixed issue when when consumed via npm the jsx was causing a build error on the host project. Its not transpiled via babel into dist
 - 1.0.0

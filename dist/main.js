@@ -76,7 +76,7 @@ var StepZilla = function (_Component) {
         });
       } else {
         this.setState({
-          showPreviousBtn: true,
+          showPreviousBtn: this.props.prevBtnOnLastStep ? true : false,
           showNextBtn: false
         });
       }
@@ -92,6 +92,9 @@ var StepZilla = function (_Component) {
 
       this._checkNavState(next);
     }
+
+    // handles keydown on enter being pressed in any Child component input area. in this case it goes to the next
+
   }, {
     key: '_handleKeyDown',
     value: function _handleKeyDown(evt) {
@@ -99,6 +102,9 @@ var StepZilla = function (_Component) {
         this._next();
       }
     }
+
+    // this utility method lets Child components invoke a direct jump to another step
+
   }, {
     key: '_jumpToStep',
     value: function _jumpToStep(evt) {
@@ -107,7 +113,14 @@ var StepZilla = function (_Component) {
         this._setNavState(evt);
       } else {
         // the main navigation step ui is invoking a jump between steps
-        if (typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
+        if (!this.props.stepsNavigation) {
+          evt.preventDefault();
+          evt.stopPropagation();
+
+          return;
+        }
+
+        if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
           if (evt.target.value === this.props.steps.length - 1 && this.state.compState === this.props.steps.length - 1) {
             this._setNavState(this.props.steps.length);
           } else {
@@ -120,7 +133,7 @@ var StepZilla = function (_Component) {
     key: '_next',
     value: function _next() {
       // if its a form component, it should have implemeted a public isValidated class. If not then continue
-      if (typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
+      if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
         this._setNavState(this.state.compState + 1);
       }
     }
@@ -134,7 +147,12 @@ var StepZilla = function (_Component) {
   }, {
     key: '_getClassName',
     value: function _getClassName(className, i) {
-      return className + "-" + this.state.navState.styles[i];
+      var liClassName = className + "-" + this.state.navState.styles[i];
+
+      // if step ui based navigation is disabled, then dont highlight step
+      if (!this.props.stepsNavigation) liClassName += " no-hl";
+
+      return liClassName;
     }
   }, {
     key: '_renderSteps',
@@ -163,7 +181,7 @@ var StepZilla = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      // clone the step component dynamically and tag it as activeComponent so we can validate it on next
+      // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
       var compToRender = _react2.default.cloneElement(this.props.steps[this.state.compState].component, {
         ref: 'activeComponent',
         jumpToStep: function jumpToStep(t) {
@@ -209,5 +227,8 @@ exports.default = StepZilla;
 
 
 StepZilla.defaultProps = {
-  showNavigation: true
+  showNavigation: true,
+  stepsNavigation: true,
+  prevBtnOnLastStep: true,
+  dontValidate: false
 };
