@@ -159,22 +159,24 @@ var StepZilla = function (_Component) {
     value: function _renderSteps() {
       var _this2 = this;
 
-      return this.props.steps.map(function (s, i) {
-        return _react2.default.createElement(
-          'li',
-          { className: _this2._getClassName("progtrckr", i), onClick: _this2.jumpToStep, key: i, value: i },
-          _react2.default.createElement(
-            'em',
-            null,
-            i + 1
-          ),
-          _react2.default.createElement(
-            'span',
-            null,
-            _this2.props.steps[i].name
-          )
-        );
-      });
+      if (this.props.showSteps) {
+        return this.props.steps.map(function (s, i) {
+          return _react2.default.createElement(
+            'li',
+            { className: _this2._getClassName("progtrckr", i), onClick: _this2.jumpToStep, key: i, value: i },
+            _react2.default.createElement(
+              'em',
+              null,
+              i + 1
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              _this2.props.steps[i].name
+            )
+          );
+        });
+      }
     }
   }, {
     key: 'render',
@@ -227,6 +229,7 @@ exports.default = StepZilla;
 
 
 StepZilla.defaultProps = {
+  showSteps: true,
   showNavigation: true,
   stepsNavigation: true,
   prevBtnOnLastStep: true,

@@ -128,12 +128,14 @@ export default class StepZilla extends Component {
   }
 
   _renderSteps() {
-    return this.props.steps.map((s, i)=> (
-      <li className={this._getClassName("progtrckr", i)} onClick={this.jumpToStep} key={i} value={i}>
-        <em>{i+1}</em>
-        <span>{this.props.steps[i].name}</span>
-      </li>
-    ));
+    if (this.props.showSteps) {
+      return this.props.steps.map((s, i)=> (
+        <li className={this._getClassName("progtrckr", i)} onClick={this.jumpToStep} key={i} value={i}>
+          <em>{i+1}</em>
+          <span>{this.props.steps[i].name}</span>
+        </li>
+      ));
+    }
   }
 
   render() {
@@ -170,6 +172,7 @@ export default class StepZilla extends Component {
 }
 
 StepZilla.defaultProps = {
+  showSteps: true,
   showNavigation: true,
   stepsNavigation: true,
   prevBtnOnLastStep: true,

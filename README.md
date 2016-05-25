@@ -40,6 +40,9 @@ const steps =
 // hide or show Next and Previous Buttons
 showNavigation: true | false
 
+// disable or enable the steps UI navigation on top
+showSteps: true | false
+
 // disable or enable onClick step jumping from the UI navigation summary on top
 stepsNavigation: true | false
 
@@ -73,6 +76,8 @@ example options usage:
 - write the tests
 
 #### change log
+- 1.4.0
+  - added the option showSteps which hides the top steps if needed
 - 1.3.0
   - added the options showNavigation, stepsNavigation, prevBtnOnLastStep, dontValidate
 - 1.2.0
