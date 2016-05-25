@@ -76,6 +76,8 @@ example options usage:
 - write the tests
 
 #### change log
+- 1.5.0
+  - update to improve showSteps. prevent UI elements from completed rendering 
 - 1.4.0
   - added the option showSteps which hides the top steps if needed
 - 1.3.0
