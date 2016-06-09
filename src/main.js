@@ -73,7 +73,9 @@ export default class StepZilla extends Component {
   // handles keydown on enter being pressed in any Child component input area. in this case it goes to the next
   _handleKeyDown(evt) {
     if (evt.which === 13) {
-      this._next()
+      if (!this.props.preventEnterSubmission) {
+        this._next();
+      }
     }
   }
 
@@ -178,5 +180,6 @@ StepZilla.defaultProps = {
   showNavigation: true,
   stepsNavigation: true,
   prevBtnOnLastStep: true,
-  dontValidate: false
+  dontValidate: false,
+  preventEnterSubmission: false
 };

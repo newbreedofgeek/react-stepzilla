@@ -99,7 +99,9 @@ var StepZilla = function (_Component) {
     key: '_handleKeyDown',
     value: function _handleKeyDown(evt) {
       if (evt.which === 13) {
-        this._next();
+        if (!this.props.preventEnterSubmission) {
+          this._next();
+        }
       }
     }
 
@@ -159,24 +161,22 @@ var StepZilla = function (_Component) {
     value: function _renderSteps() {
       var _this2 = this;
 
-      if (this.props.showSteps) {
-        return this.props.steps.map(function (s, i) {
-          return _react2.default.createElement(
-            'li',
-            { className: _this2._getClassName("progtrckr", i), onClick: _this2.jumpToStep, key: i, value: i },
-            _react2.default.createElement(
-              'em',
-              null,
-              i + 1
-            ),
-            _react2.default.createElement(
-              'span',
-              null,
-              _this2.props.steps[i].name
-            )
-          );
-        });
-      }
+      return this.props.steps.map(function (s, i) {
+        return _react2.default.createElement(
+          'li',
+          { className: _this2._getClassName("progtrckr", i), onClick: _this2.jumpToStep, key: i, value: i },
+          _react2.default.createElement(
+            'em',
+            null,
+            i + 1
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            _this2.props.steps[i].name
+          )
+        );
+      });
     }
   }, {
     key: 'render',
@@ -194,11 +194,11 @@ var StepZilla = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'multi-step full-height', onKeyDown: this.handleKeyDown },
-        _react2.default.createElement(
+        this.props.showSteps ? _react2.default.createElement(
           'ol',
           { className: 'progtrckr' },
           this._renderSteps()
-        ),
+        ) : _react2.default.createElement('span', null),
         compToRender,
         _react2.default.createElement(
           'div',
@@ -233,5 +233,6 @@ StepZilla.defaultProps = {
   showNavigation: true,
   stepsNavigation: true,
   prevBtnOnLastStep: true,
-  dontValidate: false
+  dontValidate: false,
+  preventEnterSubmission: false
 };

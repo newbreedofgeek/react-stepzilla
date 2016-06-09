@@ -52,6 +52,9 @@ prevBtnOnLastStep: true | false
 // dev control to disable calling and Child form component validation
 dontValidate: true | false
 
+// by default if you hit the Enter key on any element it validates the form and moves to next step if validation passes. Use this to prevent this behaviour
+preventEnterSubmission: true | false
+
 ```
 
 example options usage:
@@ -76,8 +79,10 @@ example options usage:
 - write the tests
 
 #### change log
+- 1.6.0
+  - added preventEnterSubmission option to prevent moving to next step if enter is hit
 - 1.5.0
-  - update to improve showSteps. prevent UI elements from completed rendering 
+  - update to improve showSteps. prevent UI elements from completed rendering
 - 1.4.0
   - added the option showSteps which hides the top steps if needed
 - 1.3.0
