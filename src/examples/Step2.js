@@ -76,49 +76,52 @@ export default class Step2 extends Component {
     let notValidClasses = {};
 
     if (typeof this.state.genderVal == 'undefined' || this.state.genderVal) {
-      notValidClasses.genderCls = 'no-error';
+      notValidClasses.genderCls = 'no-error col-md-8';
     }
     else {
-       notValidClasses.genderCls = 'has-error';
+       notValidClasses.genderCls = 'has-error col-md-8';
        notValidClasses.genderValGrpCls = 'val-err-tooltip';
     }
 
     if (typeof this.state.emailVal == 'undefined' || this.state.emailVal) {
-        notValidClasses.emailCls = 'no-error';
+        notValidClasses.emailCls = 'no-error col-md-8';
     }
     else {
-       notValidClasses.emailCls = 'has-error';
+       notValidClasses.emailCls = 'has-error col-md-8';
        notValidClasses.emailValGrpCls = 'val-err-tooltip';
     }
 
-    <div className="step2">
-      <div className="row">
-        <form id="Form" className="form-horizontal">
-          <div className="form-group">
-              <label className="control-label">
-                <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
-                Gender
-              </label>
-              <div className={notValidClasses.genderCls}>
-                <select ref="gender" autocomplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
-                  <option value="">Please select</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Other</option>
-                </select>
+    return (
+      <div className="step2">
+        <div className="row">
+          <form id="Form" className="form-horizontal">
+            <div className="form-group col-md-12">
+                <label className="control-label col-md-4">
+                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
+                  Gender
+                </label>
+                <div className={notValidClasses.genderCls}>
+                  <select ref="gender" autocomplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
+                    <option value="">Please select</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label">
-                <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
-                Email
-              </label>
-              <div className={notValidClasses.emailCls}>
-                <input ref="email" autocomplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+
+              <div className="form-group col-md-12">
+                <label className="control-label col-md-4">
+                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
+                  Email
+                </label>
+                <div className={notValidClasses.emailCls}>
+                  <input ref="email" autocomplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+                </div>
               </div>
-            </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    )
   }
 }

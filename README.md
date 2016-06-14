@@ -75,10 +75,21 @@ example options usage:
 - make any changes and run `npm run build` to transpile the jsx into `dist`
 - the transpilation is run as a auto pre-publish task so it should usually be up to date when consumed via npm
 
+### run and view example in browser
+A full example is found in the `src/examples` directory.
+
+- run `npm install`
+- then run `npm run example`
+- then go to `http://localhost:8080/webpack-dev-server/src/examples/index.html` in your browser
+- enjoy
+
+
 ### todo
 - write the tests
 
 #### change log
+- 1.7.0
+  - fixed the example and made it so you can run it via the browser
 - 1.6.0
   - added preventEnterSubmission option to prevent moving to next step if enter is hit
 - 1.5.0
