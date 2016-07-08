@@ -7,7 +7,7 @@ export default class StepZilla extends Component {
     this.state = {
       showPreviousBtn: false,
       showNextBtn: true,
-      compState: 0,
+      compState: this.props.startAtStep,
       navState: this._getNavStates(0, this.props.steps.length)
     };
 
@@ -181,5 +181,6 @@ StepZilla.defaultProps = {
   stepsNavigation: true,
   prevBtnOnLastStep: true,
   dontValidate: false,
-  preventEnterSubmission: false
+  preventEnterSubmission: false,
+  startAtStep: 0
 };

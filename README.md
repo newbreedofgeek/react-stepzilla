@@ -55,12 +55,15 @@ dontValidate: true | false
 // by default if you hit the Enter key on any element it validates the form and moves to next step if validation passes. Use this to prevent this behaviour
 preventEnterSubmission: true | false
 
+// specify what step to start from in the case you need to skip steps (send in a 0 based index for the item in the steps array. e.g. 2 will load <Step3 /> initially)
+startAtStep: [stepIndex]
+
 ```
 
 example options usage:
 ```
 <div className='step-progress'>
-    <StepZilla steps={steps} stepsNavigation={false} prevBtnOnLastStep={false} />
+    <StepZilla steps={steps} stepsNavigation={false} prevBtnOnLastStep={false} startAtStep=2 />
 </div>
 ```
 
@@ -88,6 +91,8 @@ A full example is found in the `src/examples` directory.
 - write the tests
 
 #### change log
+- 1.8.0
+  - added the startAtStep option
 - 1.7.0
   - fixed the example and made it so you can run it via the browser
 - 1.6.0

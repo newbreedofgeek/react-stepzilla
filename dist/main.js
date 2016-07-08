@@ -29,7 +29,7 @@ var StepZilla = function (_Component) {
     _this.state = {
       showPreviousBtn: false,
       showNextBtn: true,
-      compState: 0,
+      compState: _this.props.startAtStep,
       navState: _this._getNavStates(0, _this.props.steps.length)
     };
 
@@ -234,5 +234,6 @@ StepZilla.defaultProps = {
   stepsNavigation: true,
   prevBtnOnLastStep: true,
   dontValidate: false,
-  preventEnterSubmission: false
+  preventEnterSubmission: false,
+  startAtStep: 0
 };
