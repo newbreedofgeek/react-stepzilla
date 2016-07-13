@@ -30,7 +30,8 @@ var StepZilla = function (_Component) {
       showPreviousBtn: false,
       showNextBtn: true,
       compState: _this.props.startAtStep,
-      navState: _this._getNavStates(0, _this.props.steps.length)
+      navState: _this._getNavStates(0, _this.props.steps.length),
+      nextStepText: 'Next'
     };
 
     _this.hidden = {
@@ -65,9 +66,17 @@ var StepZilla = function (_Component) {
     key: '_checkNavState',
     value: function _checkNavState(currentStep) {
       if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
+        var correctNextText = 'Next';
+
+        if (currentStep == this.props.steps.length - 2) {
+          // we are in the one before final step
+          correctNextText = this.props.nextTextOnFinalActionStep;
+        }
+
         this.setState({
           showPreviousBtn: true,
-          showNextBtn: true
+          showNextBtn: true,
+          nextStepText: correctNextText
         });
       } else if (currentStep === 0) {
         this.setState({
@@ -215,7 +224,7 @@ var StepZilla = function (_Component) {
             { style: this.state.showNextBtn ? {} : this.hidden,
               className: 'btn btn-primary btn-lg pull-right',
               onClick: this.next },
-            'Next'
+            this.state.nextStepText
           )
         )
       );
@@ -235,5 +244,6 @@ StepZilla.defaultProps = {
   prevBtnOnLastStep: true,
   dontValidate: false,
   preventEnterSubmission: false,
-  startAtStep: 0
+  startAtStep: 0,
+  nextTextOnFinalActionStep: "Next"
 };

@@ -58,6 +58,9 @@ preventEnterSubmission: true | false
 // specify what step to start from in the case you need to skip steps (send in a 0 based index for the item in the steps array. e.g. 2 will load <Step3 /> initially)
 startAtStep: [stepIndex]
 
+// specify what the Next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
+nextTextOnFinalActionStep: "Save"
+
 ```
 
 example options usage:
@@ -91,6 +94,8 @@ A full example is found in the `src/examples` directory.
 - write the tests
 
 #### change log
+- 1.9.0
+  - added the nextTextOnFinalActionStep option
 - 1.8.0
   - added the startAtStep option
 - 1.7.0
