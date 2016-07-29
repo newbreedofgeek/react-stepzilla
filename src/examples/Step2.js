@@ -27,7 +27,7 @@ export default class Step2 extends Component {
 
     // if full validation passes then save to store and pass as valid
     if (Object.keys(validateNewInput).every((k) => { return validateNewInput[k] === true })) {
-        //store.update(); // Update store here
+        //store.update(); // Update store here (only if you do this the state is perserved when you go back)
 
         isDataValid = true;
     }

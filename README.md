@@ -94,6 +94,8 @@ A full example is found in the `src/examples` directory.
 - write the tests
 
 #### change log
+- 1.9.1
+  - updated the example to show nextTextOnFinalActionStep being used
 - 1.9.0
   - added the nextTextOnFinalActionStep option
 - 1.8.0

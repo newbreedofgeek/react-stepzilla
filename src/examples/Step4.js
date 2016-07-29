@@ -20,12 +20,12 @@ export default class Step1 extends Component {
 
   render() {
     return (
-      <div className="step3">
+      <div className="step4">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
                 <label className="md-col-12 control-label">
-                  <h1> Review!</h1>
+                  <h1> Thanks!</h1>
                 </label>
               </div>
           </form>

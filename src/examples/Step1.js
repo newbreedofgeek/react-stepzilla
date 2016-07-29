@@ -25,7 +25,7 @@ export default class Step1 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
                 <label className="md-col-12 control-label">
-                  <h1> Welcome to the StepZilla Client example</h1>
+                  <h1> Welcome to the StepZilla Client Example</h1>
                 </label>
               </div>
           </form>
