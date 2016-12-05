@@ -24,7 +24,7 @@ var StepZilla = function (_Component) {
   function StepZilla(props) {
     _classCallCheck(this, StepZilla);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StepZilla).call(this, props));
+    var _this = _possibleConstructorReturn(this, (StepZilla.__proto__ || Object.getPrototypeOf(StepZilla)).call(this, props));
 
     _this.state = {
       showPreviousBtn: false,
