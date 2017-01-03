@@ -1,0 +1,16 @@
+root: true
+
+env:
+ node: true
+
+extends:
+  "airbnb/base"
+
+parser:
+  "babel-eslint"
+
+rules:
+  func-names: 0
+  comma-dangle: [2, "never"]
+  no-console: 0
+  max-len: [2, 200]

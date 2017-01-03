@@ -79,7 +79,7 @@ example options usage:
 - all node source is in src/main.js
 - you need to install dependencies first `npm install`
 - make any changes and run `npm run build` to transpile the jsx into `dist`
-- the transpilation is run as a auto pre-publish task so it should usually be up to date when consumed via npm
+- the transpilation is run as an auto pre-publish task so it should usually be up to date when consumed via npm
 
 ### run and view example in browser
 A full example is found in the `src/examples` directory.
@@ -89,9 +89,21 @@ A full example is found in the `src/examples` directory.
 - then go to `http://localhost:8080/webpack-dev-server/src/examples/index.html` in your browser
 - enjoy
 
+### tests
+- tests are written in the mocha, chai, sinon, enzyme stack
+- located in the 'tests' folder and supports es6
+- run the `npm run test` command run tests
+- run the `npm run test:watch` command run test in watch mode
+
+### code test coverage
+- test coverage is done via istanbul
+- run the `npm run test:coverage` command to generate full coverage report (shown in terminal and as lcov report in coverage directory)
+- all code is run against coverage, not just the unit tested modules
+- test coverage improvement is currently a work in progress
 
 ### todo
-- write the tests
+- ~~write the tests~~
+- improve code coverage
 
 #### change log
 - 1.9.2
