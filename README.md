@@ -101,11 +101,22 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
+Current coverage sitting at v1.9.3:
+```
+Statements   : 67.01% ( 65/97 ), 4 ignored
+Branches     : 50.6% ( 42/83 ), 13 ignored
+Functions    : 95.24% ( 20/21 ), 6 ignored
+Lines        : 43.86% ( 25/57 )
+```
+
 ### todo
 - ~~write the tests~~
 - improve code coverage
 
 #### change log
+- 1.9.3
+  - added code coverage and testing
+  - added btn-prev and btn-next classes to footers
 - 1.9.2
   - updated the example to show how a save to server via AJAX can be handled
 - 1.9.1

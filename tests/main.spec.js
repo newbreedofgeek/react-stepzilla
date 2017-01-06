@@ -47,33 +47,48 @@ describe('StepZilla', () => {
     it('should render correct number of steps', () => {
       expect(enzymeWrapper.find('li')).to.have.length(2);
     });
+  });
 
-    describe('default props based ui render', () => {
-      it('should render showSteps based header', () => {
-        expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
-      });
+  describe('default props based ui render', () => {
+    const { enzymeWrapper } = setup(2);
 
-      it('should render showNavigation based footer', () => {
-        expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({});
-      });
+    it('should render showSteps based header', () => {
+      expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
+    });
+
+    it('should render showNavigation based footer', () => {
+      expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({});
     });
   });
 
-  describe('conditional component render', () => {
+  describe('custom props based ui render', () => {
     const { enzymeWrapper } = setup(2, {
       showSteps: false,
       showNavigation: false
     });
 
-    describe('default props based ui render', () => {
-      it('should render showSteps based header', () => {
-        expect(enzymeWrapper.find('.progtrckr')).to.have.length(0);
-      });
+    it('should NOT render showSteps based header as "showSteps: false"', () => {
+      expect(enzymeWrapper.find('.progtrckr')).to.have.length(0);
+    });
 
-      it('should render showNavigation based footer', () => {
-        expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({
-          display: 'none'
-        });
+    it('should NOT render showNavigation based footer as "showNavigation: false"', () => {
+      expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({
+        display: 'none'
+      });
+    });
+
+    it('should render the Prev and Next button markup', () => {
+      expect(enzymeWrapper.find('.footer-buttons .btn-prev')).to.have.length(1);
+      expect(enzymeWrapper.find('.footer-buttons .btn-next')).to.have.length(1);
+    });
+
+    it('should show the Next button on first view', () => {
+      expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
+    });
+
+    it('should NOT show render the Prev button on first view', () => {
+      expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({
+        display: 'none'
       });
     });
   });

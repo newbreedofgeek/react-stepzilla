@@ -172,11 +172,11 @@ export default class StepZilla extends Component {
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
 
           <button style={this.state.showPreviousBtn ? {} : this.hidden}
-                  className="btn btn-primary btn-lg pull-left"
+                  className="btn btn-prev btn-primary btn-lg pull-left"
                   onClick={this.previous}>Previous</button>
 
           <button style={this.state.showNextBtn ? {} : this.hidden}
-                  className="btn btn-primary btn-lg pull-right"
+                  className="btn btn-next btn-primary btn-lg pull-right"
                   onClick={this.next}>{this.state.nextStepText}</button>
         </div>
       </div>
