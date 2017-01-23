@@ -114,6 +114,8 @@ Lines        : 43.86% ( 25/57 )
 - improve code coverage
 
 #### change log
+- 2.0.0
+  - updated core code to full es6
 - 1.9.3
   - added code coverage and testing
   - added btn-prev and btn-next classes to footers

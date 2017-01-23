@@ -32,7 +32,7 @@ export default class StepZilla extends Component {
       }
     }
 
-    return { current: indx, styles: styles }
+    return { current: indx, styles }
   }
 
   checkNavState(currentStep){
