@@ -8,21 +8,16 @@ export default class StepZilla extends Component {
       showPreviousBtn: false,
       showNextBtn: true,
       compState: this.props.startAtStep,
-      navState: this._getNavStates(0, this.props.steps.length),
+      navState: this.getNavStates(0, this.props.steps.length),
       nextStepText: 'Next'
     };
 
     this.hidden = {
       display: 'none'
     };
-
-    this.jumpToStep = this._jumpToStep.bind(this);
-    this.handleKeyDown = this._handleKeyDown.bind(this);
-    this.next = this._next.bind(this);
-    this.previous = this._previous.bind(this);
   }
 
-  _getNavStates(indx, length) {
+  getNavStates(indx, length) {
     let styles = [];
 
     for (let i=0; i<length; i++) {
@@ -40,7 +35,7 @@ export default class StepZilla extends Component {
     return { current: indx, styles: styles }
   }
 
-  _checkNavState(currentStep){
+  checkNavState(currentStep){
     if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
       let correctNextText = 'Next';
 
@@ -69,30 +64,30 @@ export default class StepZilla extends Component {
     }
   }
 
-  _setNavState(next) {
-    this.setState({navState: this._getNavStates(next, this.props.steps.length)});
+  setNavState(next) {
+    this.setState({navState: this.getNavStates(next, this.props.steps.length)});
 
     if (next < this.props.steps.length) {
       this.setState({compState: next});
     }
 
-    this._checkNavState(next);
+    this.checkNavState(next);
   }
 
   // handles keydown on enter being pressed in any Child component input area. in this case it goes to the next
-  _handleKeyDown(evt) {
+  handleKeyDown(evt) {
     if (evt.which === 13) {
       if (!this.props.preventEnterSubmission) {
-        this._next();
+        this.next();
       }
     }
   }
 
   // this utility method lets Child components invoke a direct jump to another step
-  _jumpToStep(evt) {
+  jumpToStep(evt) {
     if (evt.target == undefined) {
       // a child step wants to invoke a jump between steps
-      this._setNavState(evt);
+      this.setNavState(evt);
     }
     else {
       // the main navigation step ui is invoking a jump between steps
@@ -106,29 +101,29 @@ export default class StepZilla extends Component {
       if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated() ) {
           if (evt.target.value === (this.props.steps.length - 1) &&
             this.state.compState === (this.props.steps.length - 1)) {
-              this._setNavState(this.props.steps.length);
+              this.setNavState(this.props.steps.length);
           }
           else {
-            this._setNavState(evt.target.value);
+            this.setNavState(evt.target.value);
           }
       }
     }
   }
 
-  _next() {
+  next() {
     // if its a form component, it should have implemeted a public isValidated class. If not then continue
     if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
-      this._setNavState(this.state.compState + 1);
+      this.setNavState(this.state.compState + 1);
     }
   }
 
-  _previous() {
+  previous() {
     if (this.state.compState > 0) {
-      this._setNavState(this.state.compState - 1);
+      this.setNavState(this.state.compState - 1);
     }
   }
 
-  _getClassName(className, i){
+  getClassName(className, i){
     let liClassName = className + "-" + this.state.navState.styles[i];
 
     // if step ui based navigation is disabled, then dont highlight step
@@ -138,9 +133,9 @@ export default class StepZilla extends Component {
     return liClassName;
   }
 
-  _renderSteps() {
+  renderSteps() {
     return this.props.steps.map((s, i)=> (
-      <li className={this._getClassName("progtrckr", i)} onClick={this.jumpToStep} key={i} value={i}>
+      <li className={this.getClassName("progtrckr", i)} onClick={(evt) => {this.jumpToStep(evt)}} key={i} value={i}>
         <em>{i+1}</em>
         <span>{this.props.steps[i].name}</span>
       </li>
@@ -157,12 +152,11 @@ export default class StepZilla extends Component {
     });
 
     return (
-      <div className="multi-step full-height" onKeyDown={this.handleKeyDown}>
-
+      <div className="multi-step full-height" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>
         {
           this.props.showSteps
           ? <ol className="progtrckr">
-              {this._renderSteps()}
+              {this.renderSteps()}
             </ol>
           : <span></span>
         }
@@ -173,11 +167,11 @@ export default class StepZilla extends Component {
 
           <button style={this.state.showPreviousBtn ? {} : this.hidden}
                   className="btn btn-prev btn-primary btn-lg pull-left"
-                  onClick={this.previous}>Previous</button>
+                  onClick={() => {this.previous()}}>Previous</button>
 
           <button style={this.state.showNextBtn ? {} : this.hidden}
                   className="btn btn-next btn-primary btn-lg pull-right"
-                  onClick={this.next}>{this.state.nextStepText}</button>
+                  onClick={() => {this.next()}}>{this.state.nextStepText}</button>
         </div>
       </div>
     );
