@@ -114,6 +114,8 @@ Lines        : 43.86% ( 25/57 )
 - improve code coverage
 
 #### change log
+- 2.0.1
+  - bug with handleKeyDown, as we capture enter if preventEnterSubmission=true, then onEnter the page refreshes
 - 2.0.0
   - updated core code to full es6
 - 1.9.3

@@ -80,6 +80,9 @@ export default class StepZilla extends Component {
       if (!this.props.preventEnterSubmission) {
         this.next();
       }
+      else {
+        evt.preventDefault();
+      }
     }
   }
 
