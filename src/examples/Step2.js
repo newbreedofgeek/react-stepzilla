@@ -92,13 +92,13 @@ export default class Step2 extends Component {
     }
 
     return (
-      <div className="step2">
+      <div className="step step2">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group col-md-12">
                 <label className="control-label col-md-4">
-                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                   Gender
+                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </label>
                 <div className={notValidClasses.genderCls}>
                   <select ref="gender" autocomplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
@@ -112,8 +112,8 @@ export default class Step2 extends Component {
 
               <div className="form-group col-md-12">
                 <label className="control-label col-md-4">
-                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
                   Email
+                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
                 </label>
                 <div className={notValidClasses.emailCls}>
                   <input ref="email" autocomplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />

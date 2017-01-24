@@ -20,7 +20,7 @@ export default class Step1 extends Component {
 
   render() {
     return (
-      <div className="step1">
+      <div className="step step1">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
