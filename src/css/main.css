@@ -45,7 +45,7 @@ ol.progtrckr li.progtrckr-doing {
 
 ol.progtrckr li.progtrckr-done {
   color: black;
-  border-bottom: 4px solid #CCCCCC;
+  border-bottom: 4px solid #5cb85c;
 }
 
 ol.progtrckr li:after {
@@ -87,7 +87,7 @@ ol.progtrckr li.progtrckr-doing:hover:before {
 ol.progtrckr li.progtrckr-done:before {
   content: "\2713";
   color: white;
-  background-color: #CCCCCC;
+  background-color: #5cb85c;
   width: 1.2em;
   line-height: 1.2em;
   border-radius: 1.2em;

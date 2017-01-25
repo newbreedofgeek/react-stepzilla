@@ -15,6 +15,21 @@ export default class StepZilla extends Component {
     this.hidden = {
       display: 'none'
     };
+
+    this.applyValidationState();
+  }
+
+  applyValidationState() {
+    this.props.steps.map((i) => {
+      if (this.props.dontValidate) {
+        i.validated = true;
+      }
+      else {
+        i.validated = (typeof i.component.type.prototype._isValidated == 'undefined') ? true : false;
+      }
+
+      return i;
+    });
   }
 
   getNavStates(indx, length) {
@@ -40,8 +55,7 @@ export default class StepZilla extends Component {
       let correctNextText = 'Next';
 
       if (currentStep == this.props.steps.length - 2) {
-        // we are in the one before final step
-        correctNextText = this.props.nextTextOnFinalActionStep
+        correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
       }
 
       this.setState({
@@ -101,7 +115,25 @@ export default class StepZilla extends Component {
         return;
       }
 
-      if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated() ) {
+      // debugger;
+      if (this.stepMoveAllowed(true)) {
+
+        let passThroughStepsValidated = true;
+
+        if (evt.target.value > this.state.compState) {
+          console.log('moving ahead so validate in between steps');
+          passThroughStepsValidated = false;
+          // console.log(this.props.steps);
+
+          const go = this.props.steps.reduce((r, i) => {
+            r.push(i.validated);
+            return r;
+          }, []);
+
+          console.log(go);
+        }
+
+        if (passThroughStepsValidated) {
           if (evt.target.value === (this.props.steps.length - 1) &&
             this.state.compState === (this.props.steps.length - 1)) {
               this.setNavState(this.props.steps.length);
@@ -109,13 +141,23 @@ export default class StepZilla extends Component {
           else {
             this.setNavState(evt.target.value);
           }
+        }
       }
+
+      // if (this.props.dontValidate || (passThroughStepsValidated && typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) ) {
+      //     if (evt.target.value === (this.props.steps.length - 1) &&
+      //       this.state.compState === (this.props.steps.length - 1)) {
+      //         this.setNavState(this.props.steps.length);
+      //     }
+      //     else {
+      //       this.setNavState(evt.target.value);
+      //     }
+      // }
     }
   }
 
   next() {
-    // if its a form component, it should have implemeted a public isValidated class. If not then continue
-    if (this.props.dontValidate || typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) {
+    if (this.stepMoveAllowed()) {
       this.setNavState(this.state.compState + 1);
     }
   }
@@ -124,6 +166,26 @@ export default class StepZilla extends Component {
     if (this.state.compState > 0) {
       this.setNavState(this.state.compState - 1);
     }
+  }
+
+  stepMoveAllowed(skipValidationExecution = false) {
+    let proceed = false;
+
+    if (this.props.dontValidate) {
+      proceed = true;
+    }
+    else {
+      // if its a form component, it should have implemeted a public isValidated class. If not then continue
+      if (typeof this.refs.activeComponent.isValidated == 'undefined') {
+        proceed = true;
+      }
+      else if (!skipValidationExecution) {
+        proceed = this.refs.activeComponent.isValidated();
+        this.props.steps[this.state.compState].validated = (typeof proceed == 'undefined') ? true : proceed; // if a step component returns 'underfined' then trate as "true" as it's an aync call (i.e. ajax call)
+      }
+    }
+
+    return proceed;
   }
 
   getClassName(className, i){
@@ -167,7 +229,6 @@ export default class StepZilla extends Component {
         {compToRender}
 
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
-
           <button style={this.state.showPreviousBtn ? {} : this.hidden}
                   className="btn btn-prev btn-primary btn-lg pull-left"
                   onClick={() => {this.previous()}}>Previous</button>

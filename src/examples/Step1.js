@@ -17,17 +17,16 @@ export default class Step1 extends Component {
   // not required as this component has no forms or user entry
   // _isValidated() {}
 
-
   render() {
     return (
       <div className="step step1">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
-                <label className="md-col-12 control-label">
-                  <h1> Welcome to the StepZilla Client Example</h1>
-                </label>
-              </div>
+              <label className="md-col-12 control-label">
+                <h1>Step 1: Welcome to the StepZilla Example</h1>
+              </label>
+            </div>
           </form>
         </div>
       </div>

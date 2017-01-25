@@ -3,14 +3,15 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Step2 extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      email: '',
-      gender: ''
+      email: props.getStore().email,
+      gender: props.getStore().gender
     };
+
+    this._validateOnDemand = true; // this flag enables onBlur validation as user fills forms
 
     this.validationCheck = this._validationCheck.bind(this);
     this.isValidated = this._isValidated.bind(this);
@@ -27,7 +28,7 @@ export default class Step2 extends Component {
 
     // if full validation passes then save to store and pass as valid
     if (Object.keys(validateNewInput).every((k) => { return validateNewInput[k] === true })) {
-        //store.update(); // Update store here (only if you do this the state is perserved when you go back)
+        this.props.updateStore(userInput);  // Update store here (this is just an example, in reality you will do it via redux or flux)
 
         isDataValid = true;
     }
@@ -95,28 +96,32 @@ export default class Step2 extends Component {
       <div className="step step2">
         <div className="row">
           <form id="Form" className="form-horizontal">
+            <div className="form-group">
+              <label className="md-col-12 control-label">
+                <h1>Step 2: Enter your Details</h1>
+              </label>
+            </div>
             <div className="form-group col-md-12">
                 <label className="control-label col-md-4">
                   Gender
-                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </label>
                 <div className={notValidClasses.genderCls}>
-                  <select ref="gender" autocomplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
+                  <select ref="gender" autoComplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
                     <option value="">Please select</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                    <option value="3">Other</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
                   </select>
+                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </div>
               </div>
-
               <div className="form-group col-md-12">
                 <label className="control-label col-md-4">
                   Email
-                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
                 </label>
                 <div className={notValidClasses.emailCls}>
-                  <input ref="email" autocomplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+                  <input ref="email" autoComplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
                 </div>
               </div>
           </form>
