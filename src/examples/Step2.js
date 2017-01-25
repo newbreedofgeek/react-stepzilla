@@ -28,7 +28,12 @@ export default class Step2 extends Component {
 
     // if full validation passes then save to store and pass as valid
     if (Object.keys(validateNewInput).every((k) => { return validateNewInput[k] === true })) {
-        this.props.updateStore(userInput);  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        if (this.props.getStore().email != userInput.email || this.props.getStore().gender != userInput.gender) { // only update store of something changed
+          this.props.updateStore({
+            ...userInput,
+            savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+          });  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        }
 
         isDataValid = true;
     }

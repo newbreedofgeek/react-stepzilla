@@ -37,7 +37,7 @@ function setup(stepCount = 1, config = {}) {
 
 describe('StepZilla', () => {
   describe('base component render', () => {
-    const { enzymeWrapper } = setup(2);
+    const { enzymeWrapper } = setup(2, {dontValidate: true});
 
     it('should render self and primary css classes', () => {
       expect(enzymeWrapper).to.have.length(1);
@@ -50,7 +50,7 @@ describe('StepZilla', () => {
   });
 
   describe('default props based ui render', () => {
-    const { enzymeWrapper } = setup(2);
+    const { enzymeWrapper } = setup(2, {dontValidate: true});
 
     it('should render showSteps based header', () => {
       expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
@@ -64,7 +64,8 @@ describe('StepZilla', () => {
   describe('custom props based ui render', () => {
     const { enzymeWrapper } = setup(2, {
       showSteps: false,
-      showNavigation: false
+      showNavigation: false,
+      dontValidate: true
     });
 
     it('should NOT render showSteps based header as "showSteps: false"', () => {

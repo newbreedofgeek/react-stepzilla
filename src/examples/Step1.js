@@ -3,7 +3,6 @@
 import React, { Component, PropTypes } from 'react';
 
 export default class Step1 extends Component {
-
   constructor(props) {
     super(props);
 
@@ -25,7 +24,20 @@ export default class Step1 extends Component {
             <div className="form-group">
               <label className="md-col-12 control-label">
                 <h1>Step 1: Welcome to the StepZilla Example</h1>
+                <h2>This example uses this config:</h2>
               </label>
+              <br />
+              <code>
+                stepsNavigation=true
+                  <br />
+                  prevBtnOnLastStep=true
+                  <br />
+                  dontValidate=false
+                  <br />
+                  preventEnterSubmission=true
+                  <br />
+                  nextTextOnFinalActionStep="Save"
+                </code>
             </div>
           </form>
         </div>

@@ -37,19 +37,19 @@ const steps =
 - pass in following options as well if you want to customise it further
 
 ```
-// hide or show Next and Previous Buttons
+// hide or show Next and Previous Buttons at the bottom
 showNavigation: true | false
 
 // disable or enable the steps UI navigation on top
 showSteps: true | false
 
-// disable or enable onClick step jumping from the UI navigation summary on top
+// disable or enable onClick step jumping from the UI navigation on top
 stepsNavigation: true | false
 
-// show or hide the previews button in the last step (maybe the last step is a thank you message and you don't want them to go back)
+// show or hide the previous button in the last step (maybe the last step is a thank you message and you don't want them to go back)
 prevBtnOnLastStep: true | false
 
-// dev control to disable calling and Child form component validation
+// dev control to disable validation rules called in step components **
 dontValidate: true | false
 
 // by default if you hit the Enter key on any element it validates the form and moves to next step if validation passes. Use this to prevent this behaviour
@@ -71,7 +71,7 @@ example options usage:
 ```
 
 
-- if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
+- ** if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
 
 - also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
 
@@ -101,12 +101,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v1.9.3:
+Current coverage sitting at v3.0.0:
 ```
-Statements   : 67.01% ( 65/97 ), 4 ignored
-Branches     : 50.6% ( 42/83 ), 13 ignored
-Functions    : 95.24% ( 20/21 ), 6 ignored
-Lines        : 43.86% ( 25/57 )
+Statements   : 53.17% ( 67/126 ), 4 ignored
+Branches     : 41.75% ( 43/103 ), 13 ignored
+Functions    : 76.67% ( 23/30 ), 7 ignored
+Lines        : 31.4% ( 27/86 )
 ```
 
 ### todo
@@ -114,6 +114,8 @@ Lines        : 43.86% ( 25/57 )
 - improve code coverage
 
 #### change log
+- 3.0.0
+  - major revamp of logic to deal with validation bugs from stepsNavigation (fixes [#6](/newbreedofgeek/react-stepzilla/issues/6)). Also complete revamp of example app to be a fully working sample
 - 2.0.1
   - bug with handleKeyDown, as we capture enter if preventEnterSubmission=true, then onEnter the page refreshes
 - 2.0.0

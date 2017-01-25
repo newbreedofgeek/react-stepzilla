@@ -19,17 +19,23 @@ export default class Step4 extends Component {
   // _isValidated() {}
 
   render() {
-    const showSavedCls = (this.state.savedToCloud) ? 'show' : 'hide';
-
     return (
       <div className="step step4">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
-                <label className="md-col-12 control-label">
-                  <h1>Thanks!</h1>
-                  <h2 className={showSavedCls}>Data was successfully saved to cloud...</h2>
-                </label>
+              <label className="md-col-12 control-label">
+                {
+                  (this.state.savedToCloud)
+                  ?
+                    <div>
+                      <h1>Thanks!</h1>
+                      <h2>Data was successfully saved to cloud...</h2>
+                    </div>
+                  :
+                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(2)}}>back</a> and Save again!</h1>
+                }
+              </label>
               </div>
           </form>
         </div>

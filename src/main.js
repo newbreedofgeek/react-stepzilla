@@ -16,10 +16,11 @@ export default class StepZilla extends Component {
       display: 'none'
     };
 
-    this.applyValidationState();
+    this.applyValidationFlagsToSteps();
   }
 
-  applyValidationState() {
+  // extend the "steps" array with flags to indicate if they have been validated
+  applyValidationFlagsToSteps() {
     this.props.steps.map((i) => {
       if (this.props.dontValidate) {
         i.validated = true;
@@ -32,6 +33,7 @@ export default class StepZilla extends Component {
     });
   }
 
+  // update the header nav states via classes so they can be styled via css
   getNavStates(indx, length) {
     let styles = [];
 
@@ -50,6 +52,7 @@ export default class StepZilla extends Component {
     return { current: indx, styles }
   }
 
+  // which step are we in?
   checkNavState(currentStep){
     if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
       let correctNextText = 'Next';
@@ -78,6 +81,7 @@ export default class StepZilla extends Component {
     }
   }
 
+  // set the nav state
   setNavState(next) {
     this.setState({navState: this.getNavStates(next, this.props.steps.length)});
 
@@ -106,34 +110,35 @@ export default class StepZilla extends Component {
       // a child step wants to invoke a jump between steps
       this.setNavState(evt);
     }
-    else {
-      // the main navigation step ui is invoking a jump between steps
-      if (!this.props.stepsNavigation) {
+    else { // the main navigation step ui is invoking a jump between steps
+      if (!this.props.stepsNavigation || evt.target.value == this.state.compState) { // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
         evt.preventDefault();
         evt.stopPropagation();
 
         return;
       }
 
-      // debugger;
-      if (this.stepMoveAllowed(true)) {
+      // are we trying to move back or front?
+      const movingBack = evt.target.value < this.state.compState;
 
-        let passThroughStepsValidated = true;
+      if (this.stepMoveAllowed(movingBack)) {
+        let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
 
-        if (evt.target.value > this.state.compState) {
-          console.log('moving ahead so validate in between steps');
-          passThroughStepsValidated = false;
-          // console.log(this.props.steps);
-
-          const go = this.props.steps.reduce((r, i) => {
-            r.push(i.validated);
-            return r;
-          }, []);
-
-          console.log(go);
+        if (!movingBack) {
+          // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+          passThroughStepsNotValid = this.props.steps
+            .reduce((a, c, i) => {
+              if (i >= this.state.compState && i < evt.target.value) {
+                a.push(c.validated);
+              }
+              return a;
+            }, [])
+            .some((c) => {
+              return c === false
+            })
         }
 
-        if (passThroughStepsValidated) {
+        if (!passThroughStepsNotValid) {
           if (evt.target.value === (this.props.steps.length - 1) &&
             this.state.compState === (this.props.steps.length - 1)) {
               this.setNavState(this.props.steps.length);
@@ -143,31 +148,24 @@ export default class StepZilla extends Component {
           }
         }
       }
-
-      // if (this.props.dontValidate || (passThroughStepsValidated && typeof this.refs.activeComponent.isValidated == 'undefined' || this.refs.activeComponent.isValidated()) ) {
-      //     if (evt.target.value === (this.props.steps.length - 1) &&
-      //       this.state.compState === (this.props.steps.length - 1)) {
-      //         this.setNavState(this.props.steps.length);
-      //     }
-      //     else {
-      //       this.setNavState(evt.target.value);
-      //     }
-      // }
     }
   }
 
+  // move next via next button
   next() {
     if (this.stepMoveAllowed()) {
       this.setNavState(this.state.compState + 1);
     }
   }
 
+  // move behind via previous button
   previous() {
     if (this.state.compState > 0) {
       this.setNavState(this.state.compState - 1);
     }
   }
 
+  // are we allowed to move forward? via the next button or via jumpToStep?
   stepMoveAllowed(skipValidationExecution = false) {
     let proceed = false;
 
@@ -179,7 +177,12 @@ export default class StepZilla extends Component {
       if (typeof this.refs.activeComponent.isValidated == 'undefined') {
         proceed = true;
       }
-      else if (!skipValidationExecution) {
+      else if (skipValidationExecution) {
+        // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
+        proceed = true;
+      }
+      else {
+        // user is moving forward in steps, invoke validation as its available
         proceed = this.refs.activeComponent.isValidated();
         this.props.steps[this.state.compState].validated = (typeof proceed == 'undefined') ? true : proceed; // if a step component returns 'underfined' then trate as "true" as it's an aync call (i.e. ajax call)
       }
@@ -188,6 +191,7 @@ export default class StepZilla extends Component {
     return proceed;
   }
 
+  // get the classmame of steps
   getClassName(className, i){
     let liClassName = className + "-" + this.state.navState.styles[i];
 
@@ -198,6 +202,7 @@ export default class StepZilla extends Component {
     return liClassName;
   }
 
+  // render the steps as stepsNavigation
   renderSteps() {
     return this.props.steps.map((s, i)=> (
       <li className={this.getClassName("progtrckr", i)} onClick={(evt) => {this.jumpToStep(evt)}} key={i} value={i}>
@@ -207,6 +212,7 @@ export default class StepZilla extends Component {
     ));
   }
 
+  // main render of stepzilla container
   render() {
     // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
     const compToRender = React.cloneElement(this.props.steps[this.state.compState].component, {

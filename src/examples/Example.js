@@ -29,7 +29,8 @@ export default class Example extends Component {
 
   updateStore(update) {
     this.sampleStore = {
-      ...update
+      ...this.sampleStore,
+      ...update,
     }
   }
 
