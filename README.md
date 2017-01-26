@@ -114,8 +114,10 @@ Lines        : 31.4% ( 27/86 )
 - improve code coverage
 
 #### change log
+- 3.0.1
+  - fixes [#7](../../../../newbreedofgeek/react-stepzilla/issues/7). - dist left out so npm install don't work
 - 3.0.0
-  - major revamp of logic to deal with validation bugs from stepsNavigation (fixes [#6](/newbreedofgeek/react-stepzilla/issues/6)). Also complete revamp of example app to be a fully working sample
+  - major revamp of logic to deal with validation bugs from stepsNavigation (fixes [#6](../../../../newbreedofgeek/react-stepzilla/issues/6)). Also complete revamp of example app to be a fully working sample
 - 2.0.1
   - bug with handleKeyDown, as we capture enter if preventEnterSubmission=true, then onEnter the page refreshes
 - 2.0.0
