@@ -9,7 +9,9 @@ is a  multi-step, wizard component for data collection via forms and other sub c
 
 
 ### better yet, have a look at a live example
-Full example usage code is available in the `src/examples` directory. Have a look at a <a href='https://github.io/newbreedofgeek/react-stepzilla' target='_blank'>live working version here</a>
+:+1: :sparkles: :camel: :tada: :rocket: :metal: :octocat:
+
+Full example usage code is available in the `src/examples` directory. Have a look at a <a href="https://newbreedofgeek.github.io/react-stepzilla/" target="_blank">live working version here</a>
 
 
 ### get started
