@@ -7,10 +7,15 @@ is a  multi-step, wizard component for data collection via forms and other sub c
 
 ![react-stepzilla](https://raw.githubusercontent.com/newbreedofgeek/react-stepzilla/master/stepzilla-eg.png)
 
+
+### better yet, have a look at a live example
+Full example usage code is available in the `src/examples` directory. Have a look at a <a href='https://github.io/newbreedofgeek/react-stepzilla' target='_blank'>live working version here</a>
+
+
 ### get started
 - run
 ```
-npm install react-stepzilla
+npm install --save react-stepzilla
 ```
 - require into your project via
 ```
@@ -75,11 +80,20 @@ example options usage:
 
 - also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
 
+#### jumpToStep() utility
+- stepzilla injects an utility method called `jumpToStep` as a prop into all your react step components
+- this utility methods lets you jump between steps from inside your react component.
+e.g.
+`this.props.jumpToStep(2)` will jump to your 3rd step (it uses a zero based index)
+- check out `src/examples/Step3` for an actual usage example where we wait for a async block to end before we process
+
+
 ### dev
 - all node source is in src/main.js
 - you need to install dependencies first `npm install`
 - make any changes and run `npm run build` to transpile the jsx into `dist`
 - the transpilation is run as an auto pre-publish task so it should usually be up to date when consumed via npm
+- `npm run build-example` builds and packs the example app into the 'docs' folder so it can be accessed via ghpages
 
 ### run and view example in browser
 A full example is found in the `src/examples` directory.
@@ -114,6 +128,8 @@ Lines        : 31.4% ( 27/86 )
 - improve code coverage
 
 #### change log
+- 3.1.0
+  - new dev task build-example added, which packs the example app into 'docs' so we can use ghpages
 - 3.0.1
   - fixes [#7](../../../../newbreedofgeek/react-stepzilla/issues/7). - dist left out so npm install don't work
 - 3.0.0

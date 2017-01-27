@@ -68,7 +68,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 ol.progtrckr li.progtrckr-todo:hover:before {
-  color: #0FA0CE;
+  color: #ff4500;
 }
 
 ol.progtrckr li.progtrckr-doing:before {
@@ -81,7 +81,7 @@ ol.progtrckr li.progtrckr-doing:before {
 }
 
 ol.progtrckr li.progtrckr-doing:hover:before {
-  color: #0FA0CE;
+  color: #ff4500;
 }
 
 ol.progtrckr li.progtrckr-done:before {
@@ -94,5 +94,5 @@ ol.progtrckr li.progtrckr-done:before {
 }
 
 ol.progtrckr li.progtrckr-done:hover:before {
-  color: #0FA0CE;
+  color: #333;
 }

@@ -102,7 +102,7 @@ export default class Step2 extends Component {
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
-              <label className="md-col-12 control-label">
+              <label className="col-md-12 control-label">
                 <h1>Step 2: Enter your Details</h1>
               </label>
             </div>

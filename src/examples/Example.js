@@ -48,9 +48,6 @@ export default class Example extends Component {
         <div className='step-progress'>
           <StepZilla
             steps={steps}
-            stepsNavigation={true}
-            prevBtnOnLastStep={true}
-            dontValidate={false}
             preventEnterSubmission={true}
             nextTextOnFinalActionStep={"Save"} />
         </div>

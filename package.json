@@ -1,6 +1,6 @@
 {
   "name": "react-stepzilla",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "test:watch": "node ./node_modules/gulp/bin/gulp.js test-watch",
     "test:coverage": "node ./node_modules/gulp/bin/gulp.js test-coverage",
     "prepublish": "npm run build",
-    "example": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors"
+    "example": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors",
+    "build-example": "node ./node_modules/gulp/bin/gulp.js build-example"
   },
   "repository": {
     "type": "git",
@@ -59,7 +60,8 @@
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "webpack-stream": "^3.2.0"
   },
   "dependencies": {
     "babel-loader": "^6.2.4"

@@ -2,3 +2,4 @@
 node_modules
 *.jsx
 coverage
+src/examples/dist

@@ -24,7 +24,7 @@ export default class Step4 extends Component {
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
-              <label className="md-col-12 control-label">
+              <label className="col-md-12 control-label">
                 {
                   (this.state.savedToCloud)
                   ?
