@@ -132,7 +132,7 @@ Lines        : 28.87% ( 28/97 )
 - improve code coverage
 
 ### known issues
--
+- open bugs [are here](https://github.com/newbreedofgeek/react-stepzilla/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20label%3Abug)
 
 #### change log
 - 4.0.0
