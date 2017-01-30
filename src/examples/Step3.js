@@ -48,7 +48,7 @@ export default class Step3 extends Component {
         // pass 'true' to resolve() to indicate that server validation or other aync method was a success.
         // ... only then will it move to the next step. Pass "false" to indicate a fail
         resolve(true);
-      }, 1000);
+      }, 5000);
     });
   }
 
@@ -66,7 +66,7 @@ export default class Step3 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 3: Review your Details</h1>
+                <h1>Step 3: Review your Details and 'Save'</h1>
               </label>
             </div>
             <div className="form-group">
@@ -90,7 +90,7 @@ export default class Step3 extends Component {
                 <div className="col-md-12 eg-jump-lnk">
                   <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
                 </div>
-                <h2 className={savingCls}>Saving to Cloud, pls wait...</h2>
+                <h2 className={savingCls}>Saving to Cloud, pls wait (by the way, we are using a Promise to do this :)...</h2>
               </div>
             </div>
           </form>
