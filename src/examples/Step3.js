@@ -11,17 +11,27 @@ export default class Step3 extends Component {
       saving: false
     };
 
-    this.isValidated = this._isValidated.bind(this);
+    this.isValidated = this._isValidated.bind(this); // provide a public isValidated() method. Here its bound to a private _isValidated method
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
-  // This review screen had the 'Save' button, on clicking this we SAVE to server via ajax (using an Action of course)
+  // This review screen had the 'Save' button, on clicking this is called
   _isValidated() {
-    // typically this private _isValidated os a componenet needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
-    // but in this example we simulate an ajax request which is async. So we dont return anything (i.e. the return is undefined. This will be treated as "true" by StepZilla)
+    // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
+    // but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
+    // ... for the resolve() to work out if we can move to the next step
+    // So here are the rules:
+    // ~~~~~~~~~~~~~~~~~~~~~~~~
+    // SYNC action (e.g. local JS form validation).. if you return:
+    // true/undefined: validation has passed. Move to next step.
+    // false: validation failed. Stay on current step
+    // ~~~~~~~~~~~~~~~~~~~~~~~~
+    // ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
+    // resolve(true): validation/save has passed. Move to next step.
+    // resolve(false): validation/save failed. Stay on current step
 
     this.setState({
       saving: true
@@ -35,12 +45,16 @@ export default class Step3 extends Component {
 
         this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
 
-        // We then explicitly move to the final step (in this case 3 as its a zero based index)
-        //this.props.jumpToStep(3); // The StepZilla library injects this jumpToStep utility into each component
-
-        resolve();
+        // pass 'true' to resolve() to indicate that server validation or other aync method was a success.
+        // ... only then will it move to the next step. Pass "false" to indicate a fail
+        resolve(true);
       }, 1000);
     });
+  }
+
+  jumpToStep(toStep) {
+    // We can explicitly move to a step (we -1 as its a zero based index)
+    this.props.jumpToStep(toStep-1); // The StepZilla library injects this jumpToStep utility into each component
   }
 
   render() {
@@ -72,6 +86,9 @@ export default class Step3 extends Component {
                   <div className="col-md-4">
                     {this.props.getStore().email}
                   </div>
+                </div>
+                <div className="col-md-12 eg-jump-lnk">
+                  <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
                 </div>
                 <h2 className={savingCls}>Saving to Cloud, pls wait...</h2>
               </div>

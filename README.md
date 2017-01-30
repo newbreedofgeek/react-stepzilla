@@ -80,15 +80,17 @@ example options usage:
 
 - ** if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
 
+- ** validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step3` component.
+
 - also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
 
 #### jumpToStep() utility
 - stepzilla injects an utility method called `jumpToStep` as a prop into all your react step components
-- this utility methods lets you jump between steps from inside your react component.
+- this utility methods lets you jump between steps from inside your react component
 e.g.
 `this.props.jumpToStep(2)` will jump to your 3rd step (it uses a zero based index)
-- check out `src/examples/Step3` for an actual usage example where we wait for a async block to end before we process
-
+- check out `src/examples/Step3` for an actual usage example
+- important!! this jumpToStep() utility method will not validate data! so use with caution. its only meant to be a utility to break from the standard flow of steps
 
 ### dev
 - all node source is in src/main.js
@@ -117,19 +119,24 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v3.0.0:
+Current coverage sitting at v4.0.0:
 ```
-Statements   : 53.17% ( 67/126 ), 4 ignored
-Branches     : 41.75% ( 43/103 ), 13 ignored
-Functions    : 76.67% ( 23/30 ), 7 ignored
-Lines        : 31.4% ( 27/86 )
+Statements   : 50.35% ( 72/143 ), 6 ignored
+Branches     : 43.8% ( 53/121 ), 20 ignored
+Functions    : 72.97% ( 27/37 ), 11 ignored
+Lines        : 28.87% ( 28/97 )
 ```
 
 ### dev todo
 - ~~write the tests~~
 - improve code coverage
 
+### known issues
+-
+
 #### change log
+- 4.0.0
+  - step validation via isValidated() now also supports async validation via Promises
 - 3.1.0
   - new dev task build-example added, which packs the example app into 'docs' so we can use ghpages
 - 3.0.1
