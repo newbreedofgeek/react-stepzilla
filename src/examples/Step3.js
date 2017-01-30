@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import Promise from 'promise';
 
 export default class Step3 extends Component {
   constructor(props) {
@@ -26,17 +27,20 @@ export default class Step3 extends Component {
       saving: true
     });
 
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.setState({
+          saving: true
+        });
 
-    setTimeout(() => {
-      this.setState({
-        saving: true
-      });
+        this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
 
-      this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        // We then explicitly move to the final step (in this case 3 as its a zero based index)
+        //this.props.jumpToStep(3); // The StepZilla library injects this jumpToStep utility into each component
 
-      // We then explicitly move to the final step (in this case 3 as its a zero based index)
-      this.props.jumpToStep(3); // The StepZilla library injects this jumpToStep utility into each component
-    }, 1000);
+        resolve();
+      }, 1000);
+    });
   }
 
   render() {

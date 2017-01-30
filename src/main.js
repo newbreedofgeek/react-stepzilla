@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Promise from 'promise';
 
 export default class StepZilla extends Component {
   constructor(props) {
@@ -107,7 +108,7 @@ export default class StepZilla extends Component {
   // this utility method lets Child components invoke a direct jump to another step
   jumpToStep(evt) {
     if (evt.target == undefined) {
-      // a child step wants to invoke a jump between steps
+      // a child step wants to invoke a jump between steps. in this case 'evt' is the numeric step number and not the JS event
       this.setNavState(evt);
     }
     else { // the main navigation step ui is invoking a jump between steps
@@ -118,44 +119,89 @@ export default class StepZilla extends Component {
         return;
       }
 
+      evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
+
       // are we trying to move back or front?
       const movingBack = evt.target.value < this.state.compState;
 
-      if (this.stepMoveAllowed(movingBack)) {
-        let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
-
+      Promise.resolve(this.stepMoveAllowed(movingBack)).then((proceed = true) => {
         if (!movingBack) {
-          // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
-          passThroughStepsNotValid = this.props.steps
-            .reduce((a, c, i) => {
-              if (i >= this.state.compState && i < evt.target.value) {
-                a.push(c.validated);
-              }
-              return a;
-            }, [])
-            .some((c) => {
-              return c === false
-            })
+          this.props.steps[this.state.compState].validated = proceed; // if a step component returns 'underfined' then treat as "true".
         }
 
-        if (!passThroughStepsNotValid) {
-          if (evt.target.value === (this.props.steps.length - 1) &&
-            this.state.compState === (this.props.steps.length - 1)) {
-              this.setNavState(this.props.steps.length);
+        if (proceed) {
+          let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+
+          if (!movingBack) {
+            // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+            passThroughStepsNotValid = this.props.steps
+              .reduce((a, c, i) => {
+                if (i >= this.state.compState && i < evt.target.value) {
+                  a.push(c.validated);
+                }
+                return a;
+              }, [])
+              .some((c) => {
+                return c === false
+              })
           }
-          else {
-            this.setNavState(evt.target.value);
+
+          if (!passThroughStepsNotValid) {
+            if (evt.target.value === (this.props.steps.length - 1) &&
+              this.state.compState === (this.props.steps.length - 1)) {
+                this.setNavState(this.props.steps.length);
+            }
+            else {
+              this.setNavState(evt.target.value);
+            }
           }
         }
-      }
+      });
     }
+
+      // if (this.stepMoveAllowed(movingBack)) {
+      //   let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+      //
+      //   if (!movingBack) {
+      //     // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+      //     passThroughStepsNotValid = this.props.steps
+      //       .reduce((a, c, i) => {
+      //         if (i >= this.state.compState && i < evt.target.value) {
+      //           a.push(c.validated);
+      //         }
+      //         return a;
+      //       }, [])
+      //       .some((c) => {
+      //         return c === false
+      //       })
+      //   }
+      //
+      //   if (!passThroughStepsNotValid) {
+      //     if (evt.target.value === (this.props.steps.length - 1) &&
+      //       this.state.compState === (this.props.steps.length - 1)) {
+      //         this.setNavState(this.props.steps.length);
+      //     }
+      //     else {
+      //       this.setNavState(evt.target.value);
+      //     }
+      //   }
+      // }
+
   }
 
   // move next via next button
   next() {
-    if (this.stepMoveAllowed()) {
-      this.setNavState(this.state.compState + 1);
-    }
+    Promise.resolve(this.stepMoveAllowed()).then((proceed = true) => {
+      this.props.steps[this.state.compState].validated = proceed; // if a step component returns 'underfined' then treat as "true".
+
+      if (proceed) {
+        this.setNavState(this.state.compState + 1);
+      }
+    });
+
+    // if (this.stepMoveAllowed()) {
+    //   this.setNavState(this.state.compState + 1);
+    // }
   }
 
   // move behind via previous button
@@ -168,6 +214,7 @@ export default class StepZilla extends Component {
   // are we allowed to move forward? via the next button or via jumpToStep?
   stepMoveAllowed(skipValidationExecution = false) {
     let proceed = false;
+    // let isValidatedImplemented = false;
 
     if (this.props.dontValidate) {
       proceed = true;
@@ -184,9 +231,15 @@ export default class StepZilla extends Component {
       else {
         // user is moving forward in steps, invoke validation as its available
         proceed = this.refs.activeComponent.isValidated();
-        this.props.steps[this.state.compState].validated = (typeof proceed == 'undefined') ? true : proceed; // if a step component returns 'underfined' then trate as "true" as it's an aync call (i.e. ajax call)
+        // isValidatedImplemented = true;
       }
     }
+
+    // // pass it all through Promise.resolve so it wraps as an interface
+    // Promise.resolve(proceed).then(function(value) {
+    //
+    //   this.props.steps[this.state.compState].validated = (typeof value == 'undefined') ? true : value; // if a step component returns 'underfined' then treat as "true".
+    // })
 
     return proceed;
   }
