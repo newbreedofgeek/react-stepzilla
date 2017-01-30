@@ -30,8 +30,8 @@ export default class Step3 extends Component {
     // false: validation failed. Stay on current step
     // ~~~~~~~~~~~~~~~~~~~~~~~~
     // ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
-    // resolve(true): validation/save has passed. Move to next step.
-    // resolve(false): validation/save failed. Stay on current step
+    // resolve(): validation/save has passed. Move to next step.
+    // reject(): validation/save failed. Stay on current step
 
     this.setState({
       saving: true
@@ -45,9 +45,10 @@ export default class Step3 extends Component {
 
         this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
 
-        // pass 'true' to resolve() to indicate that server validation or other aync method was a success.
-        // ... only then will it move to the next step. Pass "false" to indicate a fail
-        resolve(true);
+        // call resolve() to indicate that server validation or other aync method was a success.
+        // ... only then will it move to the next step. reject() will indicate a fail
+        resolve();
+        // reject(); // or reject
       }, 5000);
     });
   }

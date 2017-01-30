@@ -121,32 +121,43 @@ export default class StepZilla extends Component {
 
       evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
 
-      // are we trying to move back or front?
-      const movingBack = evt.target.value < this.state.compState;
+      const movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
+      let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+      let proceed = false; // flag on if we should move on
 
-      this.abstractStepMoveAllowedToPromise(movingBack).then((proceed) => {
-        if (!movingBack) {
-          this.updateStepValidationFlag(proceed);
-        }
-
-        if (proceed) {
-          let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+      this.abstractStepMoveAllowedToPromise(movingBack)
+        .then((valid = true) => { // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
+          proceed = valid;
 
           if (!movingBack) {
-            // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
-            passThroughStepsNotValid = this.props.steps
-              .reduce((a, c, i) => {
-                if (i >= this.state.compState && i < evt.target.value) {
-                  a.push(c.validated);
-                }
-                return a;
-              }, [])
-              .some((c) => {
-                return c === false
-              })
+            this.updateStepValidationFlag(proceed);
           }
 
-          if (!passThroughStepsNotValid) {
+          if (proceed) {
+            if (!movingBack) {
+              // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+              passThroughStepsNotValid = this.props.steps
+                .reduce((a, c, i) => {
+                  if (i >= this.state.compState && i < evt.target.value) {
+                    a.push(c.validated);
+                  }
+                  return a;
+                }, [])
+                .some((c) => {
+                  return c === false
+                })
+            }
+          }
+        })
+        .catch(() => {
+          // Promise based validation was a fail (i.e reject())
+          if (!movingBack) {
+            this.updateStepValidationFlag(false);
+          }
+        })
+        .then(() => {
+          // this is like finally(), executes if error no no error
+          if (proceed && !passThroughStepsNotValid) {
             if (evt.target.value === (this.props.steps.length - 1) &&
               this.state.compState === (this.props.steps.length - 1)) {
                 this.setNavState(this.props.steps.length);
@@ -155,20 +166,25 @@ export default class StepZilla extends Component {
               this.setNavState(evt.target.value);
             }
           }
-        }
-      });
+        });
     }
   }
 
   // move next via next button
   next() {
-    this.abstractStepMoveAllowedToPromise().then((proceed) => {
-      this.updateStepValidationFlag(proceed);
+    this.abstractStepMoveAllowedToPromise()
+      .then((proceed = true) => {
+        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync validation
+        this.updateStepValidationFlag(proceed);
 
-      if (proceed) {
-        this.setNavState(this.state.compState + 1);
-      }
-    });
+        if (proceed) {
+          this.setNavState(this.state.compState + 1);
+        }
+      })
+      .catch(() => {
+        // Promise based validation was a fail (i.e reject())
+        this.updateStepValidationFlag(false);
+      });
   }
 
   // move behind via previous button
