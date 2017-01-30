@@ -170,17 +170,20 @@ var StepZilla = function (_Component) {
 
           evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
 
-          // are we trying to move back or front?
-          var movingBack = evt.target.value < _this3.state.compState;
+          var movingBack = evt.target.value < _this3.state.compState; // are we trying to move back or front?
+          var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+          var proceed = false; // flag on if we should move on
 
-          _this3.abstractStepMoveAllowedToPromise(movingBack).then(function (proceed) {
+          _this3.abstractStepMoveAllowedToPromise(movingBack).then(function () {
+            var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+            // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
+            proceed = valid;
+
             if (!movingBack) {
               _this3.updateStepValidationFlag(proceed);
             }
 
             if (proceed) {
-              var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
-
               if (!movingBack) {
                 // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
                 passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
@@ -192,13 +195,19 @@ var StepZilla = function (_Component) {
                   return c === false;
                 });
               }
-
-              if (!passThroughStepsNotValid) {
-                if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
-                  _this3.setNavState(_this3.props.steps.length);
-                } else {
-                  _this3.setNavState(evt.target.value);
-                }
+            }
+          }).catch(function () {
+            // Promise based validation was a fail (i.e reject())
+            if (!movingBack) {
+              _this3.updateStepValidationFlag(false);
+            }
+          }).then(function () {
+            // this is like finally(), executes if error no no error
+            if (proceed && !passThroughStepsNotValid) {
+              if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
+                _this3.setNavState(_this3.props.steps.length);
+              } else {
+                _this3.setNavState(evt.target.value);
               }
             }
           });
@@ -215,12 +224,18 @@ var StepZilla = function (_Component) {
     value: function next() {
       var _this4 = this;
 
-      this.abstractStepMoveAllowedToPromise().then(function (proceed) {
+      this.abstractStepMoveAllowedToPromise().then(function () {
+        var proceed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync validation
         _this4.updateStepValidationFlag(proceed);
 
         if (proceed) {
           _this4.setNavState(_this4.state.compState + 1);
         }
+      }).catch(function () {
+        // Promise based validation was a fail (i.e reject())
+        _this4.updateStepValidationFlag(false);
       });
     }
 
