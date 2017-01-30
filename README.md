@@ -11,7 +11,7 @@ is a  multi-step, wizard component for data collection via forms and other sub c
 ### better yet, have a look at a live example
 :+1: :sparkles: :camel: :tada: :rocket: :metal: :octocat:
 
-Full example usage code is available in the `src/examples` directory. Have a look at a <a href="https://newbreedofgeek.github.io/react-stepzilla/" target="_blank">live working version here</a>
+Full example usage code is available in the `src/examples` directory. Have a look at a [live working version here](https://newbreedofgeek.github.io/react-stepzilla/)
 
 
 ### get started
@@ -125,7 +125,7 @@ Functions    : 76.67% ( 23/30 ), 7 ignored
 Lines        : 31.4% ( 27/86 )
 ```
 
-### todo
+### dev todo
 - ~~write the tests~~
 - improve code coverage
 
