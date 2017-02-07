@@ -149,7 +149,7 @@ export default class StepZilla extends Component {
             }
           }
         })
-        .catch(() => {
+        .catch((e) => {
           // Promise based validation was a fail (i.e reject())
           if (!movingBack) {
             this.updateStepValidationFlag(false);
@@ -166,6 +166,13 @@ export default class StepZilla extends Component {
               this.setNavState(evt.target.value);
             }
           }
+        })
+        .catch(e => {
+          if (e) {
+            // see note below called "CatchRethrowing"
+            // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
+            setTimeout(function() { throw e; });
+          }
         });
     }
   }
@@ -181,7 +188,15 @@ export default class StepZilla extends Component {
           this.setNavState(this.state.compState + 1);
         }
       })
-      .catch(() => {
+      .catch((e) => {
+        if (e) {
+          // CatchRethrowing: as we wrap StepMoveAllowed() to resolve as a Promise, the then() is invoked and the next React Component is loaded.
+          // ... during the render, if there are JS errors thrown (e.g. ReferenceError) it gets swallowed by the Promise library and comes in here (catch)
+          // ... so we need to rethrow it outside the execution stack so it behaves like a notmal JS error (i.e. halts and prints to console)
+          //
+          setTimeout(function() { throw e; });
+        }
+
         // Promise based validation was a fail (i.e reject())
         this.updateStepValidationFlag(false);
       });
