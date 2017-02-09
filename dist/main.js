@@ -92,9 +92,9 @@ var StepZilla = function (_Component) {
   }, {
     key: 'checkNavState',
     value: function checkNavState(currentStep) {
-      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
-        var correctNextText = 'Next';
+      var correctNextText = 'Next';
 
+      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
         if (currentStep == this.props.steps.length - 2) {
           correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
         }
@@ -107,12 +107,14 @@ var StepZilla = function (_Component) {
       } else if (currentStep === 0) {
         this.setState({
           showPreviousBtn: false,
-          showNextBtn: true
+          showNextBtn: true,
+          nextStepText: correctNextText
         });
       } else {
         this.setState({
           showPreviousBtn: this.props.prevBtnOnLastStep ? true : false,
-          showNextBtn: false
+          showNextBtn: false,
+          nextStepText: correctNextText
         });
       }
     }

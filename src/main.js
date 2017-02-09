@@ -54,10 +54,10 @@ export default class StepZilla extends Component {
   }
 
   // which step are we in?
-  checkNavState(currentStep){
-    if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
-      let correctNextText = 'Next';
+  checkNavState(currentStep) {
+    let correctNextText = 'Next';
 
+    if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
       if (currentStep == this.props.steps.length - 2) {
         correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
       }
@@ -71,13 +71,15 @@ export default class StepZilla extends Component {
     else if (currentStep === 0 ) {
       this.setState({
         showPreviousBtn: false,
-        showNextBtn: true
+        showNextBtn: true,
+        nextStepText: correctNextText
       });
     }
     else {
       this.setState({
         showPreviousBtn: (this.props.prevBtnOnLastStep) ? true : false,
-        showNextBtn: false
+        showNextBtn: false,
+        nextStepText: correctNextText
       });
     }
   }
