@@ -1,99 +1,134 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import Promise from 'promise';
 
 export default class Step3 extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      saving: false
+      email: props.getStore().email,
+      gender: props.getStore().gender
     };
 
-    this.isValidated = this._isValidated.bind(this); // provide a public isValidated() method. Here its bound to a private _isValidated method
+    this._validateOnDemand = true; // this flag enables onBlur validation as user fills forms
+
+    this.validationCheck = this._validationCheck.bind(this);
+    this.isValidated = this._isValidated.bind(this);
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
-  // This review screen had the 'Save' button, on clicking this is called
   _isValidated() {
-    // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
-    // but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
-    // ... for the resolve() to work out if we can move to the next step
-    // So here are the rules:
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // SYNC action (e.g. local JS form validation).. if you return:
-    // true/undefined: validation has passed. Move to next step.
-    // false: validation failed. Stay on current step
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
-    // resolve(): validation/save has passed. Move to next step.
-    // reject(): validation/save failed. Stay on current step
+    const userInput = this._grabUserInput(); // grab user entered vals
+    const validateNewInput = this._validateData(userInput); // run the new input against the validator
+    let isDataValid = false;
 
-    this.setState({
-      saving: true
-    });
+    // if full validation passes then save to store and pass as valid
+    if (Object.keys(validateNewInput).every((k) => { return validateNewInput[k] === true })) {
+        if (this.props.getStore().email != userInput.email || this.props.getStore().gender != userInput.gender) { // only update store of something changed
+          this.props.updateStore({
+            ...userInput,
+            savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+          });  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        }
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.setState({
-          saving: true
-        });
+        isDataValid = true;
+    }
+    else {
+        // if anything fails then update the UI validation state but NOT the UI Data State
+        this.setState(Object.assign(userInput, validateNewInput, this._validationErrors(validateNewInput)));
+    }
 
-        this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
-
-        // call resolve() to indicate that server validation or other aync method was a success.
-        // ... only then will it move to the next step. reject() will indicate a fail
-        resolve();
-        // reject(); // or reject
-      }, 5000);
-    });
+    return isDataValid;
   }
 
-  jumpToStep(toStep) {
-    // We can explicitly move to a step (we -1 as its a zero based index)
-    this.props.jumpToStep(toStep-1); // The StepZilla library injects this jumpToStep utility into each component
+  _validationCheck() {
+    if (!this._validateOnDemand)
+      return;
+
+    const userInput = this._grabUserInput(); // grab user entered vals
+    const validateNewInput = this._validateData(userInput); // run the new input against the validator
+
+    this.setState(Object.assign(userInput, validateNewInput, this._validationErrors(validateNewInput)));
+  }
+
+   _validateData(data) {
+    return  {
+      genderVal: (data.gender != 0), // required: anything besides N/A
+      emailVal: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(data.email), // required: regex w3c uses in html5
+    }
+  }
+
+  _validationErrors(val) {
+    const errMsgs = {
+      genderValMsg: val.genderVal ? '' : 'A gender selection is required',
+      emailValMsg: val.emailVal ? '' : 'A valid email is required'
+    }
+    return errMsgs;
+  }
+
+  _grabUserInput() {
+    return {
+      gender: this.refs.gender.value,
+      email: this.refs.email.value
+    };
   }
 
   render() {
-    const savingCls = this.state.saving ? 'saving col-md-12 show' : 'saving col-md-12 hide';
+    // explicit class assigning based on validation
+    let notValidClasses = {};
+
+    if (typeof this.state.genderVal == 'undefined' || this.state.genderVal) {
+      notValidClasses.genderCls = 'no-error col-md-8';
+    }
+    else {
+       notValidClasses.genderCls = 'has-error col-md-8';
+       notValidClasses.genderValGrpCls = 'val-err-tooltip';
+    }
+
+    if (typeof this.state.emailVal == 'undefined' || this.state.emailVal) {
+        notValidClasses.emailCls = 'no-error col-md-8';
+    }
+    else {
+       notValidClasses.emailCls = 'has-error col-md-8';
+       notValidClasses.emailValGrpCls = 'val-err-tooltip';
+    }
 
     return (
-      <div className="step step3 review">
+      <div className="step step3">
         <div className="row">
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 3: Review your Details and 'Save'</h1>
+                <h1>Step 3: Enter your Details</h1>
               </label>
             </div>
-            <div className="form-group">
-              <div className="col-md-12 control-label">
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Gender
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().gender}
-                  </div>
+            <div className="form-group col-md-12 content">
+                <label className="control-label col-md-4">
+                  Gender
+                </label>
+                <div className={notValidClasses.genderCls}>
+                  <select ref="gender" autoComplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
+                    <option value="">Please select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </div>
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Email
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().email}
-                  </div>
-                </div>
-                <div className="col-md-12 eg-jump-lnk">
-                  <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
-                </div>
-                <h2 className={savingCls}>Saving to Cloud, pls wait (by the way, we are using a Promise to do this :)...</h2>
               </div>
-            </div>
+              <div className="form-group col-md-12 content">
+                <label className="control-label col-md-4">
+                  Email
+                </label>
+                <div className={notValidClasses.emailCls}>
+                  <input ref="email" autoComplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+                  <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
+                </div>
+              </div>
           </form>
         </div>
       </div>

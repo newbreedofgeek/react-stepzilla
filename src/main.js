@@ -224,9 +224,8 @@ export default class StepZilla extends Component {
       proceed = true;
     }
     else {
-      debugger;
-      // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs ). If not then continue
-      if (typeof this.refs == 'undefined' || typeof this.refs.activeComponent.isValidated == 'undefined') {
+      // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
+      if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
         proceed = true;
       }
       else if (skipValidationExecution) {
@@ -270,21 +269,21 @@ export default class StepZilla extends Component {
 
   // main render of stepzilla container
   render() {
-    debugger;
     let compToRender;
 
     // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
+    let cloneExtensions = {
+      jumpToStep: (t) => {
+        this.jumpToStep(t);
+      }
+    };
+
+    // can only update refs if its a regular React componenet (not a pure component)
     if (this.props.steps[this.state.compState].component.type.prototype instanceof Component) {
-      compToRender = React.cloneElement(this.props.steps[this.state.compState].component, {
-          ref: 'activeComponent',
-          jumpToStep: (t) => {
-            this.jumpToStep(t);
-          }
-      });
+      cloneExtensions.ref = 'activeComponent';
     }
-    else {
-      compToRender = React.cloneElement(this.props.steps[this.state.compState].component);
-    }
+
+    compToRender = React.cloneElement(this.props.steps[this.state.compState].component, cloneExtensions);
 
     return (
       <div className="multi-step full-height" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>
