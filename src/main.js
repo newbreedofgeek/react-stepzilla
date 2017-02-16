@@ -278,12 +278,15 @@ export default class StepZilla extends Component {
       }
     };
 
-    // can only update refs if its a regular React componenet (not a pure component)
-    if (this.props.steps[this.state.compState].component.type.prototype instanceof Component) {
-      cloneExtensions.ref = 'activeComponent';
+    const componentPointer = this.props.steps[this.state.compState].component;
+
+    // can only update refs if its a regular React component (not a pure component), so lets check that
+    if (componentPointer instanceof Component || // unit test deteceted that instanceof Component can be in either of these locations so test both (not sure why this is the case)
+        (componentPointer.type && componentPointer.type.prototype instanceof Component)) {
+          cloneExtensions.ref = 'activeComponent';
     }
 
-    compToRender = React.cloneElement(this.props.steps[this.state.compState].component, cloneExtensions);
+    compToRender = React.cloneElement(componentPointer, cloneExtensions);
 
     return (
       <div className="multi-step full-height" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>

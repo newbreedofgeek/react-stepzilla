@@ -2,25 +2,43 @@ import React from 'react';
 import StepZilla from '../src/main';
 const shallow = enzyme.shallow;
 
-const makeFakeSteps = (num) => {
+const makeFakeSteps = (num, makePure) => {
   let steps = [];
 
   for (let i=0; i < num; i++) {
-    steps.push({
-      name: `Step${i + 1}`,
-      component: (props) => (
+    let newComp = null;
+
+    if (!makePure) {
+      // make a "dirty" react component
+      newComp = new React.Component();
+      newComp.render = () => {
+        return (
+          <div>
+            <h1>Step {i + 1}</h1>
+          </div>
+        )
+      }
+    }
+    else {
+      // make a "pure" component
+      newComp = (props) => (
         <div>
           <h1>Step {i + 1}</h1>
         </div>
       )
+    }
+
+    steps.push({
+      name: `Step${i + 1}`,
+      component: newComp
     });
   }
 
   return steps;
 };
 
-function setup(stepCount = 1, config = {}) {
-  const steps = makeFakeSteps(stepCount);
+function setup(stepCount = 1, config = {}, makePure = false) {
+  const steps = makeFakeSteps(stepCount, makePure);
 
   const props = {
     ...config,
@@ -36,8 +54,21 @@ function setup(stepCount = 1, config = {}) {
 }
 
 describe('StepZilla', () => {
-  describe('base component render', () => {
+  describe('base component render (using React.Component based Components mocking)', () => {
     const { enzymeWrapper } = setup(2, {dontValidate: true});
+
+    it('should render self and primary css classes', () => {
+      expect(enzymeWrapper).to.have.length(1);
+      expect(enzymeWrapper.find('div').first().hasClass('multi-step')).to.be.true;
+    });
+
+    it('should render correct number of steps', () => {
+      expect(enzymeWrapper.find('li')).to.have.length(2);
+    });
+  });
+
+  describe('base component render (using Pure Components mocking)', () => {
+    const { enzymeWrapper } = setup(2, {dontValidate: true}, true);
 
     it('should render self and primary css classes', () => {
       expect(enzymeWrapper).to.have.length(1);

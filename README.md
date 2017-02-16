@@ -2,6 +2,9 @@
 is a multi-step, wizard component for sequential data collection. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data-entry form it can tigger validation and only proceed if the data is valid.
 
 
+#### :tada::tada: whats new: react stepzilla now supports Pure Components!!! (as of v4.2.0) :tada::tada:
+
+
 ### what does it do?
 - something like this of course:
 
@@ -9,7 +12,7 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 
 ### better yet, have a look at a live example
-:+1: :sparkles: :camel: :tada: :rocket: :metal: :octocat:
+:metal::metal::metal::metal::metal::metal::metal:
 
 Full example usage code is available in the `src/examples` directory. Have a look at a [live working version here](https://newbreedofgeek.github.io/react-stepzilla/)
 
@@ -23,7 +26,8 @@ npm install --save react-stepzilla
 ```
 var StepZilla = require('react-stepzilla')
 ```
-- define the list of all the components you want to step through. The `name` indicates the title of the UI step and component is what loads.
+- define the list of all the components* you want to step through. The `name` indicates the title of the UI step and component is what loads.
+
 ```
 const steps =
     [
@@ -34,6 +38,8 @@ const steps =
       {name: 'Step 5', component: <Step5 />}
     ]
 ```
+** as of v4.2.0 you can also use Pure Components but they wont support validation, see Step2.js in the examples directory for more info. *
+
 - and now render it out somewhere in your app
 ```
     <div className='step-progress'>
@@ -119,12 +125,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.0.0:
+Current coverage sitting at v4.2.0:
 ```
-Statements   : 50.35% ( 72/143 ), 6 ignored
-Branches     : 43.8% ( 53/121 ), 20 ignored
-Functions    : 72.97% ( 27/37 ), 11 ignored
-Lines        : 28.87% ( 28/97 )
+Statements   : 47.83% ( 77/161 ), 6 ignored
+Branches     : 39.58% ( 57/144 ), 20 ignored
+Functions    : 62.79% ( 27/43 ), 11 ignored
+Lines        : 29.2% ( 33/113 )
 ```
 
 ### dev todo

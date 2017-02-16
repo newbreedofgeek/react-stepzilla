@@ -7858,7 +7858,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(269);
+	__webpack_require__(270);
 
 	_reactDom2.default.render(_react2.default.createElement(_Example2.default, null), document.getElementById('root'));
 
@@ -29148,6 +29148,10 @@
 
 	var _Step8 = _interopRequireDefault(_Step7);
 
+	var _Step9 = __webpack_require__(269);
+
+	var _Step10 = _interopRequireDefault(_Step9);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29207,7 +29211,11 @@
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { name: 'Step4', component: _react2.default.createElement(_Step8.default, { getStore: function getStore() {
+	          } }) }, { name: 'step4', component: _react2.default.createElement(_Step8.default, { getStore: function getStore() {
+	            return _this2.getStore();
+	          }, updateStore: function updateStore(u) {
+	            _this2.updateStore(u);
+	          } }) }, { name: 'Step5', component: _react2.default.createElement(_Step10.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
@@ -29530,8 +29538,8 @@
 	      if (this.props.dontValidate) {
 	        proceed = true;
 	      } else {
-	        // if its a form component, it should have implemeted a public isValidated class. If not then continue
-	        if (typeof this.refs.activeComponent.isValidated == 'undefined') {
+	        // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
+	        if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
 	          proceed = true;
 	        } else if (skipValidationExecution) {
 	          // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
@@ -29600,13 +29608,24 @@
 	    value: function render() {
 	      var _this6 = this;
 
+	      var compToRender = void 0;
+
 	      // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
-	      var compToRender = _react2.default.cloneElement(this.props.steps[this.state.compState].component, {
-	        ref: 'activeComponent',
+	      var cloneExtensions = {
 	        jumpToStep: function jumpToStep(t) {
 	          _this6.jumpToStep(t);
 	        }
-	      });
+	      };
+
+	      var componentPointer = this.props.steps[this.state.compState].component;
+
+	      // can only update refs if its a regular React component (not a pure component), so lets check that
+	      if (componentPointer instanceof _react.Component || // unit test deteceted that instanceof Component can be in either of these locations so test both (not sure why this is the case)
+	      componentPointer.type && componentPointer.type.prototype instanceof _react.Component) {
+	        cloneExtensions.ref = 'activeComponent';
+	      }
+
+	      compToRender = _react2.default.cloneElement(componentPointer, cloneExtensions);
 
 	      return _react2.default.createElement(
 	        'div',
@@ -30718,6 +30737,98 @@
 	  value: true
 	});
 
+	var _react = __webpack_require__(77);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Step2 = function Step2(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'step step2' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'form',
+	        { id: 'Form', className: 'form-horizontal' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            { className: 'col-md-12 control-label' },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              'Step 2: Pure Component Example'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row content' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-md-12' },
+	              'You can use Pure React Components as well (as of v4.2.0)!',
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'red' },
+	                '... but you cant provide validation logic here (i.e. you cant specify an ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'bold' },
+	                  'isValidated()'
+	                ),
+	                ' method and have StepZilla use that to determine if it can move to the next step). This is a limitation of using a Pure Component.'
+	              ),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'green' },
+	                '... so use a Pure Component if you just want to show some presentation content and a regular React Component (which extends from React.Component) if you need to provide Component level validation checkpoints via ',
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'bold' },
+	                  'isValidated()'
+	                ),
+	                '.'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-md-12 eg-jump-lnk' },
+	              _react2.default.createElement(
+	                'a',
+	                { href: '#', onClick: function onClick() {
+	                    return props.jumpToStep(0);
+	                  } },
+	                'e.g. showing how we use the jumpToStep method helper method to jump back to step 1'
+	              )
+	            )
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+	exports.default = Step2;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -30734,13 +30845,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Step2 = function (_Component) {
-	  _inherits(Step2, _Component);
+	var Step3 = function (_Component) {
+	  _inherits(Step3, _Component);
 
-	  function Step2(props) {
-	    _classCallCheck(this, Step2);
+	  function Step3(props) {
+	    _classCallCheck(this, Step3);
 
-	    var _this = _possibleConstructorReturn(this, (Step2.__proto__ || Object.getPrototypeOf(Step2)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Step3.__proto__ || Object.getPrototypeOf(Step3)).call(this, props));
 
 	    _this.state = {
 	      email: props.getStore().email,
@@ -30754,7 +30865,7 @@
 	    return _this;
 	  }
 
-	  _createClass(Step2, [{
+	  _createClass(Step3, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -30842,7 +30953,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'step step2' },
+	        { className: 'step step3' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
@@ -30858,13 +30969,13 @@
 	                _react2.default.createElement(
 	                  'h1',
 	                  null,
-	                  'Step 2: Enter your Details'
+	                  'Step 3: Enter your Details'
 	                )
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'form-group col-md-12' },
+	              { className: 'form-group col-md-12 content' },
 	              _react2.default.createElement(
 	                'label',
 	                { className: 'control-label col-md-4' },
@@ -30906,7 +31017,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'form-group col-md-12' },
+	              { className: 'form-group col-md-12 content' },
 	              _react2.default.createElement(
 	                'label',
 	                { className: 'control-label col-md-4' },
@@ -30929,13 +31040,13 @@
 	    }
 	  }]);
 
-	  return Step2;
+	  return Step3;
 	}(_react.Component);
 
-	exports.default = Step2;
+	exports.default = Step3;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30962,13 +31073,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Step3 = function (_Component) {
-	  _inherits(Step3, _Component);
+	var Step4 = function (_Component) {
+	  _inherits(Step4, _Component);
 
-	  function Step3(props) {
-	    _classCallCheck(this, Step3);
+	  function Step4(props) {
+	    _classCallCheck(this, Step4);
 
-	    var _this = _possibleConstructorReturn(this, (Step3.__proto__ || Object.getPrototypeOf(Step3)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Step4.__proto__ || Object.getPrototypeOf(Step4)).call(this, props));
 
 	    _this.state = {
 	      saving: false
@@ -30978,7 +31089,7 @@
 	    return _this;
 	  }
 
-	  _createClass(Step3, [{
+	  _createClass(Step4, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -31039,7 +31150,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'step step3 review' },
+	        { className: 'step step4 review' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
@@ -31055,7 +31166,7 @@
 	                _react2.default.createElement(
 	                  'h1',
 	                  null,
-	                  'Step 3: Review your Details and \'Save\''
+	                  'Step 4: Review your Details and \'Save\''
 	                )
 	              )
 	            ),
@@ -31117,13 +31228,13 @@
 	    }
 	  }]);
 
-	  return Step3;
+	  return Step4;
 	}(_react.Component);
 
-	exports.default = Step3;
+	exports.default = Step4;
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31146,13 +31257,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Step4 = function (_Component) {
-	  _inherits(Step4, _Component);
+	var Step5 = function (_Component) {
+	  _inherits(Step5, _Component);
 
-	  function Step4(props) {
-	    _classCallCheck(this, Step4);
+	  function Step5(props) {
+	    _classCallCheck(this, Step5);
 
-	    var _this = _possibleConstructorReturn(this, (Step4.__proto__ || Object.getPrototypeOf(Step4)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Step5.__proto__ || Object.getPrototypeOf(Step5)).call(this, props));
 
 	    _this.state = {
 	      savedToCloud: props.getStore().savedToCloud
@@ -31160,7 +31271,7 @@
 	    return _this;
 	  }
 
-	  _createClass(Step4, [{
+	  _createClass(Step5, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
@@ -31177,7 +31288,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'step step4' },
+	        { className: 'step step5' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
@@ -31210,7 +31321,7 @@
 	                  _react2.default.createElement(
 	                    'a',
 	                    { onClick: function onClick() {
-	                        _this2.props.jumpToStep(2);
+	                        _this2.props.jumpToStep(3);
 	                      } },
 	                    'back'
 	                  ),
@@ -31224,22 +31335,22 @@
 	    }
 	  }]);
 
-	  return Step4;
+	  return Step5;
 	}(_react.Component);
 
-	exports.default = Step4;
+	exports.default = Step5;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(270);
+	var content = __webpack_require__(271);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(272)(content, {});
+	var update = __webpack_require__(273)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -31256,10 +31367,10 @@
 	}
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(271)();
+	exports = module.exports = __webpack_require__(272)();
 	// imports
 
 
@@ -31270,7 +31381,7 @@
 
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	/*
@@ -31326,7 +31437,7 @@
 
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

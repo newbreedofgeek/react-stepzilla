@@ -3,3 +3,4 @@ node_modules
 *.jsx
 coverage
 src/examples/dist
+npm-debug.log
