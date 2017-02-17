@@ -38,7 +38,7 @@ const steps =
       {name: 'Step 5', component: <Step5 />}
     ]
 ```
-** as of v4.2.0 you can also use Pure Components but they wont support validation, see Step2.js in the examples directory for more info. *
+*as of v4.2.0 you can also use Pure Components but they wont support validation, see Step2.js in the examples directory for more info.*
 
 - and now render it out somewhere in your app
 ```
@@ -84,11 +84,11 @@ example options usage:
 ```
 
 
-- ** if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.
+- *if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.*
 
-- ** validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step3` component.
+- *validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step3` component.*
 
-- also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
+- *also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)*
 
 #### jumpToStep() utility
 - stepzilla injects an utility method called `jumpToStep` as a prop into all your react step components
