@@ -17,12 +17,21 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
-    }
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
     ]
   },
   resolve: {
     extensions: ['', '.js', '.json']
+  },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty'
   }
 };
