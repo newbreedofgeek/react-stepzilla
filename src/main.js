@@ -6,11 +6,9 @@ export default class StepZilla extends Component {
     super(props);
 
     this.state = {
-      showPreviousBtn: false,
-      showNextBtn: true,
+      ...this.getPrevNextBtnState(this.props.startAtStep),
       compState: this.props.startAtStep,
       navState: this.getNavStates(this.props.startAtStep, this.props.steps.length),
-      nextStepText: 'Next'
     };
 
     this.hidden = {
@@ -53,35 +51,35 @@ export default class StepZilla extends Component {
     return { current: indx, styles }
   }
 
-  // which step are we in?
-  checkNavState(currentStep) {
+  getPrevNextBtnState(currentStep) {
     let correctNextText = 'Next';
 
     if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
-      if (currentStep == this.props.steps.length - 2) {
+      if (currentStep === this.props.steps.length - 2) {
         correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
       }
-
-      this.setState({
+      return {
         showPreviousBtn: true,
         showNextBtn: true,
         nextStepText: correctNextText
-      });
-    }
-    else if (currentStep === 0 ) {
-      this.setState({
+      };
+    } else if (currentStep === 0) {
+      return {
         showPreviousBtn: false,
         showNextBtn: true,
         nextStepText: correctNextText
-      });
+      };
     }
-    else {
-      this.setState({
-        showPreviousBtn: (this.props.prevBtnOnLastStep) ? true : false,
-        showNextBtn: false,
-        nextStepText: correctNextText
-      });
-    }
+    return {
+      showPreviousBtn: this.props.prevBtnOnLastStep,
+      showNextBtn: false,
+      nextStepText: correctNextText
+    };
+  }
+
+  // which step are we in?
+  checkNavState(currentStep) {
+    this.setState(this.getPrevNextBtnState(currentStep));
   }
 
   // set the nav state
