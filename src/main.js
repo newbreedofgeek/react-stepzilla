@@ -9,7 +9,7 @@ export default class StepZilla extends Component {
       showPreviousBtn: false,
       showNextBtn: true,
       compState: this.props.startAtStep,
-      navState: this.getNavStates(0, this.props.steps.length),
+      navState: this.getNavStates(this.props.startAtStep, this.props.steps.length),
       nextStepText: 'Next'
     };
 
