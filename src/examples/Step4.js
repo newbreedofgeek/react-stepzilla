@@ -6,78 +6,104 @@ import strategy from 'joi-validation-strategy';
 import Joi from 'joi';
 
 class Step4 extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            email: ''
-        };
+    this.state = {
+      emailEmergency: ''
+    };
 
-        this.validatorTypes = {
-          email: Joi.string().email().required()
-        };
+    this.validatorTypes = {
+      emailEmergency: Joi.string().email().required()
+    };
 
-        this.getValidatorData = this.getValidatorData.bind(this);
-        this.renderHelpText = this.renderHelpText.bind(this);
-    }
+    this.getValidatorData = this.getValidatorData.bind(this);
+    this.renderHelpText = this.renderHelpText.bind(this);
+    this.isValidated = this.isValidated.bind(this);
+  }
 
-    getValidatorData() {
-        return {
-            email: this.refs.email.value,
+  isValidated() {
+    return new Promise((resolve, reject) => {
+      this.props.validate((error) => {
+        if (error) {
+          reject(); // form contains errors
+          return;
         }
-    };
 
-    onChange(e) {
-        let newState = {};
-        newState[e.target.name] = e.target.value;
-        this.setState(newState);
+        this.props.updateStore({
+          ...this.getValidatorData(),
+          savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+        });  // Update store here (this is just an example, in reality you will do it via redux or flux)
+
+        resolve(); // form is valid, fire action
+      });
+    });
+  }
+
+  getValidatorData() {
+    return {
+      emailEmergency: this.refs.emailEmergency.value,
     }
+  };
 
-    renderHelpText(message, id) {
-        return (<div className="val-err-tooltip" key={id}><span>{message}</span></div>);
-    };
+  onChange(e) {
+      let newState = {};
+      newState[e.target.name] = e.target.value;
+      this.setState(newState);
+  }
 
-    render() {
-        // explicit class assigning based on validation
-        let notValidClasses = {};
-        notValidClasses.emailCls = this.props.isValid('email') ?
-            'no-error col-md-8' : 'has-error col-md-8';
+  renderHelpText(message, id) {
+      return (<div className="val-err-tooltip" key={id}><span>{message}</span></div>);
+  };
 
-        return (
-            <div className="step step4">
-                <div className="row">
-                    <form id="Form" className="form-horizontal">
-                        <div className="form-group">
-                            <label className="col-md-12 control-label">
-                                <h1>Step 4: Enter your emergency contacts details:</h1>
-                            </label>
-                        </div>
-                        <div className="form-group col-md-12">
-                            <label className="control-label col-md-4">
-                                Email
-                            </label>
-                            <div className={notValidClasses.emailCls}>
-                                <input
-                                    ref="email"
-                                    autoComplete="off"
-                                    type="email"
-                                    placeholder="john.smith@example.com"
-                                    className="form-control"
-                                    name="email"
-                                    value={this.state.email}
-                                    required
-                                    onBlur={this.props.handleValidation('email')}
-                                    onChange={this.onChange.bind(this)}
-                                />
+  render() {
+    // explicit class assigning based on validation
+    let notValidClasses = {};
+    notValidClasses.emailEmergencyCls = this.props.isValid('emailEmergency') ?
+        'no-error col-md-8' : 'has-error col-md-8';
 
-                                {this.props.getValidationMessages('email').map(this.renderHelpText)}
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    return (
+        <div className="step step4">
+            <div className="row">
+                <form id="Form" className="form-horizontal">
+                  <div className="form-group">
+                    <label className="control-label col-md-12 ">
+                        <h1>Step 4: Enter your emergency contacts details:</h1>
+                    </label>
+                  </div>
+                  <div className="form-group col-md-12">
+                    <label className="control-label col-md-4">
+                        Your Emergency Email Address
+                    </label>
+                    <div className={notValidClasses.emailEmergencyCls}>
+                        <input
+                            ref="emailEmergency"
+                            autoComplete="off"
+                            type="emailEmergency"
+                            placeholder="john.smith@example.com"
+                            className="form-control"
+                            name="emailEmergency"
+                            value={this.state.emailEmergency}
+                            required
+                            onBlur={this.props.handleValidation('emailEmergency')}
+                            onChange={this.onChange.bind(this)}
+                        />
+
+                        {this.props.getValidationMessages('emailEmergency').map(this.renderHelpText)}
+                    </div>
+                  </div>
+                  <div className="form-group hoc-alert col-md-12 ">
+                    <label className="col-md-12 control-label">
+                      <h4>You can also use <a href="https://github.com/jurassix/react-validation-mixin" target="_blank">react-validation-mixin</a> to handle your validations as well! (as of v4.3.0)!</h4>
+                    </label>
+                    <br />
+                    <div className="green">... StepZilla steps can use a mix of basic JS validation of Higer Order Component (HOC) based validation with react-validation-mixin.</div>
+                  </div>
+                </form>
             </div>
-        )
-    }
+        </div>
+    )
+  }
 }
 
 Step4.propTypes = {

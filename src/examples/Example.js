@@ -55,7 +55,6 @@ export default class Example extends Component {
             preventEnterSubmission={true}
             nextTextOnFinalActionStep={"Save"}
             hocValidationAppliedTo={[3]}
-            hocValidationPredicate={(compRef) => (compRef.isValid()) }
              />
         </div>
       </div>

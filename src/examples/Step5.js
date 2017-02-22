@@ -88,6 +88,14 @@ export default class Step5 extends Component {
                     {this.props.getStore().email}
                   </div>
                 </div>
+                <div className="col-md-12 txt">
+                  <div className="col-md-4">
+                    Emergency Email
+                  </div>
+                  <div className="col-md-4">
+                    {this.props.getStore().emailEmergency}
+                  </div>
+                </div>
                 <div className="col-md-12 eg-jump-lnk">
                   <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
                 </div>
