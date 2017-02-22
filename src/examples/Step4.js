@@ -1,102 +1,120 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import Promise from 'promise';
+import validation from 'react-validation-mixin';
+import strategy from 'joi-validation-strategy';
+import Joi from 'joi';
 
-export default class Step4 extends Component {
+class Step4 extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      saving: false
+      emailEmergency: ''
     };
 
-    this.isValidated = this._isValidated.bind(this); // provide a public isValidated() method. Here its bound to a private _isValidated method
+    this.validatorTypes = {
+      emailEmergency: Joi.string().email().required()
+    };
+
+    this.getValidatorData = this.getValidatorData.bind(this);
+    this.renderHelpText = this.renderHelpText.bind(this);
+    this.isValidated = this.isValidated.bind(this);
   }
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  // This review screen had the 'Save' button, on clicking this is called
-  _isValidated() {
-    // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
-    // but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
-    // ... for the resolve() to work out if we can move to the next step
-    // So here are the rules:
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // SYNC action (e.g. local JS form validation).. if you return:
-    // true/undefined: validation has passed. Move to next step.
-    // false: validation failed. Stay on current step
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
-    // resolve(): validation/save has passed. Move to next step.
-    // reject(): validation/save failed. Stay on current step
-
-    this.setState({
-      saving: true
-    });
-
+  isValidated() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.setState({
-          saving: true
-        });
+      this.props.validate((error) => {
+        if (error) {
+          reject(); // form contains errors
+          return;
+        }
 
-        this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        this.props.updateStore({
+          ...this.getValidatorData(),
+          savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+        });  // Update store here (this is just an example, in reality you will do it via redux or flux)
 
-        // call resolve() to indicate that server validation or other aync method was a success.
-        // ... only then will it move to the next step. reject() will indicate a fail
-        resolve();
-        // reject(); // or reject
-      }, 5000);
+        resolve(); // form is valid, fire action
+      });
     });
   }
 
-  jumpToStep(toStep) {
-    // We can explicitly move to a step (we -1 as its a zero based index)
-    this.props.jumpToStep(toStep-1); // The StepZilla library injects this jumpToStep utility into each component
+  getValidatorData() {
+    return {
+      emailEmergency: this.refs.emailEmergency.value,
+    }
+  };
+
+  onChange(e) {
+      let newState = {};
+      newState[e.target.name] = e.target.value;
+      this.setState(newState);
   }
+
+  renderHelpText(message, id) {
+      return (<div className="val-err-tooltip" key={id}><span>{message}</span></div>);
+  };
 
   render() {
-    const savingCls = this.state.saving ? 'saving col-md-12 show' : 'saving col-md-12 hide';
+    // explicit class assigning based on validation
+    let notValidClasses = {};
+    notValidClasses.emailEmergencyCls = this.props.isValid('emailEmergency') ?
+        'no-error col-md-8' : 'has-error col-md-8';
 
     return (
-      <div className="step step4 review">
-        <div className="row">
-          <form id="Form" className="form-horizontal">
-            <div className="form-group">
-              <label className="col-md-12 control-label">
-                <h1>Step 4: Review your Details and 'Save'</h1>
-              </label>
+        <div className="step step4">
+            <div className="row">
+                <form id="Form" className="form-horizontal">
+                  <div className="form-group">
+                    <label className="control-label col-md-12 ">
+                        <h1>Step 4: Enter your emergency contacts details:</h1>
+                    </label>
+                  </div>
+                  <div className="form-group col-md-12">
+                    <label className="control-label col-md-4">
+                        Your Emergency Email Address
+                    </label>
+                    <div className={notValidClasses.emailEmergencyCls}>
+                        <input
+                            ref="emailEmergency"
+                            autoComplete="off"
+                            type="emailEmergency"
+                            placeholder="john.smith@example.com"
+                            className="form-control"
+                            name="emailEmergency"
+                            value={this.state.emailEmergency}
+                            required
+                            onBlur={this.props.handleValidation('emailEmergency')}
+                            onChange={this.onChange.bind(this)}
+                        />
+
+                        {this.props.getValidationMessages('emailEmergency').map(this.renderHelpText)}
+                    </div>
+                  </div>
+                  <div className="form-group hoc-alert col-md-12 ">
+                    <label className="col-md-12 control-label">
+                      <h4>You can also use <a href="https://github.com/jurassix/react-validation-mixin" target="_blank">react-validation-mixin</a> to handle your validations as well! (as of v4.3.0)!</h4>
+                    </label>
+                    <br />
+                    <div className="green">... StepZilla steps can use a mix of basic JS validation of Higer Order Component (HOC) based validation with react-validation-mixin.</div>
+                  </div>
+                </form>
             </div>
-            <div className="form-group">
-              <div className="col-md-12 control-label">
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Gender
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().gender}
-                  </div>
-                </div>
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Email
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().email}
-                  </div>
-                </div>
-                <div className="col-md-12 eg-jump-lnk">
-                  <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
-                </div>
-                <h2 className={savingCls}>Saving to Cloud, pls wait (by the way, we are using a Promise to do this :)...</h2>
-              </div>
-            </div>
-          </form>
         </div>
-      </div>
     )
   }
 }
+
+Step4.propTypes = {
+    errors: PropTypes.object,
+    validate: PropTypes.func,
+    isValid: PropTypes.func,
+    handleValidation: PropTypes.func,
+    getValidationMessages: PropTypes.func,
+    clearValidations: PropTypes.func,
+    getStore: PropTypes.func,
+    updateStore: PropTypes.func,
+};
+
+export default validation(strategy)(Step4);
