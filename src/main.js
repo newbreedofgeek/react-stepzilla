@@ -216,7 +216,6 @@ export default class StepZilla extends Component {
 
   // are we allowed to move forward? via the next button or via jumpToStep?
   stepMoveAllowed(skipValidationExecution = false) {
-    debugger;
     let proceed = false;
 
     if (this.props.dontValidate) {

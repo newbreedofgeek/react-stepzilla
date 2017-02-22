@@ -280,7 +280,6 @@ var StepZilla = function (_Component) {
     value: function stepMoveAllowed() {
       var skipValidationExecution = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-      debugger;
       var proceed = false;
 
       if (this.props.dontValidate) {
