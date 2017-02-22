@@ -33,7 +33,7 @@ export default class Step6 extends Component {
                       <h2>Data was successfully saved to cloud...</h2>
                     </div>
                   :
-                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(3)}}>back</a> and Save again!</h1>
+                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(4)}}>back</a> and Save again!</h1>
                 }
               </label>
               </div>

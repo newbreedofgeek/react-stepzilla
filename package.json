@@ -1,6 +1,6 @@
 {
   "name": "react-stepzilla",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
