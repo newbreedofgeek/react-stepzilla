@@ -29317,7 +29317,7 @@
 	        if (_this2.props.dontValidate) {
 	          i.validated = true;
 	        } else {
-	          i.validated = typeof i.component.type.prototype._isValidated == 'undefined' ? true : false;
+	          i.validated = typeof i.component.type.prototype.isValidated == 'undefined' ? true : false;
 	        }
 
 	        return i;
@@ -30641,7 +30641,7 @@
 	    value: function componentWillUnmount() {}
 
 	    // not required as this component has no forms or user entry
-	    // _isValidated() {}
+	    // isValidated() {}
 
 	  }, {
 	    key: 'render',
@@ -30874,8 +30874,8 @@
 
 	    _this._validateOnDemand = true; // this flag enables onBlur validation as user fills forms
 
-	    _this.validationCheck = _this._validationCheck.bind(_this);
-	    _this.isValidated = _this._isValidated.bind(_this);
+	    _this.validationCheck = _this.validationCheck.bind(_this);
+	    _this.isValidated = _this.isValidated.bind(_this);
 	    return _this;
 	  }
 
@@ -30886,8 +30886,8 @@
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {}
 	  }, {
-	    key: '_isValidated',
-	    value: function _isValidated() {
+	    key: 'isValidated',
+	    value: function isValidated() {
 	      var userInput = this._grabUserInput(); // grab user entered vals
 	      var validateNewInput = this._validateData(userInput); // run the new input against the validator
 	      var isDataValid = false;
@@ -30912,8 +30912,8 @@
 	      return isDataValid;
 	    }
 	  }, {
-	    key: '_validationCheck',
-	    value: function _validationCheck() {
+	    key: 'validationCheck',
+	    value: function validationCheck() {
 	      if (!this._validateOnDemand) return;
 
 	      var userInput = this._grabUserInput(); // grab user entered vals
@@ -31259,7 +31259,7 @@
 	                    { href: 'https://github.com/jurassix/react-validation-mixin', target: '_blank' },
 	                    'react-validation-mixin'
 	                  ),
-	                  ' to handle your validations as well! (as of v4.3.0)!'
+	                  ' to handle your validations as well! (as of v4.3.2)!'
 	                )
 	              ),
 	              _react2.default.createElement('br', null),
@@ -54728,7 +54728,7 @@
 	      saving: false
 	    };
 
-	    _this.isValidated = _this._isValidated.bind(_this); // provide a public isValidated() method. Here its bound to a private _isValidated method
+	    _this.isValidated = _this.isValidated.bind(_this);
 	    return _this;
 	  }
 
@@ -54742,8 +54742,8 @@
 	    // This review screen had the 'Save' button, on clicking this is called
 
 	  }, {
-	    key: '_isValidated',
-	    value: function _isValidated() {
+	    key: 'isValidated',
+	    value: function isValidated() {
 	      var _this2 = this;
 
 	      // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
@@ -54936,7 +54936,7 @@
 	    value: function componentWillUnmount() {}
 
 	    // not required as this component has no forms or user entry
-	    // _isValidated() {}
+	    //_isValidated() {}
 
 	  }, {
 	    key: 'render',
