@@ -27,7 +27,8 @@ export default class StepZilla extends Component {
         i.validated = true;
       }
       else {
-        i.validated = (typeof i.component.type.prototype._isValidated == 'undefined') ? true : false;
+        debugger;
+        i.validated = (typeof i.component.type.prototype.isValidated == 'undefined') ? true : false;
       }
 
       return i;

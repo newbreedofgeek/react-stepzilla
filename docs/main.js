@@ -60,7 +60,7 @@ var StepZilla = function (_Component) {
         if (_this2.props.dontValidate) {
           i.validated = true;
         } else {
-          i.validated = typeof i.component.type.prototype._isValidated == 'undefined' ? true : false;
+          i.validated = typeof i.component.type.prototype.isValidated == 'undefined' ? true : false;
         }
 
         return i;

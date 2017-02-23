@@ -11,7 +11,7 @@ export default class Step5 extends Component {
       saving: false
     };
 
-    this.isValidated = this._isValidated.bind(this); // provide a public isValidated() method. Here its bound to a private _isValidated method
+    this.isValidated = this.isValidated.bind(this);
   }
 
   componentDidMount() {}
@@ -19,7 +19,7 @@ export default class Step5 extends Component {
   componentWillUnmount() {}
 
   // This review screen had the 'Save' button, on clicking this is called
-  _isValidated() {
+  isValidated() {
     // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
     // but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
     // ... for the resolve() to work out if we can move to the next step

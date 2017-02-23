@@ -16,7 +16,7 @@ export default class Step6 extends Component {
   componentWillUnmount() {}
 
   // not required as this component has no forms or user entry
-  // _isValidated() {}
+  //_isValidated() {}
 
   render() {
     return (

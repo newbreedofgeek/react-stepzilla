@@ -13,15 +13,15 @@ export default class Step3 extends Component {
 
     this._validateOnDemand = true; // this flag enables onBlur validation as user fills forms
 
-    this.validationCheck = this._validationCheck.bind(this);
-    this.isValidated = this._isValidated.bind(this);
+    this.validationCheck = this.validationCheck.bind(this);
+    this.isValidated = this.isValidated.bind(this);
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
-  _isValidated() {
+  isValidated() {
     const userInput = this._grabUserInput(); // grab user entered vals
     const validateNewInput = this._validateData(userInput); // run the new input against the validator
     let isDataValid = false;
@@ -45,7 +45,7 @@ export default class Step3 extends Component {
     return isDataValid;
   }
 
-  _validationCheck() {
+  validationCheck() {
     if (!this._validateOnDemand)
       return;
 
@@ -116,7 +116,7 @@ export default class Step3 extends Component {
                   Gender
                 </label>
                 <div className={notValidClasses.genderCls}>
-                  <select 
+                  <select
                     ref="gender"
                     autoComplete="off"
                     className="form-control"
