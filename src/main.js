@@ -17,6 +17,9 @@ export default class StepZilla extends Component {
       display: 'none'
     };
 
+    this.prevClassName = this.props.prevClassName || 'btn btn-prev btn-primary btn-lg pull-left';
+    this.nextClassName = this.props.nextClassName || 'btn btn-next btn-primary btn-lg pull-right';
+
     this.applyValidationFlagsToSteps();
   }
 
@@ -306,11 +309,11 @@ export default class StepZilla extends Component {
 
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
           <button style={this.state.showPreviousBtn ? {} : this.hidden}
-                  className="btn btn-prev btn-primary btn-lg pull-left"
+                  className={this.prevClassName}
                   onClick={() => {this.previous()}}>Previous</button>
 
           <button style={this.state.showNextBtn ? {} : this.hidden}
-                  className="btn btn-next btn-primary btn-lg pull-right"
+                  className={this.nextClassName}
                   onClick={() => {this.next()}}>{this.state.nextStepText}</button>
         </div>
       </div>
