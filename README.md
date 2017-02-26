@@ -1,8 +1,11 @@
 # react stepzilla
 is a multi-step, wizard component for sequential data collection. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data-entry form it can tigger validation and only proceed if the data is valid.
 
-
-#### :tada::tada: whats new: react stepzilla now supports Pure Components!!! (as of v4.2.0) :tada::tada:
+ #### :tada: whats new:
+```
+v4.3.0: now supporting higer order component based validation via react-validation-mixin!
+v4.2.0: now supporting pure, dumb components!
+```
 
 
 ### what does it do?
@@ -73,6 +76,9 @@ startAtStep: [stepIndex]
 
 // specify what the Next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
 nextTextOnFinalActionStep: "Save"
+
+// its recommended that you use basic javascript validation (i.e simple validation implemented inside your step component. But stepzilla steps can also use 'react-validation-mixin' which wraps your steps as higher order components. If you use this then you need to specify those steps indexes that use 'react-validation-mixin' below in this array)
+hocValidationAppliedTo: [1, 2]
 
 ```
 

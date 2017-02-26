@@ -13,15 +13,15 @@ export default class Step3 extends Component {
 
     this._validateOnDemand = true; // this flag enables onBlur validation as user fills forms
 
-    this.validationCheck = this._validationCheck.bind(this);
-    this.isValidated = this._isValidated.bind(this);
+    this.validationCheck = this.validationCheck.bind(this);
+    this.isValidated = this.isValidated.bind(this);
   }
 
   componentDidMount() {}
 
   componentWillUnmount() {}
 
-  _isValidated() {
+  isValidated() {
     const userInput = this._grabUserInput(); // grab user entered vals
     const validateNewInput = this._validateData(userInput); // run the new input against the validator
     let isDataValid = false;
@@ -45,7 +45,7 @@ export default class Step3 extends Component {
     return isDataValid;
   }
 
-  _validationCheck() {
+  validationCheck() {
     if (!this._validateOnDemand)
       return;
 
@@ -103,29 +103,48 @@ export default class Step3 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 3: Enter your Details</h1>
+                <h1>Step 3: Basic JavaScript Validation Example</h1>
               </label>
             </div>
-            <div className="form-group col-md-12 content">
+            <div className="row content">
+              <div className="col-md-12">
+                This example component has a form that uses local standard basic JavaScript validation.
+              </div>
+            </div>
+            <div className="form-group col-md-12 content form-block-holder">
                 <label className="control-label col-md-4">
                   Gender
                 </label>
                 <div className={notValidClasses.genderCls}>
-                  <select ref="gender" autoComplete="off" className="form-control" defaultValue={this.state.gender} required onBlur={this.validationCheck}>
-                    <option value="">Please select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                  <select
+                    ref="gender"
+                    autoComplete="off"
+                    className="form-control"
+                    required
+                    defaultValue={this.state.gender}
+                    onBlur={this.validationCheck}>
+                      <option value="">Please select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
                   </select>
                   <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </div>
               </div>
-              <div className="form-group col-md-12 content">
+              <div className="form-group col-md-12 content form-block-holder">
                 <label className="control-label col-md-4">
                   Email
                 </label>
                 <div className={notValidClasses.emailCls}>
-                  <input ref="email" autoComplete="off" type="email" placeholder="john.smith@example.com" className="form-control" defaultValue={this.state.email} required onBlur={this.validationCheck} />
+                  <input
+                    ref="email"
+                    autoComplete="off"
+                    type="email"
+                    placeholder="john.smith@example.com"
+                    className="form-control"
+                    required
+                    defaultValue={this.state.email}
+                    onBlur={this.validationCheck} />
                   <div className={notValidClasses.emailValGrpCls}>{this.state.emailValMsg}</div>
                 </div>
               </div>

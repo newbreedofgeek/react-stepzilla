@@ -14,7 +14,7 @@ export default class Step1 extends Component {
   componentWillUnmount() {}
 
   // not required as this component has no forms or user entry
-  // _isValidated() {}
+  // isValidated() {}
 
   render() {
     return (

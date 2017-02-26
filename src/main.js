@@ -25,7 +25,7 @@ export default class StepZilla extends Component {
         i.validated = true;
       }
       else {
-        i.validated = (typeof i.component.type.prototype._isValidated == 'undefined') ? true : false;
+        i.validated = (typeof i.component.type.prototype.isValidated == 'undefined') ? true : false;
       }
 
       return i;
@@ -223,7 +223,7 @@ export default class StepZilla extends Component {
     }
     else {
       if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
-        // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC, so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface 
+        // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC, so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
         proceed = this.refs.activeComponent.refs.component.isValidated();
       }
       else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {

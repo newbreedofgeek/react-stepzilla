@@ -16,7 +16,7 @@ export default class Step6 extends Component {
   componentWillUnmount() {}
 
   // not required as this component has no forms or user entry
-  // _isValidated() {}
+  //_isValidated() {}
 
   render() {
     return (
@@ -33,7 +33,7 @@ export default class Step6 extends Component {
                       <h2>Data was successfully saved to cloud...</h2>
                     </div>
                   :
-                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(3)}}>back</a> and Save again!</h1>
+                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(4)}}>back</a> and Save again!</h1>
                 }
               </label>
               </div>
