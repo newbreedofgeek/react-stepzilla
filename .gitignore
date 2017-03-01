@@ -1,6 +1,40 @@
-.DS_Store
+# working files
+.vim/viminfo
+.vim/swaps/*
+.vim/undo
+
+# git credential file
+.gitconfig.local
+.gitconfig
+
+# no thx
 node_modules
-*.jsx
 coverage
 src/examples/dist
 npm-debug.log
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Compiled Python files
+*.pyc
+
+# fish shell
+fishd.*
+.config/fish/fish_history
+fish/fish_history
+
+# extra
+.extra
+
+# random
+shilocation
