@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -32,13 +34,10 @@ var StepZilla = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (StepZilla.__proto__ || Object.getPrototypeOf(StepZilla)).call(this, props));
 
-    _this.state = {
-      showPreviousBtn: false,
-      showNextBtn: true,
+    _this.state = _extends({}, _this.getPrevNextBtnState(_this.props.startAtStep), {
       compState: _this.props.startAtStep,
-      navState: _this.getNavStates(0, _this.props.steps.length),
-      nextStepText: 'Next'
-    };
+      navState: _this.getNavStates(_this.props.startAtStep, _this.props.steps.length)
+    });
 
     _this.hidden = {
       display: 'none'
@@ -86,37 +85,40 @@ var StepZilla = function (_Component) {
 
       return { current: indx, styles: styles };
     }
+  }, {
+    key: 'getPrevNextBtnState',
+    value: function getPrevNextBtnState(currentStep) {
+      var correctNextText = 'Next';
+
+      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
+        if (currentStep === this.props.steps.length - 2) {
+          correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
+        }
+        return {
+          showPreviousBtn: true,
+          showNextBtn: true,
+          nextStepText: correctNextText
+        };
+      } else if (currentStep === 0) {
+        return {
+          showPreviousBtn: false,
+          showNextBtn: true,
+          nextStepText: correctNextText
+        };
+      }
+      return {
+        showPreviousBtn: this.props.prevBtnOnLastStep,
+        showNextBtn: false,
+        nextStepText: correctNextText
+      };
+    }
 
     // which step are we in?
 
   }, {
     key: 'checkNavState',
     value: function checkNavState(currentStep) {
-      var correctNextText = 'Next';
-
-      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
-        if (currentStep == this.props.steps.length - 2) {
-          correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
-        }
-
-        this.setState({
-          showPreviousBtn: true,
-          showNextBtn: true,
-          nextStepText: correctNextText
-        });
-      } else if (currentStep === 0) {
-        this.setState({
-          showPreviousBtn: false,
-          showNextBtn: true,
-          nextStepText: correctNextText
-        });
-      } else {
-        this.setState({
-          showPreviousBtn: this.props.prevBtnOnLastStep ? true : false,
-          showNextBtn: false,
-          nextStepText: correctNextText
-        });
-      }
+      this.setState(this.getPrevNextBtnState(currentStep));
     }
 
     // set the nav state
@@ -291,14 +293,14 @@ var StepZilla = function (_Component) {
       if (this.props.dontValidate) {
         proceed = true;
       } else {
-        if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
+        if (skipValidationExecution) {
+          // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
+          proceed = true;
+        } else if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
           // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC, so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
           proceed = this.refs.activeComponent.refs.component.isValidated();
         } else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
           // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
-          proceed = true;
-        } else if (skipValidationExecution) {
-          // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
           proceed = true;
         } else {
           // user is moving forward in steps, invoke validation as its available
