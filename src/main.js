@@ -224,16 +224,16 @@ export default class StepZilla extends Component {
       proceed = true;
     }
     else {
-      if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
+      if (skipValidationExecution) {
+        // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
+        proceed = true;
+      }
+      else if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
         // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC, so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
         proceed = this.refs.activeComponent.refs.component.isValidated();
       }
       else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
         // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
-        proceed = true;
-      }
-      else if (skipValidationExecution) {
-        // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
         proceed = true;
       }
       else {
