@@ -9,7 +9,7 @@ v4.2.0: now supporting pure, dumb components!
 
 
 ### what does it do?
-- something like this of course:
+something like this of course:
 
 ![react-stepzilla](https://raw.githubusercontent.com/newbreedofgeek/react-stepzilla/master/stepzilla-eg.png)
 
@@ -103,6 +103,13 @@ e.g.
 `this.props.jumpToStep(2)` will jump to your 3rd step (it uses a zero based index)
 - check out `src/examples/Step3` for an actual usage example
 - important!! this jumpToStep() utility method will not validate data! so use with caution. its only meant to be a utility to break from the standard flow of steps
+
+#### step validation
+- your individual react steps can implement some checks to prevent moving onto the next step, this is called "validation" in stepzilla.
+- to use this feature, you need to implement a public `isValidated()` method in your react step component.
+- this `isValidated()` method can return a static `true/false` (true to proceed and false to prevent). It can also return a `Promise` which in turn should `resolve` or `reject` (which maps to the static `true/false`  behaviour)
+- stepzilla also supports advanced form validation via `react-validation-mixin`
+- check out sample code in the `src/examples` directory. (Step3.js and Step4.js show you all this in action)
 
 ### dev
 - all node source is in src/main.js
