@@ -23,6 +23,7 @@ class Step4 extends Component {
   }
 
   isValidated() {
+    debugger;
     return new Promise((resolve, reject) => {
       this.props.validate((error) => {
         if (error) {
@@ -30,10 +31,12 @@ class Step4 extends Component {
           return;
         }
 
-        this.props.updateStore({
-          ...this.getValidatorData(),
-          savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
-        });  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        if (this.props.getStore().emailEmergency != this.getValidatorData().emailEmergency) { // only update store of something changed
+          this.props.updateStore({
+            ...this.getValidatorData(),
+            savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+          });  // Update store here (this is just an example, in reality you will do it via redux or flux)
+        }
 
         resolve(); // form is valid, fire action
       });

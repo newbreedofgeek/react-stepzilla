@@ -30894,6 +30894,7 @@
 	  }, {
 	    key: 'isValidated',
 	    value: function isValidated() {
+	      debugger;
 	      var userInput = this._grabUserInput(); // grab user entered vals
 	      var validateNewInput = this._validateData(userInput); // run the new input against the validator
 	      var isDataValid = false;
@@ -31153,6 +31154,7 @@
 	    value: function isValidated() {
 	      var _this2 = this;
 
+	      debugger;
 	      return new Promise(function (resolve, reject) {
 	        _this2.props.validate(function (error) {
 	          if (error) {
@@ -31160,9 +31162,12 @@
 	            return;
 	          }
 
-	          _this2.props.updateStore(_extends({}, _this2.getValidatorData(), {
-	            savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
-	          })); // Update store here (this is just an example, in reality you will do it via redux or flux)
+	          if (_this2.props.getStore().emailEmergency != _this2.getValidatorData().emailEmergency) {
+	            // only update store of something changed
+	            _this2.props.updateStore(_extends({}, _this2.getValidatorData(), {
+	              savedToCloud: false // use this to notify step4 that some changes took place and prompt the user to save again
+	            })); // Update store here (this is just an example, in reality you will do it via redux or flux)
+	          }
 
 	          resolve(); // form is valid, fire action
 	        });
@@ -54942,7 +54947,7 @@
 	    value: function componentWillUnmount() {}
 
 	    // not required as this component has no forms or user entry
-	    //_isValidated() {}
+	    // isValidated() {}
 
 	  }, {
 	    key: 'render',

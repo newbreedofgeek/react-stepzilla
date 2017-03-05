@@ -22,6 +22,7 @@ export default class Step3 extends Component {
   componentWillUnmount() {}
 
   isValidated() {
+    debugger;
     const userInput = this._grabUserInput(); // grab user entered vals
     const validateNewInput = this._validateData(userInput); // run the new input against the validator
     let isDataValid = false;
