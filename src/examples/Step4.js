@@ -97,7 +97,7 @@ class Step4 extends Component {
                   </div>
                   <div className="form-group hoc-alert col-md-12 form-block-holder">
                     <label className="col-md-12 control-label">
-                      <h4>As shown in this examplem, you can also use <a href="https://github.com/jurassix/react-validation-mixin" target="_blank">react-validation-mixin</a> to handle your validations as well! (as of v4.3.2)!</h4>
+                      <h4>As shown in this example, you can also use <a href="https://github.com/jurassix/react-validation-mixin" target="_blank">react-validation-mixin</a> to handle your validations as well! (as of v4.3.2)!</h4>
                     </label>
                     <br />
                     <div className="green">... so StepZilla step Components can either use basic JS validation or Higer Order Component (HOC) based validation with react-validation-mixin.</div>
@@ -110,14 +110,14 @@ class Step4 extends Component {
 }
 
 Step4.propTypes = {
-    errors: PropTypes.object,
-    validate: PropTypes.func,
-    isValid: PropTypes.func,
-    handleValidation: PropTypes.func,
-    getValidationMessages: PropTypes.func,
-    clearValidations: PropTypes.func,
-    getStore: PropTypes.func,
-    updateStore: PropTypes.func,
+  errors: PropTypes.object,
+  validate: PropTypes.func,
+  isValid: PropTypes.func,
+  handleValidation: PropTypes.func,
+  getValidationMessages: PropTypes.func,
+  clearValidations: PropTypes.func,
+  getStore: PropTypes.func,
+  updateStore: PropTypes.func
 };
 
 export default validation(strategy)(Step4);
