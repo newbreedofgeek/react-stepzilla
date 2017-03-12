@@ -65,10 +65,6 @@ describe('StepZilla', () => {
     it('should render correct number of steps', () => {
       expect(enzymeWrapper.find('li')).to.have.length(2);
     });
-
-    it('should render the forward button with the default Next text', () => {
-      expect(enzymeWrapper.find('.btn-next').text()).to.be.equal('Next');
-    });
   });
 
   describe('base component render (using Pure Components mocking)', () => {
@@ -105,6 +101,10 @@ describe('StepZilla', () => {
 
       it('should show the Next button on first view', () => {
         expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
+      });
+
+      it('should render the forward button with the default Next text', () => {
+        expect(enzymeWrapper.find('.btn-next').text()).to.be.equal('Next');
       });
 
       it('should NOT show render the Prev button on first view', () => {
