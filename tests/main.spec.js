@@ -65,6 +65,10 @@ describe('StepZilla', () => {
     it('should render correct number of steps', () => {
       expect(enzymeWrapper.find('li')).to.have.length(2);
     });
+
+    it('should render the forward button with the default Next text', () => {
+      expect(enzymeWrapper.find('.btn-next').text()).to.be.equal('Next');
+    });
   });
 
   describe('base component render (using Pure Components mocking)', () => {
