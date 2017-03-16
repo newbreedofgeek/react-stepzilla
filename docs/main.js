@@ -387,7 +387,7 @@ var StepZilla = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'multi-step full-height', onKeyDown: function onKeyDown(evt) {
+        { className: 'multi-step', onKeyDown: function onKeyDown(evt) {
             _this6.handleKeyDown(evt);
           } },
         this.props.showSteps ? _react2.default.createElement(

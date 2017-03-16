@@ -29239,6 +29239,7 @@
 	            steps: steps,
 	            preventEnterSubmission: true,
 	            nextTextOnFinalActionStep: "Save",
+	            stepsNavigation: false,
 	            hocValidationAppliedTo: [3]
 	          })
 	        )
@@ -29644,7 +29645,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'multi-step full-height', onKeyDown: function onKeyDown(evt) {
+	        { className: 'multi-step', onKeyDown: function onKeyDown(evt) {
 	            _this6.handleKeyDown(evt);
 	          } },
 	        this.props.showSteps ? _react2.default.createElement(
@@ -30894,7 +30895,6 @@
 	  }, {
 	    key: 'isValidated',
 	    value: function isValidated() {
-	      debugger;
 	      var userInput = this._grabUserInput(); // grab user entered vals
 	      var validateNewInput = this._validateData(userInput); // run the new input against the validator
 	      var isDataValid = false;
@@ -31154,7 +31154,6 @@
 	    value: function isValidated() {
 	      var _this2 = this;
 
-	      debugger;
 	      return new Promise(function (resolve, reject) {
 	        _this2.props.validate(function (error) {
 	          if (error) {
@@ -31264,7 +31263,7 @@
 	                _react2.default.createElement(
 	                  'h4',
 	                  null,
-	                  'As shown in this examplem, you can also use ',
+	                  'As shown in this example, you can also use ',
 	                  _react2.default.createElement(
 	                    'a',
 	                    { href: 'https://github.com/jurassix/react-validation-mixin', target: '_blank' },
