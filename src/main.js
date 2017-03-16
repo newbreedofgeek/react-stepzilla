@@ -291,7 +291,7 @@ export default class StepZilla extends Component {
     compToRender = React.cloneElement(componentPointer, cloneExtensions);
 
     return (
-      <div className="multi-step full-height" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>
+      <div className="multi-step" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>
         {
           this.props.showSteps
           ? <ol className="progtrckr">
