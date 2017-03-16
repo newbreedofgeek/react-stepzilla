@@ -138,7 +138,7 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.3.3:
+Current coverage sitting at v4.3.4:
 ```
 Statements   : 64.33% ( 110/171 ), 12 ignored
 Branches     : 54% ( 81/150 ), 23 ignored
