@@ -23,6 +23,10 @@ export default class StepZilla extends Component {
     this.applyValidationFlagsToSteps();
   }
 
+  isLastStep() {
+    return (this.props.steps.length - 1) === this.state.compState;
+  }
+
   // extend the "steps" array with flags to indicate if they have been validated
   applyValidationFlagsToSteps() {
     this.props.steps.map((i) => {
@@ -79,9 +83,10 @@ export default class StepZilla extends Component {
       });
     }
     else {
+      correctNextText = this.props.nextTextOnLastStep;
       this.setState({
         showPreviousBtn: (this.props.prevBtnOnLastStep) ? true : false,
-        showNextBtn: false,
+        showNextBtn: (this.props.nextBtnOnLastStep) ? true : false,
         nextStepText: correctNextText
       });
     }
@@ -188,6 +193,11 @@ export default class StepZilla extends Component {
       .then((proceed = true) => {
         // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync validation
         this.updateStepValidationFlag(proceed);
+
+        if (this.isLastStep() && this.props.onAfterLastStep) {
+          this.props.onAfterLastStep();
+          return;
+        }
 
         if (proceed) {
           this.setNavState(this.state.compState + 1);
@@ -329,6 +339,8 @@ StepZilla.defaultProps = {
   dontValidate: false,
   preventEnterSubmission: false,
   startAtStep: 0,
+  nextBtnOnLastStep: false,
   nextTextOnFinalActionStep: "Next",
+  nextTextOnLastStep: "Next",
   hocValidationAppliedTo: []
 };

@@ -80,6 +80,15 @@ nextTextOnFinalActionStep: "Save"
 // its recommended that you use basic javascript validation (i.e simple validation implemented inside your step component. But stepzilla steps can also use 'react-validation-mixin' which wraps your steps as higher order components. If you use this then you need to specify those steps indexes that use 'react-validation-mixin' below in this array)
 hocValidationAppliedTo: [1, 2]
 
+// specify if you want to show a next button on the last step.  You can customize the button text with nextTextOnLastStep and you can provide a callback with onAfterLastStep.  Defaults to false
+nextBtnOnLastStep: true | false
+
+// specify what text you want to display on the last step next button
+nextTextOnLastStep: 'Next'
+
+// provide a callback for clicking next on the final step
+onAfterLastStep: function()
+
 ```
 
 example options usage:
