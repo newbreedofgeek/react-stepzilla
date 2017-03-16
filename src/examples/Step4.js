@@ -23,7 +23,6 @@ class Step4 extends Component {
   }
 
   isValidated() {
-    debugger;
     return new Promise((resolve, reject) => {
       this.props.validate((error) => {
         if (error) {
