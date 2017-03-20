@@ -54,7 +54,6 @@ export default class Example extends Component {
             steps={steps}
             preventEnterSubmission={true}
             nextTextOnFinalActionStep={"Save"}
-            stepsNavigation={false}
             hocValidationAppliedTo={[3]}
              />
         </div>

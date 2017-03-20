@@ -29239,7 +29239,6 @@
 	            steps: steps,
 	            preventEnterSubmission: true,
 	            nextTextOnFinalActionStep: "Save",
-	            stepsNavigation: false,
 	            hocValidationAppliedTo: [3]
 	          })
 	        )
