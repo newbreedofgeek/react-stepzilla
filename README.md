@@ -141,10 +141,10 @@ A full example is found in the `src/examples` directory.
 
 Current coverage sitting at v4.3.4:
 ```
-Statements   : 64.33% ( 110/171 ), 12 ignored
-Branches     : 54% ( 81/150 ), 23 ignored
+Statements   : 66.08% ( 113/171 ), 12 ignored
+Branches     : 55.33% ( 83/150 ), 23 ignored
 Functions    : 68.89% ( 31/45 ), 6 ignored
-Lines        : 50.86% ( 59/116 )
+Lines        : 53.45% ( 62/116 )
 ```
 
 ### dev todo
