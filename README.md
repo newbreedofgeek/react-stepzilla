@@ -118,6 +118,7 @@ e.g.
 - the transpilation is run as an auto pre-publish task so it should usually be up to date when consumed via npm
 - `npm run build-example` builds and packs the example app into the 'docs' folder so it can be accessed via ghpages
 
+
 ### run and view example in browser
 A full example is found in the `src/examples` directory.
 
