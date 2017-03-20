@@ -81,7 +81,7 @@ describe('StepZilla', () => {
   });
 
   describe('default props based ui render', () => {
-    const { enzymeWrapper } = setup(2, {dontValidate: true});
+    const { enzymeWrapper } = setup(3, {dontValidate: true});
 
     describe('showSteps: true', () => {
       it('should render showSteps based header', () => {
@@ -93,6 +93,7 @@ describe('StepZilla', () => {
       it('should render steps classes in header with correct classes to indicate navigation is working', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
+        expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-todo')).to.be.true;
       });
     });
 
@@ -120,6 +121,21 @@ describe('StepZilla', () => {
         });
       });
 
+      it('should render the Next and Prev button on 2nd step (and test if step classes also updated correctly)', (done) => {
+        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+        // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
+        setTimeout(() => {
+          expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
+          expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
+          expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-doing')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-todo')).to.be.true;
+
+          done();
+        }, 10);
+      });
+
       // this should be the last test as the 'click' goes to the second step
       it('should NOT show render the Next button on last step (and test if step classes also updated correctly)', (done) => {
         enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
@@ -131,7 +147,8 @@ describe('StepZilla', () => {
           });
           expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
-          expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-doing')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-done')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
 
           done();
         }, 10);
