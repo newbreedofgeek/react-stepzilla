@@ -67,6 +67,7 @@ describe('StepZilla', () => {
     });
   });
 
+
   describe('base component render (using Pure Components mocking)', () => {
     const { enzymeWrapper } = setup(2, {dontValidate: true}, true);
 
@@ -80,16 +81,19 @@ describe('StepZilla', () => {
     });
   });
 
-  describe('default props based ui render', () => {
-    const { enzymeWrapper } = setup(3, {dontValidate: true});
 
-    describe('showSteps: true', () => {
+  describe('custom props based render', () => {
+    describe('showSteps: true use case', () => {
+      const { enzymeWrapper } = setup(2, {dontValidate: true});
+
       it('should render showSteps based header', () => {
         expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
       });
     });
 
-    describe('stepsNavigation: true', () => {
+    describe('stepsNavigation: true use case', () => {
+      const { enzymeWrapper } = setup(3, {dontValidate: true});
+
       it('should render steps classes in header with correct classes to indicate navigation is working', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
@@ -97,7 +101,9 @@ describe('StepZilla', () => {
       });
     });
 
-    describe('showNavigation: true', () => {
+    describe('showNavigation: true use case', () => {
+      const { enzymeWrapper } = setup(3, {dontValidate: true});
+
       it('should render showNavigation based footer', () => {
         expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({});
       });
@@ -154,24 +160,34 @@ describe('StepZilla', () => {
         }, 10);
       });
     });
-  });
+  }); // end - default props based render group
 
-  describe('custom props based ui render', () => {
-    const { enzymeWrapper } = setup(2, {
-      showSteps: false,
-      showNavigation: false,
-      dontValidate: true
-    });
 
-    it('should NOT render showSteps based header as "showSteps: false"', () => {
-      expect(enzymeWrapper.find('.progtrckr')).to.have.length(0);
-    });
+  describe('custom props based render', () => {
+    describe('showSteps: false use case', () => {
+      const { enzymeWrapper } = setup(2, {
+        showSteps: false,
+        showNavigation: false,
+        dontValidate: true
+      });
 
-    it('should NOT render showNavigation based footer as "showNavigation: false"', () => {
-      expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({
-        display: 'none'
+      it('should NOT render showSteps based header', () => {
+        expect(enzymeWrapper.find('.progtrckr')).to.have.length(0);
       });
     });
 
-  });
+    describe('showNavigation: false use case', () => {
+      const { enzymeWrapper } = setup(2, {
+        showSteps: false,
+        showNavigation: false,
+        dontValidate: true
+      });
+
+      it('should NOT render showNavigation based footer', () => {
+        expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({
+          display: 'none'
+        });
+      });
+    });
+  }); // end - custom props based render group
 });
