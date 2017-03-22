@@ -160,6 +160,25 @@ describe('StepZilla', () => {
         }, 10);
       });
     });
+
+    describe('prevBtnOnLastStep: true use case', () => {
+      const { enzymeWrapper } = setup(3, {dontValidate: true});
+
+      it('should render Prev button on last (2nd) step', (done) => {
+        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+        // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
+        setTimeout(() => {
+          enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+          setTimeout(() => {
+            expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
+
+            done();
+          }, 10);
+        }, 10);
+      });
+    });
   }); // end - default props based render group
 
 
@@ -167,7 +186,6 @@ describe('StepZilla', () => {
     describe('showSteps: false use case', () => {
       const { enzymeWrapper } = setup(2, {
         showSteps: false,
-        showNavigation: false,
         dontValidate: true
       });
 
@@ -178,7 +196,6 @@ describe('StepZilla', () => {
 
     describe('showNavigation: false use case', () => {
       const { enzymeWrapper } = setup(2, {
-        showSteps: false,
         showNavigation: false,
         dontValidate: true
       });
@@ -187,6 +204,30 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({
           display: 'none'
         });
+      });
+    });
+
+    describe('prevBtnOnLastStep: false use case', () => {
+      const { enzymeWrapper } = setup(3, {
+        prevBtnOnLastStep: false,
+        dontValidate: true
+      });
+
+      it('should NOT render Prev button on last (2nd) step', (done) => {
+        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+        // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
+        setTimeout(() => {
+          enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+          setTimeout(() => {
+            expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({
+              display: 'none'
+            });
+
+            done();
+          }, 10);
+        }, 10);
       });
     });
   }); // end - custom props based render group
