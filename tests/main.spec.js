@@ -99,6 +99,26 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
         expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-todo')).to.be.true;
       });
+
+      it('should jump to 2nd step when clicking the 1st step icon in header', (done) => {
+        expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
+        expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
+
+        // simulate the click, and mock the event with target to 1 (i.e. jump to step 1 from 0)
+        enzymeWrapper.find('.progtrckr-doing .progtrckr-doing').simulate('click', {
+          target: {
+            value: 1
+          },
+          persist: () => {} // need this as its not in the enzyme mock
+        });
+
+        setTimeout(() => {
+          expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-doing')).to.be.true;
+
+          done();
+        }, 10);
+      });
     });
 
     describe('showNavigation: true use case', () => {
@@ -191,6 +211,34 @@ describe('StepZilla', () => {
 
       it('should NOT render showSteps based header', () => {
         expect(enzymeWrapper.find('.progtrckr')).to.have.length(0);
+      });
+    });
+
+    describe('stepsNavigation: false use case', () => {
+      const { enzymeWrapper } = setup(3, {
+        stepsNavigation: false,
+        dontValidate: true
+      });
+
+      it('should NOT jump to 2nd step when clicking the 1st step icon in header', (done) => {
+        expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
+        expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
+
+        // simulate the click, and mock the event with target to 1 (i.e. jump to step 1 from 0)
+        enzymeWrapper.find('.progtrckr-doing .progtrckr-doing').simulate('click', {
+          target: {
+            value: 1
+          },
+          preventDefault: () => {}, // need this as its not in the enzyme mock
+          stopPropagation: () => {} // need this as its not in the enzyme mock
+        });
+
+        setTimeout(() => {
+          expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
+
+          done();
+        }, 10);
       });
     });
 
