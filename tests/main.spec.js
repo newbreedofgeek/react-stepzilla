@@ -137,8 +137,12 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
       });
 
-      it('should render the forward button with the default Next text', () => {
+      it('should render the forward button with the default "Next" text', () => {
         expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
+      });
+
+      it('should render the back button with the default "Previous" text', () => {
+        expect(enzymeWrapper.find('.footer-buttons .btn-prev').text()).to.be.equal('Previous');
       });
 
       it('should NOT show render the Prev button on first view', () => {
@@ -196,6 +200,21 @@ describe('StepZilla', () => {
 
             done();
           }, 10);
+        }, 10);
+      });
+    });
+
+    describe('nextTextOnFinalActionStep: "Next" use case', () => {
+      const { enzymeWrapper } = setup(3, {dontValidate: true});
+
+      it('should render "Next" when we jump to the final action step (2nd step in this case)', (done) => {
+        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+        // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
+        setTimeout(() => {
+          expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
+
+          done();
         }, 10);
       });
     });
@@ -275,6 +294,24 @@ describe('StepZilla', () => {
 
             done();
           }, 10);
+        }, 10);
+      });
+    });
+
+    describe('nextTextOnFinalActionStep: "Save" use case', () => {
+      const { enzymeWrapper } = setup(3, {
+        nextTextOnFinalActionStep: 'Save',
+        dontValidate: true
+      });
+
+      it('should render "Save" when we jump to the final action step (2nd step in this case)', (done) => {
+        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+
+        // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
+        setTimeout(() => {
+          expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Save');
+
+          done();
         }, 10);
       });
     });
