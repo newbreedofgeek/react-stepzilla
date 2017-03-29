@@ -218,7 +218,16 @@ describe('StepZilla', () => {
         }, 10);
       });
     });
+
+    describe('startAtStep: 0 use case', () => {
+      const { enzymeWrapper } = setup(3, {dontValidate: true});
+
+      it('should start at the first step', () => {
+        expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
+      });
+    });
   }); // end - default props based render group
+
 
 
   describe('custom props based render', () => {
@@ -313,6 +322,17 @@ describe('StepZilla', () => {
 
           done();
         }, 10);
+      });
+    });
+
+    describe('startAtStep: 2 use case', () => {
+      const { enzymeWrapper } = setup(3, {
+        startAtStep: 2,
+        dontValidate: true
+      });
+
+      it('should start at the 3rd step (its a 0 based index)', () => {
+        expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
       });
     });
   }); // end - custom props based render group
