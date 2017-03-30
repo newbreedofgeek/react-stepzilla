@@ -15,6 +15,9 @@ export default class StepZilla extends Component {
       display: 'none'
     };
 
+    // if user did not give a custom nextTextOnFinalActionStep, the nextButtonText becomes the default
+    this.nextTextOnFinalActionStep = (this.props.nextTextOnFinalActionStep) ? this.props.nextTextOnFinalActionStep : this.props.nextButtonText;
+
     this.applyValidationFlagsToSteps();
   }
 
@@ -52,11 +55,11 @@ export default class StepZilla extends Component {
   }
 
   getPrevNextBtnState(currentStep) {
-    let correctNextText = 'Next';
+    let correctNextText = this.props.nextButtonText;
 
     if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
       if (currentStep === this.props.steps.length - 2) {
-        correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
+        correctNextText = this.nextTextOnFinalActionStep; // we are in the one before final step
       }
       return {
         showPreviousBtn: true,
@@ -305,7 +308,7 @@ export default class StepZilla extends Component {
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
           <button style={this.state.showPreviousBtn ? {} : this.hidden}
                   className="btn btn-prev btn-primary btn-lg pull-left"
-                  onClick={() => {this.previous()}}>Previous</button>
+                  onClick={() => {this.previous()}}>{this.props.backButtonText}</button>
 
           <button style={this.state.showNextBtn ? {} : this.hidden}
                   className="btn btn-next btn-primary btn-lg pull-right"
@@ -324,6 +327,7 @@ StepZilla.defaultProps = {
   dontValidate: false,
   preventEnterSubmission: false,
   startAtStep: 0,
-  nextTextOnFinalActionStep: "Next",
+  nextButtonText: "Next",
+  backButtonText: "Previous",
   hocValidationAppliedTo: []
 };

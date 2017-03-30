@@ -55,7 +55,7 @@ export default class Example extends Component {
             preventEnterSubmission={true}
             nextTextOnFinalActionStep={"Save"}
             hocValidationAppliedTo={[3]}
-             />
+           />
         </div>
       </div>
     )

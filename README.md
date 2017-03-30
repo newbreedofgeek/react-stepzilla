@@ -74,7 +74,13 @@ preventEnterSubmission: true | false
 // specify what step to start from in the case you need to skip steps (send in a 0 based index for the item in the steps array. e.g. 2 will load <Step3 /> initially)
 startAtStep: [stepIndex]
 
-// specify what the Next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
+// specify the next button text (if not given it defaults to "Next")
+nextButtonText: "Siguiente"
+
+// specify the back button text (if not given it default to "Previous")
+backButtonText: "Espalda"
+
+// specify what the next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
 nextTextOnFinalActionStep: "Save"
 
 // its recommended that you use basic javascript validation (i.e simple validation implemented inside your step component. But stepzilla steps can also use 'react-validation-mixin' which wraps your steps as higher order components. If you use this then you need to specify those steps indexes that use 'react-validation-mixin' below in this array)
@@ -139,12 +145,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.3.4:
+Current coverage sitting at v4.4.4:
 ```
-Statements   : 83.63% ( 143/171 ), 11 ignored
-Branches     : 72.67% ( 109/150 ), 23 ignored
+Statements   : 83.72% ( 144/172 ), 11 ignored
+Branches     : 73.03% ( 111/152 ), 23 ignored
 Functions    : 82.22% ( 37/45 ), 4 ignored
-Lines        : 77.59% ( 90/116 )
+Lines        : 77.78% ( 91/117 )
 ```
 
 ### dev todo

@@ -29300,6 +29300,9 @@
 	      display: 'none'
 	    };
 
+	    // if user did not give a custom nextTextOnFinalActionStep, the nextButtonText becomes the default
+	    _this.nextTextOnFinalActionStep = _this.props.nextTextOnFinalActionStep ? _this.props.nextTextOnFinalActionStep : _this.props.nextButtonText;
+
 	    _this.applyValidationFlagsToSteps();
 	    return _this;
 	  }
@@ -29345,11 +29348,11 @@
 	  }, {
 	    key: 'getPrevNextBtnState',
 	    value: function getPrevNextBtnState(currentStep) {
-	      var correctNextText = 'Next';
+	      var correctNextText = this.props.nextButtonText;
 
 	      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
 	        if (currentStep === this.props.steps.length - 2) {
-	          correctNextText = this.props.nextTextOnFinalActionStep; // we are in the one before final step
+	          correctNextText = this.nextTextOnFinalActionStep; // we are in the one before final step
 	        }
 	        return {
 	          showPreviousBtn: true,
@@ -29663,7 +29666,7 @@
 	              onClick: function onClick() {
 	                _this6.previous();
 	              } },
-	            'Previous'
+	            this.props.backButtonText
 	          ),
 	          _react2.default.createElement(
 	            'button',
@@ -29693,7 +29696,8 @@
 	  dontValidate: false,
 	  preventEnterSubmission: false,
 	  startAtStep: 0,
-	  nextTextOnFinalActionStep: "Next",
+	  nextButtonText: "Next",
+	  backButtonText: "Previous",
 	  hocValidationAppliedTo: []
 	};
 
@@ -30728,7 +30732,11 @@
 	                      _react2.default.createElement('br', null),
 	                      'startAtStep=0',
 	                      _react2.default.createElement('br', null),
-	                      'nextTextOnFinalActionStep=\'Next\'',
+	                      'nextButtonText=\'Next\'',
+	                      _react2.default.createElement('br', null),
+	                      'backButtonText=\'Previous\'',
+	                      _react2.default.createElement('br', null),
+	                      'nextTextOnFinalActionStep=\'[default value of nextButtonText]\'',
 	                      _react2.default.createElement('br', null),
 	                      'hocValidationAppliedTo: []'
 	                    )

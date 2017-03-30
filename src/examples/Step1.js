@@ -42,7 +42,9 @@ export default class Step1 extends Component {
                       dontValidate=false<br />
                       preventEnterSubmission=false<br />
                       startAtStep=0<br />
-                      nextTextOnFinalActionStep='Next'<br />
+                      nextButtonText='Next'<br />
+                      backButtonText='Previous'<br />
+                      nextTextOnFinalActionStep='[default value of nextButtonText]'<br />
                       hocValidationAppliedTo: []
                     </code>
                   </div>
