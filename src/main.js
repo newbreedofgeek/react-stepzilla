@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Promise from 'promise';
 
 export default class StepZilla extends Component {
@@ -331,3 +331,21 @@ StepZilla.defaultProps = {
   backButtonText: "Previous",
   hocValidationAppliedTo: []
 };
+
+StepZilla.propTypes = {
+  steps: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    component: PropTypes.element.isRequired
+  })).isRequired,
+  showSteps: PropTypes.bool,
+  showNavigation: PropTypes.bool,
+  stepsNavigation: PropTypes.bool,
+  prevBtnOnLastStep: PropTypes.bool,
+  dontValidate: PropTypes.bool,
+  preventEnterSubmission: PropTypes.bool,
+  preventEnterSubmission: PropTypes.bool,
+  startAtStep: PropTypes.number,
+  nextButtonText: PropTypes.string,
+  backButtonText: PropTypes.string,
+  hocValidationAppliedTo: PropTypes.array
+}
