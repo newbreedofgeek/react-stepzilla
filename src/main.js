@@ -28,7 +28,9 @@ export default class StepZilla extends Component {
         i.validated = true;
       }
       else {
-        i.validated = (typeof i.component.type.prototype.isValidated == 'undefined') ? true : false;
+        // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
+        i.validated = (typeof i.component.type === 'undefined' ||
+          typeof i.component.type.prototype.isValidated === 'undefined') ? true : false;
       }
 
       return i;

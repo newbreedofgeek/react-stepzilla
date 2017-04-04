@@ -11,6 +11,7 @@ const makeFakeSteps = (num, makePure) => {
     if (!makePure) {
       // make a "dirty" react component
       newComp = new React.Component();
+      // newComp.isValidated = isValidatedSpy;
       newComp.render = () => {
         return (
           <div>
@@ -55,7 +56,7 @@ function setup(stepCount = 1, config = {}, makePure = false) {
 
 describe('StepZilla', () => {
   describe('base component render (using React.Component based Components mocking)', () => {
-    const { enzymeWrapper } = setup(2, {dontValidate: true});
+    const { enzymeWrapper } = setup(2);
 
     it('should render self and primary css classes', () => {
       expect(enzymeWrapper).to.have.length(1);
@@ -69,7 +70,7 @@ describe('StepZilla', () => {
 
 
   describe('base component render (using Pure Components mocking)', () => {
-    const { enzymeWrapper } = setup(2, {dontValidate: true}, true);
+    const { enzymeWrapper } = setup(2, {}, true);
 
     it('should render self and primary css classes', () => {
       expect(enzymeWrapper).to.have.length(1);
@@ -84,7 +85,7 @@ describe('StepZilla', () => {
 
   describe('custom props based render', () => {
     describe('showSteps: true use case', () => {
-      const { enzymeWrapper } = setup(2, {dontValidate: true});
+      const { enzymeWrapper } = setup(2);
 
       it('should render showSteps based header', () => {
         expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
@@ -92,7 +93,7 @@ describe('StepZilla', () => {
     });
 
     describe('stepsNavigation: true use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render steps classes in header with correct classes to indicate navigation is working', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
@@ -122,7 +123,7 @@ describe('StepZilla', () => {
     });
 
     describe('showNavigation: true use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render showNavigation based footer', () => {
         expect(enzymeWrapper.find('.footer-buttons').prop('style')).to.deep.equal({});
@@ -186,7 +187,7 @@ describe('StepZilla', () => {
     });
 
     describe('prevBtnOnLastStep: true use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render Prev button on last (2nd) step', (done) => {
         enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
@@ -205,7 +206,7 @@ describe('StepZilla', () => {
     });
 
     describe('nextButtonText: "Next" use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render "Next" as text for the forwards movement button', () => {
         expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
@@ -213,7 +214,7 @@ describe('StepZilla', () => {
     });
 
     describe('backButtonText: "Previous" use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render "Previous" as text for the backwards movement button', (done) => {
         enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
@@ -228,7 +229,7 @@ describe('StepZilla', () => {
     });
 
     describe('nextTextOnFinalActionStep: "Next" use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should render "Next" when we jump to the final action step (2nd step in this case)', (done) => {
         enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
@@ -244,8 +245,7 @@ describe('StepZilla', () => {
 
     describe('nextTextOnFinalActionStep defaults to nextButtonText (when custom nextTextOnFinalActionStep was not given)', () => {
       const { enzymeWrapper } = setup(3, {
-        nextButtonText: 'MoveForward',
-        dontValidate: true
+        nextButtonText: 'MoveForward'
       });
 
       it('should render "MoveForward" when we jump to the final action step as thats the default', (done) => {
@@ -261,7 +261,7 @@ describe('StepZilla', () => {
     });
 
     describe('startAtStep: 0 use case', () => {
-      const { enzymeWrapper } = setup(3, {dontValidate: true});
+      const { enzymeWrapper } = setup(3);
 
       it('should start at the first step', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
@@ -274,8 +274,7 @@ describe('StepZilla', () => {
   describe('custom props based render', () => {
     describe('showSteps: false use case', () => {
       const { enzymeWrapper } = setup(2, {
-        showSteps: false,
-        dontValidate: true
+        showSteps: false
       });
 
       it('should NOT render showSteps based header', () => {
@@ -285,8 +284,7 @@ describe('StepZilla', () => {
 
     describe('stepsNavigation: false use case', () => {
       const { enzymeWrapper } = setup(3, {
-        stepsNavigation: false,
-        dontValidate: true
+        stepsNavigation: false
       });
 
       it('should NOT jump to 2nd step when clicking the 1st step icon in header', (done) => {
@@ -313,8 +311,7 @@ describe('StepZilla', () => {
 
     describe('showNavigation: false use case', () => {
       const { enzymeWrapper } = setup(2, {
-        showNavigation: false,
-        dontValidate: true
+        showNavigation: false
       });
 
       it('should NOT render showNavigation based footer', () => {
@@ -326,8 +323,7 @@ describe('StepZilla', () => {
 
     describe('prevBtnOnLastStep: false use case', () => {
       const { enzymeWrapper } = setup(3, {
-        prevBtnOnLastStep: false,
-        dontValidate: true
+        prevBtnOnLastStep: false
       });
 
       it('should NOT render Prev button on last (2nd) step', (done) => {
@@ -350,8 +346,7 @@ describe('StepZilla', () => {
 
     describe('nextButtonText: "MoveForward" use case', () => {
       const { enzymeWrapper } = setup(3, {
-        nextButtonText: 'MoveForward',
-        dontValidate: true
+        nextButtonText: 'MoveForward'
       });
 
       it('should render "MoveForward" as text for the forwards movement button', () => {
@@ -361,8 +356,7 @@ describe('StepZilla', () => {
 
     describe('backButtonText: "MoveBack" use case', () => {
       const { enzymeWrapper } = setup(3, {
-        backButtonText: 'MoveBack',
-        dontValidate: true
+        backButtonText: 'MoveBack'
       });
 
       it('should render "MoveBack" as text for the backwards movement button', (done) => {
@@ -379,8 +373,7 @@ describe('StepZilla', () => {
 
     describe('nextTextOnFinalActionStep: "Save" use case', () => {
       const { enzymeWrapper } = setup(3, {
-        nextTextOnFinalActionStep: 'Save',
-        dontValidate: true
+        nextTextOnFinalActionStep: 'Save'
       });
 
       it('should render "Save" when we jump to the final action step (2nd step in this case)', (done) => {
@@ -397,8 +390,7 @@ describe('StepZilla', () => {
 
     describe('startAtStep: 2 use case', () => {
       const { enzymeWrapper } = setup(3, {
-        startAtStep: 2,
-        dontValidate: true
+        startAtStep: 2
       });
 
       it('should start at the 3rd step (its a 0 based index)', () => {
