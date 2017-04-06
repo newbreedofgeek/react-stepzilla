@@ -1,10 +1,5 @@
 module.exports = {
-  entry: {
-    example: [
-        'webpack-dev-server/client?http://localhost:8080',
-        './src/examples/App.js',
-    ]
-  },
+  entry: './src/examples/App.js',
   output: {
     path: './src/examples/dist',
     filename: './src/examples/dist/bundle.js'

@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _StepZilla$propTypes;
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -19,6 +21,8 @@ var _promise = require('promise');
 var _promise2 = _interopRequireDefault(_promise);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -62,7 +66,8 @@ var StepZilla = function (_Component) {
         if (_this2.props.dontValidate) {
           i.validated = true;
         } else {
-          i.validated = typeof i.component.type.prototype.isValidated == 'undefined' ? true : false;
+          // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
+          i.validated = typeof i.component.type === 'undefined' || typeof i.component.type.prototype.isValidated === 'undefined' ? true : false;
         }
 
         return i;
@@ -443,3 +448,16 @@ StepZilla.defaultProps = {
   backButtonText: "Previous",
   hocValidationAppliedTo: []
 };
+
+StepZilla.propTypes = (_StepZilla$propTypes = {
+  steps: _react.PropTypes.arrayOf(_react.PropTypes.shape({
+    name: _react.PropTypes.string.isRequired,
+    component: _react.PropTypes.element.isRequired
+  })).isRequired,
+  showSteps: _react.PropTypes.bool,
+  showNavigation: _react.PropTypes.bool,
+  stepsNavigation: _react.PropTypes.bool,
+  prevBtnOnLastStep: _react.PropTypes.bool,
+  dontValidate: _react.PropTypes.bool,
+  preventEnterSubmission: _react.PropTypes.bool
+}, _defineProperty(_StepZilla$propTypes, 'preventEnterSubmission', _react.PropTypes.bool), _defineProperty(_StepZilla$propTypes, 'startAtStep', _react.PropTypes.number), _defineProperty(_StepZilla$propTypes, 'nextButtonText', _react.PropTypes.string), _defineProperty(_StepZilla$propTypes, 'backButtonText', _react.PropTypes.string), _defineProperty(_StepZilla$propTypes, 'hocValidationAppliedTo', _react.PropTypes.array), _StepZilla$propTypes);
