@@ -131,7 +131,7 @@ A full example is found in the `src/examples` directory.
 - run `npm install`
 - then run `npm run example`
 - then go to `http://localhost:8080/webpack-dev-server/src/examples/index.html` in your browser
-- enjoy
+- hot reload will work as you dev
 
 ### tests
 - tests are written in the mocha, chai, sinon, enzyme stack
