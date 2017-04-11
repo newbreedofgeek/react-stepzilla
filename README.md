@@ -96,9 +96,9 @@ example options usage:
 ```
 
 
-- *if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step2` component.*
+- *if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step3` component.*
 
-- *validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step3` component.*
+- *validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step5` component.*
 
 - *also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)*
 
@@ -107,7 +107,7 @@ example options usage:
 - this utility methods lets you jump between steps from inside your react component
 e.g.
 `this.props.jumpToStep(2)` will jump to your 3rd step (it uses a zero based index)
-- check out `src/examples/Step3` for an actual usage example
+- check out `src/examples/Step2` for an actual usage example
 - important!! this jumpToStep() utility method will not validate data! so use with caution. its only meant to be a utility to break from the standard flow of steps
 
 #### step validation
