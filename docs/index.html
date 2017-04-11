@@ -6,7 +6,16 @@
   <meta name="description" content="This page shows all of React Stepzilla's functionality">
 
   <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+  </style>
+
+  <style>
   /* local page styles */
+  html, html body {
+    background-color: #f2f9ff;
+    font-family: 'Roboto', sans-serif;
+  }
+
   html h1 {
     font-size: 26px;
     margin-left: 10px;
@@ -123,6 +132,11 @@
   html .form-block-holder {
     margin-top: 20px !important;
   }
+
+  /* overwrite the stepzilla styles */
+  html ol.progtrckr li.progtrckr-todo:before {
+    background-color: #f2f9ff;
+  }
   </style>
 </head>
 <body>
@@ -130,6 +144,7 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   <div class="lib-version">v4.4.6</div>
+
   <div id="root" class="container"></div>
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
