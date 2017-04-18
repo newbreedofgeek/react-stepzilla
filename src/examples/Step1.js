@@ -29,7 +29,7 @@ export default class Step1 extends Component {
               <div className="row">
                 <div className="col-md-12">
                   <div className="col-md-6">
-                    <h3>This example uses this custom config (which overwrite the default config):</h3>
+                    <h3>This example uses this custom config (which overwrites the default config):</h3>
                     <code>preventEnterSubmission=true<br />nextTextOnFinalActionStep="Save"<br />hocValidationAppliedTo=[3]</code>
                   </div>
                   <div className="col-md-6">

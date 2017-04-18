@@ -23101,7 +23101,7 @@
 	                    _react2.default.createElement(
 	                      'h3',
 	                      null,
-	                      'This example uses this custom config (which overwrite the default config):'
+	                      'This example uses this custom config (which overwrites the default config):'
 	                    ),
 	                    _react2.default.createElement(
 	                      'code',
