@@ -157,6 +157,9 @@ Lines        : 77.78% ( 91/117 )
 - ~~write the tests~~
 - improve code coverage
 
+### help us improve stepzilla?
+do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request.
+
 ### known issues
 - open bugs [are here](https://github.com/newbreedofgeek/react-stepzilla/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20label%3Abug)
 
