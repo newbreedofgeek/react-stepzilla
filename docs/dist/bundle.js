@@ -21788,15 +21788,15 @@
 	      this.checkNavState(next);
 	    }
 
-	    // handles keydown on enter being pressed in any Child component input area. in this case it goes to the next
+	    // handles keydown on enter being pressed in any Child component input area. in this case it goes to the next (ignore textareas as they should allow line breaks)
 
 	  }, {
 	    key: 'handleKeyDown',
 	    value: function handleKeyDown(evt) {
 	      if (evt.which === 13) {
-	        if (!this.props.preventEnterSubmission) {
+	        if (!this.props.preventEnterSubmission && evt.target.type !== 'textarea') {
 	          this.next();
-	        } else {
+	        } else if (evt.target.type !== 'textarea') {
 	          evt.preventDefault();
 	        }
 	      }
