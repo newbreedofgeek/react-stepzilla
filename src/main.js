@@ -233,7 +233,7 @@ export default class StepZilla extends Component {
         // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
         proceed = true;
       }
-      else if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
+      else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
         // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
         // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
         proceed = this.refs.activeComponent.refs.component.isValidated();
