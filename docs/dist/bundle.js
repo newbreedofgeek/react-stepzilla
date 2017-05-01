@@ -21707,12 +21707,13 @@
 	    value: function applyValidationFlagsToSteps() {
 	      var _this2 = this;
 
-	      this.props.steps.map(function (i) {
+	      this.props.steps.map(function (i, idx) {
 	        if (_this2.props.dontValidate) {
 	          i.validated = true;
 	        } else {
 	          // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
-	          i.validated = typeof i.component.type === 'undefined' || typeof i.component.type.prototype.isValidated === 'undefined' ? true : false;
+	          // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
+	          i.validated = typeof i.component.type === 'undefined' || typeof i.component.type.prototype.isValidated === 'undefined' && !_this2.isStepAtIndexHOCValidationBased(idx) ? true : false;
 	        }
 
 	        return i;
@@ -21949,8 +21950,9 @@
 	        if (skipValidationExecution) {
 	          // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
 	          proceed = true;
-	        } else if (this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(this.state.compState) > -1) {
-	          // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC, so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
+	        } else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
+	          // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
+	          // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
 	          proceed = this.refs.activeComponent.refs.component.isValidated();
 	        } else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
 	          // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
@@ -21962,6 +21964,11 @@
 	      }
 
 	      return proceed;
+	    }
+	  }, {
+	    key: 'isStepAtIndexHOCValidationBased',
+	    value: function isStepAtIndexHOCValidationBased(stepIndex) {
+	      return this.props.hocValidationAppliedTo.length > 0 && this.props.hocValidationAppliedTo.indexOf(stepIndex) > -1;
 	    }
 
 	    // a validation method is each step can be sync or async (Promise based), this utility abstracts the wrapper stepMoveAllowed to be Promise driven regardless of validation return type
