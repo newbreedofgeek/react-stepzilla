@@ -16,6 +16,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _promise = require('promise');
 
 var _promise2 = _interopRequireDefault(_promise);
@@ -457,14 +461,14 @@ StepZilla.defaultProps = {
 };
 
 StepZilla.propTypes = (_StepZilla$propTypes = {
-  steps: _react.PropTypes.arrayOf(_react.PropTypes.shape({
-    name: _react.PropTypes.string.isRequired,
-    component: _react.PropTypes.element.isRequired
+  steps: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    name: _propTypes2.default.string.isRequired,
+    component: _propTypes2.default.element.isRequired
   })).isRequired,
-  showSteps: _react.PropTypes.bool,
-  showNavigation: _react.PropTypes.bool,
-  stepsNavigation: _react.PropTypes.bool,
-  prevBtnOnLastStep: _react.PropTypes.bool,
-  dontValidate: _react.PropTypes.bool,
-  preventEnterSubmission: _react.PropTypes.bool
-}, _defineProperty(_StepZilla$propTypes, 'preventEnterSubmission', _react.PropTypes.bool), _defineProperty(_StepZilla$propTypes, 'startAtStep', _react.PropTypes.number), _defineProperty(_StepZilla$propTypes, 'nextButtonText', _react.PropTypes.string), _defineProperty(_StepZilla$propTypes, 'backButtonText', _react.PropTypes.string), _defineProperty(_StepZilla$propTypes, 'hocValidationAppliedTo', _react.PropTypes.array), _StepZilla$propTypes);
+  showSteps: _propTypes2.default.bool,
+  showNavigation: _propTypes2.default.bool,
+  stepsNavigation: _propTypes2.default.bool,
+  prevBtnOnLastStep: _propTypes2.default.bool,
+  dontValidate: _propTypes2.default.bool,
+  preventEnterSubmission: _propTypes2.default.bool
+}, _defineProperty(_StepZilla$propTypes, 'preventEnterSubmission', _propTypes2.default.bool), _defineProperty(_StepZilla$propTypes, 'startAtStep', _propTypes2.default.number), _defineProperty(_StepZilla$propTypes, 'nextButtonText', _propTypes2.default.string), _defineProperty(_StepZilla$propTypes, 'backButtonText', _propTypes2.default.string), _defineProperty(_StepZilla$propTypes, 'hocValidationAppliedTo', _propTypes2.default.array), _StepZilla$propTypes);

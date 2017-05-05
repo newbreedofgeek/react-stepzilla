@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import StepZilla from '../main'
 import Step1 from './Step1'
 import Step2 from './Step2'

@@ -1,12 +1,12 @@
 # react stepzilla
 is a multi-step, wizard component for sequential data collection. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data-entry form it can tigger validation and only proceed if the data is valid.
 
- #### :tada: whats new:
+#### :tada: whats new:
 ```
+v4.5.0: ported to react and react-dom 15.5.4
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
 v4.2.0: now supporting pure, dumb components!
 ```
-
 
 ### what does it do?
 something like this of course:
