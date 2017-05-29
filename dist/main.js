@@ -101,28 +101,31 @@ var StepZilla = function (_Component) {
   }, {
     key: 'getPrevNextBtnState',
     value: function getPrevNextBtnState(currentStep) {
-      var correctNextText = this.props.nextButtonText;
+      // first set default values
+      var showPreviousBtn = true;
+      var showNextBtn = true;
+      var nextStepText = this.props.nextButtonText || 'Next';
 
-      if (currentStep > 0 && currentStep !== this.props.steps.length - 1) {
-        if (currentStep === this.props.steps.length - 2) {
-          correctNextText = this.nextTextOnFinalActionStep; // we are in the one before final step
-        }
-        return {
-          showPreviousBtn: true,
-          showNextBtn: true,
-          nextStepText: correctNextText
-        };
-      } else if (currentStep === 0) {
-        return {
-          showPreviousBtn: false,
-          showNextBtn: true,
-          nextStepText: correctNextText
-        };
+      // first step hide previous btn
+      if (currentStep === 0) {
+        showPreviousBtn = false;
       }
+
+      // second to last step change next btn text if supplied as props
+      if (currentStep === this.props.steps.length - 2) {
+        nextStepText = this.props.nextTextOnFinalActionStep || nextStepText;
+      }
+
+      // last step hide next btn, hide previous btn if supplied as props
+      if (currentStep >= this.props.steps.length - 1) {
+        showNextBtn = false;
+        showPreviousBtn = this.props.prevBtnOnLastStep === false ? false : true;
+      }
+
       return {
-        showPreviousBtn: this.props.prevBtnOnLastStep,
-        showNextBtn: false,
-        nextStepText: correctNextText
+        showPreviousBtn: showPreviousBtn,
+        showNextBtn: showNextBtn,
+        nextStepText: nextStepText
       };
     }
 
