@@ -63,7 +63,7 @@ export default class StepZilla extends Component {
     // first set default values
     let showPreviousBtn = true;
     let showNextBtn = true;
-    let nextStepText = this.props.nextButtonText || 'Next';
+    let nextStepText = this.props.nextButtonText;
 
     // first step hide previous btn
     if (currentStep === 0) {
@@ -74,7 +74,7 @@ export default class StepZilla extends Component {
     if (currentStep === this.props.steps.length - 2 ) {
       nextStepText = this.props.nextTextOnFinalActionStep || nextStepText;
     }
-    
+
     // last step hide next btn, hide previous btn if supplied as props
     if (currentStep >= this.props.steps.length - 1) {
       showNextBtn = false;

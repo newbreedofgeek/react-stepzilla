@@ -104,7 +104,7 @@ var StepZilla = function (_Component) {
       // first set default values
       var showPreviousBtn = true;
       var showNextBtn = true;
-      var nextStepText = this.props.nextButtonText || 'Next';
+      var nextStepText = this.props.nextButtonText;
 
       // first step hide previous btn
       if (currentStep === 0) {
