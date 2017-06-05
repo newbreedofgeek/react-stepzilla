@@ -356,7 +356,6 @@ StepZilla.propTypes = {
   prevBtnOnLastStep: PropTypes.bool,
   dontValidate: PropTypes.bool,
   preventEnterSubmission: PropTypes.bool,
-  preventEnterSubmission: PropTypes.bool,
   startAtStep: PropTypes.number,
   nextButtonText: PropTypes.string,
   backButtonText: PropTypes.string,

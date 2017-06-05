@@ -22318,8 +22318,6 @@
 	  value: true
 	});
 
-	var _StepZilla$propTypes;
-
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -22339,8 +22337,6 @@
 	var _promise2 = _interopRequireDefault(_promise);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22777,7 +22773,7 @@
 	  hocValidationAppliedTo: []
 	};
 
-	StepZilla.propTypes = (_StepZilla$propTypes = {
+	StepZilla.propTypes = {
 	  steps: _propTypes2.default.arrayOf(_propTypes2.default.shape({
 	    name: _propTypes2.default.string.isRequired,
 	    component: _propTypes2.default.element.isRequired
@@ -22787,8 +22783,12 @@
 	  stepsNavigation: _propTypes2.default.bool,
 	  prevBtnOnLastStep: _propTypes2.default.bool,
 	  dontValidate: _propTypes2.default.bool,
-	  preventEnterSubmission: _propTypes2.default.bool
-	}, _defineProperty(_StepZilla$propTypes, 'preventEnterSubmission', _propTypes2.default.bool), _defineProperty(_StepZilla$propTypes, 'startAtStep', _propTypes2.default.number), _defineProperty(_StepZilla$propTypes, 'nextButtonText', _propTypes2.default.string), _defineProperty(_StepZilla$propTypes, 'backButtonText', _propTypes2.default.string), _defineProperty(_StepZilla$propTypes, 'hocValidationAppliedTo', _propTypes2.default.array), _StepZilla$propTypes);
+	  preventEnterSubmission: _propTypes2.default.bool,
+	  startAtStep: _propTypes2.default.number,
+	  nextButtonText: _propTypes2.default.string,
+	  backButtonText: _propTypes2.default.string,
+	  hocValidationAppliedTo: _propTypes2.default.array
+	};
 
 /***/ },
 /* 191 */
