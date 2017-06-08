@@ -151,12 +151,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.4.4:
+Current coverage sitting at v4.6.0:
 ```
-Statements   : 83.72% ( 144/172 ), 11 ignored
-Branches     : 73.03% ( 111/152 ), 23 ignored
-Functions    : 82.22% ( 37/45 ), 4 ignored
-Lines        : 77.78% ( 91/117 )
+Statements   : 86.02% ( 160/186 ), 11 ignored
+Branches     : 75.15% ( 124/165 ), 23 ignored
+Functions    : 82.98% ( 39/47 ), 4 ignored
+Lines        : 80.65% ( 100/124 )
 ```
 
 ### dev todo
