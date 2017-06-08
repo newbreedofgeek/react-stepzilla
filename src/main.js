@@ -284,6 +284,7 @@ export default class StepZilla extends Component {
 
   // main render of stepzilla container
   render() {
+    const { props } = this;
     let compToRender;
 
     // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
@@ -316,13 +317,22 @@ export default class StepZilla extends Component {
         {compToRender}
 
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
-          <button style={this.state.showPreviousBtn ? {} : this.hidden}
-                  className="btn btn-prev btn-primary btn-lg pull-left"
-                  onClick={() => {this.previous()}}>{this.props.backButtonText}</button>
-
-          <button style={this.state.showNextBtn ? {} : this.hidden}
-                  className="btn btn-next btn-primary btn-lg pull-right"
-                  onClick={() => {this.next()}}>{this.state.nextStepText}</button>
+          <button
+            style={this.state.showPreviousBtn ? {} : this.hidden}
+            className={props.backButtonCls}
+            onClick={() => {this.previous()}}
+            id="prev-button"
+          >
+            {this.props.backButtonText}
+          </button>
+          <button
+            style={this.state.showNextBtn ? {} : this.hidden}
+            className={props.nextButtonCls}
+            onClick={() => {this.next()}}
+            id="next-button"
+          >
+            {this.state.nextStepText}
+          </button>
         </div>
       </div>
     );
@@ -338,7 +348,9 @@ StepZilla.defaultProps = {
   preventEnterSubmission: false,
   startAtStep: 0,
   nextButtonText: "Next",
+  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
   backButtonText: "Previous",
+  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
   hocValidationAppliedTo: []
 };
 
@@ -356,6 +368,8 @@ StepZilla.propTypes = {
   preventEnterSubmission: PropTypes.bool,
   startAtStep: PropTypes.number,
   nextButtonText: PropTypes.string,
+  nextButtonCls: PropTypes.string,
+  backButtonCls: PropTypes.string,
   backButtonText: PropTypes.string,
   hocValidationAppliedTo: PropTypes.array
 }
