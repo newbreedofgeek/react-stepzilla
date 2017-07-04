@@ -78,7 +78,7 @@ startAtStep: [stepIndex]
 nextButtonText: "Siguiente"
 
 // specify the back button text (if not given it default to "Previous")
-backButtonText: "Espalda"
+backButtonText: "Atrás"
 
 // specify what the next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
 nextTextOnFinalActionStep: "Save"
