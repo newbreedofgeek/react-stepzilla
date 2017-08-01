@@ -130,35 +130,35 @@ describe('StepZilla', () => {
       });
 
       it('should render the Prev and Next button markup', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-prev')).to.have.length(1);
-        expect(enzymeWrapper.find('.footer-buttons .btn-next')).to.have.length(1);
+        expect(enzymeWrapper.find('.footer-buttons #prev-button')).to.have.length(1);
+        expect(enzymeWrapper.find('.footer-buttons #next-button')).to.have.length(1);
       });
 
       it('should show the Next button on first view', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
+        expect(enzymeWrapper.find('.footer-buttons #next-button').prop('style')).to.deep.equal({});
       });
 
       it('should render the forward button with the default "Next" text', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
+        expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('Next');
       });
 
       it('should render the back button with the default "Previous" text', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-prev').text()).to.be.equal('Previous');
+        expect(enzymeWrapper.find('.footer-buttons #prev-button').text()).to.be.equal('Previous');
       });
 
       it('should NOT show render the Prev button on first view', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({
+        expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({
           display: 'none'
         });
       });
 
       it('should render the Next and Prev button on 2nd step (and test if step classes also updated correctly)', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({});
-          expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
+          expect(enzymeWrapper.find('.footer-buttons #next-button').prop('style')).to.deep.equal({});
+          expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-doing')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-todo')).to.be.true;
@@ -169,14 +169,14 @@ describe('StepZilla', () => {
 
       // this should be the last test as the 'click' goes to the second step
       it('should NOT show render the Next button on last step (and test if step classes also updated correctly)', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-next').prop('style')).to.deep.equal({
+          expect(enzymeWrapper.find('.footer-buttons #next-button').prop('style')).to.deep.equal({
             display: 'none'
           });
-          expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
+          expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-done')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
@@ -190,14 +190,14 @@ describe('StepZilla', () => {
       const { enzymeWrapper } = setup(3);
 
       it('should render Prev button on last (2nd) step', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+          enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
           setTimeout(() => {
-            expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({});
+            expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
 
             done();
           }, 10);
@@ -209,7 +209,7 @@ describe('StepZilla', () => {
       const { enzymeWrapper } = setup(3);
 
       it('should render "Next" as text for the forwards movement button', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
+        expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('Next');
       });
     });
 
@@ -217,11 +217,11 @@ describe('StepZilla', () => {
       const { enzymeWrapper } = setup(3);
 
       it('should render "Previous" as text for the backwards movement button', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-prev').text()).to.be.equal('Previous');
+          expect(enzymeWrapper.find('.footer-buttons #prev-button').text()).to.be.equal('Previous');
 
           done();
         }, 10);
@@ -232,11 +232,11 @@ describe('StepZilla', () => {
       const { enzymeWrapper } = setup(3);
 
       it('should render "Next" when we jump to the final action step (2nd step in this case)', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Next');
+          expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('Next');
 
           done();
         }, 10);
@@ -249,11 +249,11 @@ describe('StepZilla', () => {
       });
 
       it('should render "MoveForward" when we jump to the final action step as thats the default', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('MoveForward');
+          expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('MoveForward');
 
           done();
         }, 10);
@@ -327,14 +327,14 @@ describe('StepZilla', () => {
       });
 
       it('should NOT render Prev button on last (2nd) step', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+          enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
           setTimeout(() => {
-            expect(enzymeWrapper.find('.footer-buttons .btn-prev').prop('style')).to.deep.equal({
+            expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({
               display: 'none'
             });
 
@@ -350,7 +350,7 @@ describe('StepZilla', () => {
       });
 
       it('should render "MoveForward" as text for the forwards movement button', () => {
-        expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('MoveForward');
+        expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('MoveForward');
       });
     });
 
@@ -360,11 +360,11 @@ describe('StepZilla', () => {
       });
 
       it('should render "MoveBack" as text for the backwards movement button', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-prev').text()).to.be.equal('MoveBack');
+          expect(enzymeWrapper.find('.footer-buttons #prev-button').text()).to.be.equal('MoveBack');
 
           done();
         }, 10);
@@ -377,11 +377,11 @@ describe('StepZilla', () => {
       });
 
       it('should render "Save" when we jump to the final action step (2nd step in this case)', (done) => {
-        enzymeWrapper.find('.footer-buttons .btn-next').simulate('click');
+        enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
-          expect(enzymeWrapper.find('.footer-buttons .btn-next').text()).to.be.equal('Save');
+          expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('Save');
 
           done();
         }, 10);
