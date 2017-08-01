@@ -90,6 +90,9 @@ export default class StepZilla extends Component {
 
   // which step are we in?
   checkNavState(currentStep) {
+    if (this.props.onStepChange) {
+      this.props.onStepChange(currentStep);
+    }
     this.setState(this.getPrevNextBtnState(currentStep));
   }
 
@@ -372,5 +375,6 @@ StepZilla.propTypes = {
   nextButtonCls: PropTypes.string,
   backButtonCls: PropTypes.string,
   backButtonText: PropTypes.string,
-  hocValidationAppliedTo: PropTypes.array
+  hocValidationAppliedTo: PropTypes.array,
+  onStepChange: PropTypes.func
 }

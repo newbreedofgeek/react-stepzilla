@@ -92,6 +92,9 @@ nextTextOnFinalActionStep: "Save"
 // its recommended that you use basic javascript validation (i.e simple validation implemented inside your step component. But stepzilla steps can also use 'react-validation-mixin' which wraps your steps as higher order components. If you use this then you need to specify those steps indexes that use 'react-validation-mixin' below in this array)
 hocValidationAppliedTo: [1, 2]
 
+// function, which is called every time the index of the current step changes (it uses a zero based index)
+onStepChange: (step) => console.log(step)
+
 ```
 
 example options usage:
