@@ -83,7 +83,7 @@ describe('StepZilla', () => {
   });
 
 
-  describe('custom props based render', () => {
+  describe('default props based render', () => {
     describe('showSteps: true use case', () => {
       const { enzymeWrapper } = setup(2);
 
