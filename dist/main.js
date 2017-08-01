@@ -384,6 +384,8 @@ var StepZilla = function (_Component) {
     value: function render() {
       var _this6 = this;
 
+      var props = this.props;
+
       var compToRender = void 0;
 
       // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
@@ -419,20 +421,26 @@ var StepZilla = function (_Component) {
           { style: this.props.showNavigation ? {} : this.hidden, className: 'footer-buttons' },
           _react2.default.createElement(
             'button',
-            { style: this.state.showPreviousBtn ? {} : this.hidden,
-              className: 'btn btn-prev btn-primary btn-lg pull-left',
+            {
+              style: this.state.showPreviousBtn ? {} : this.hidden,
+              className: props.backButtonCls,
               onClick: function onClick() {
                 _this6.previous();
-              } },
+              },
+              id: 'prev-button'
+            },
             this.props.backButtonText
           ),
           _react2.default.createElement(
             'button',
-            { style: this.state.showNextBtn ? {} : this.hidden,
-              className: 'btn btn-next btn-primary btn-lg pull-right',
+            {
+              style: this.state.showNextBtn ? {} : this.hidden,
+              className: props.nextButtonCls,
               onClick: function onClick() {
                 _this6.next();
-              } },
+              },
+              id: 'next-button'
+            },
             this.state.nextStepText
           )
         )
@@ -455,7 +463,9 @@ StepZilla.defaultProps = {
   preventEnterSubmission: false,
   startAtStep: 0,
   nextButtonText: "Next",
+  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
   backButtonText: "Previous",
+  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
   hocValidationAppliedTo: []
 };
 
@@ -472,6 +482,8 @@ StepZilla.propTypes = {
   preventEnterSubmission: _propTypes2.default.bool,
   startAtStep: _propTypes2.default.number,
   nextButtonText: _propTypes2.default.string,
+  nextButtonCls: _propTypes2.default.string,
+  backButtonCls: _propTypes2.default.string,
   backButtonText: _propTypes2.default.string,
   hocValidationAppliedTo: _propTypes2.default.array
 };
