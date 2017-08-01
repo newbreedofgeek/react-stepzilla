@@ -128,6 +128,9 @@ var StepZilla = function (_Component) {
   }, {
     key: 'checkNavState',
     value: function checkNavState(currentStep) {
+      if (this.props.onStepChange) {
+        this.props.onStepChange(currentStep);
+      }
       this.setState(this.getPrevNextBtnState(currentStep));
     }
 
