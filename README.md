@@ -163,6 +163,9 @@ Lines        : 80.65% ( 100/124 )
 - ~~write the tests~~
 - improve code coverage
 
+### community dev tips
+our brilliant community sometimes solves implementation issues themselves, head over to the [Useful Dev Tips](https://github.com/newbreedofgeek/react-stepzilla/wiki/Useful-Dev-Tips) page for a curated list of the most useful tips. For e.g. ***How to persist Step State on "Previous/Back" button click*** or ***How to hide navigation buttons in some steps***
+
 ### help us improve stepzilla?
 do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request.
 
