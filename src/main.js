@@ -167,14 +167,16 @@ export default class StepZilla extends Component {
           }
         })
         .then(() => {
+          const stepIndex = evt.target.value || evt.target.parentElement.value;
+
           // this is like finally(), executes if error no no error
           if (proceed && !passThroughStepsNotValid) {
-            if (evt.target.value === (this.props.steps.length - 1) &&
+            if (stepIndex === (this.props.steps.length - 1) &&
               this.state.compState === (this.props.steps.length - 1)) {
                 this.setNavState(this.props.steps.length);
             }
             else {
-              this.setNavState(evt.target.value);
+              this.setNavState(stepIndex);
             }
           }
         })
