@@ -127,11 +127,11 @@ var StepZilla = function (_Component) {
 
   }, {
     key: 'checkNavState',
-    value: function checkNavState(currentStep) {
+    value: function checkNavState(nextStep) {
       if (this.props.onStepChange) {
-        this.props.onStepChange(currentStep);
+        this.props.onStepChange(nextStep);
       }
-      this.setState(this.getPrevNextBtnState(currentStep));
+      this.setState(this.getPrevNextBtnState(nextStep));
     }
 
     // set the nav state
@@ -174,7 +174,7 @@ var StepZilla = function (_Component) {
         this.setNavState(evt);
       } else {
         // the main navigation step ui is invoking a jump between steps
-        if (!this.props.stepsNavigation || evt.target.value == this.state.compState) {
+        if (!this.props.stepsNavigation || evt.target.value === this.state.compState) {
           // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
           evt.preventDefault();
           evt.stopPropagation();
