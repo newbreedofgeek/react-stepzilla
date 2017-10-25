@@ -59,9 +59,7 @@
     "json-loader": "^0.5.4",
     "promise": "^7.1.1",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
     "react-validation-mixin": "^5.4.0",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
@@ -71,6 +69,8 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "babel-loader": "^6.2.4"
+    "babel-loader": "^6.2.4",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
   }
 }
