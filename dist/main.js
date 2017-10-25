@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -64,11 +62,12 @@ var StepZilla = function (_Component) {
 
       this.props.steps.map(function (i, idx) {
         if (_this2.props.dontValidate) {
-          i.validated = true;
+          i.validated = true; // eslint-disable-line
         } else {
           // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
           // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
-          i.validated = typeof i.component.type === 'undefined' || typeof i.component.type.prototype.isValidated === 'undefined' && !_this2.isStepAtIndexHOCValidationBased(idx) ? true : false;
+          i.validated = typeof i.component.type === 'undefined' || // eslint-disable-line
+          typeof i.component.type.prototype.isValidated === 'undefined' && !_this2.isStepAtIndexHOCValidationBased(idx);
         }
 
         return i;
@@ -80,9 +79,11 @@ var StepZilla = function (_Component) {
   }, {
     key: 'getNavStates',
     value: function getNavStates(indx, length) {
+      // eslint-disable-line
       var styles = [];
 
       for (var i = 0; i < length; i++) {
+        // eslint-disable-line
         if (i < indx) {
           styles.push('done');
         } else if (i === indx) {
@@ -115,7 +116,7 @@ var StepZilla = function (_Component) {
       // last step hide next btn, hide previous btn if supplied as props
       if (currentStep >= this.props.steps.length - 1) {
         showNextBtn = false;
-        showPreviousBtn = this.props.prevBtnOnLastStep === false ? false : true;
+        showPreviousBtn = !(this.props.prevBtnOnLastStep === false);
       }
 
       return {
@@ -168,76 +169,71 @@ var StepZilla = function (_Component) {
     value: function jumpToStep(evt) {
       var _this3 = this;
 
-      if (evt.target == undefined) {
+      if (evt.target === undefined) {
         // a child step wants to invoke a jump between steps. in this case 'evt' is the numeric step number and not the JS event
         this.setNavState(evt);
       } else {
-        var _ret = function () {
-          // the main navigation step ui is invoking a jump between steps
-          if (!_this3.props.stepsNavigation || evt.target.value == _this3.state.compState) {
-            // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
-            evt.preventDefault();
-            evt.stopPropagation();
+        // the main navigation step ui is invoking a jump between steps
+        if (!this.props.stepsNavigation || evt.target.value === this.state.compState) {
+          // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
+          evt.preventDefault();
+          evt.stopPropagation();
 
-            return {
-              v: void 0
-            };
+          return;
+        }
+
+        evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
+
+        var movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
+        var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+        var proceed = false; // flag on if we should move on
+
+        this.abstractStepMoveAllowedToPromise(movingBack).then(function () {
+          var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+          // validation was a success (promise or sync validation).
+          // In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
+          proceed = valid;
+
+          if (!movingBack) {
+            _this3.updateStepValidationFlag(proceed);
           }
 
-          evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
-
-          var movingBack = evt.target.value < _this3.state.compState; // are we trying to move back or front?
-          var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
-          var proceed = false; // flag on if we should move on
-
-          _this3.abstractStepMoveAllowedToPromise(movingBack).then(function () {
-            var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-            // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
-            proceed = valid;
-
+          if (proceed) {
             if (!movingBack) {
-              _this3.updateStepValidationFlag(proceed);
-            }
-
-            if (proceed) {
-              if (!movingBack) {
-                // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
-                passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
-                  if (i >= _this3.state.compState && i < evt.target.value) {
-                    a.push(c.validated);
-                  }
-                  return a;
-                }, []).some(function (c) {
-                  return c === false;
-                });
-              }
-            }
-          }).catch(function (e) {
-            // Promise based validation was a fail (i.e reject())
-            if (!movingBack) {
-              _this3.updateStepValidationFlag(false);
-            }
-          }).then(function () {
-            // this is like finally(), executes if error no no error
-            if (proceed && !passThroughStepsNotValid) {
-              if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
-                _this3.setNavState(_this3.props.steps.length);
-              } else {
-                _this3.setNavState(evt.target.value);
-              }
-            }
-          }).catch(function (e) {
-            if (e) {
-              // see note below called "CatchRethrowing"
-              // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
-              setTimeout(function () {
-                throw e;
+              // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+              passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
+                if (i >= _this3.state.compState && i < evt.target.value) {
+                  a.push(c.validated);
+                }
+                return a;
+              }, []).some(function (c) {
+                return c === false;
               });
             }
-          });
-        }();
-
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+          }
+        }).catch(function () {
+          // Promise based validation was a fail (i.e reject())
+          if (!movingBack) {
+            _this3.updateStepValidationFlag(false);
+          }
+        }).then(function () {
+          // this is like finally(), executes if error no no error
+          if (proceed && !passThroughStepsNotValid) {
+            if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
+              _this3.setNavState(_this3.props.steps.length);
+            } else {
+              _this3.setNavState(evt.target.value);
+            }
+          }
+        }).catch(function (e) {
+          if (e) {
+            // see note below called "CatchRethrowing"
+            // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
+            setTimeout(function () {
+              throw e;
+            });
+          }
+        });
       }
     }
 
@@ -251,7 +247,8 @@ var StepZilla = function (_Component) {
       this.abstractStepMoveAllowedToPromise().then(function () {
         var proceed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
-        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync validation
+        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true.
+        // Or else 'proceed' will carry the true/false value from sync validation
         _this4.updateStepValidationFlag(proceed);
 
         if (proceed) {
@@ -304,21 +301,19 @@ var StepZilla = function (_Component) {
 
       if (this.props.dontValidate) {
         proceed = true;
+      } else if (skipValidationExecution) {
+        // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
+        proceed = true;
+      } else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
+        // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
+        // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
+        proceed = this.activeComponent.isValidated();
+      } else if (!this.activeComponent || typeof this.activeComponent.isValidated === 'undefined') {
+        // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
+        proceed = true;
       } else {
-        if (skipValidationExecution) {
-          // we are moving backwards in steps, in this case dont validate as it means the user is not commiting to "save"
-          proceed = true;
-        } else if (this.isStepAtIndexHOCValidationBased(this.state.compState)) {
-          // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
-          // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
-          proceed = this.refs.activeComponent.refs.component.isValidated();
-        } else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
-          // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
-          proceed = true;
-        } else {
-          // user is moving forward in steps, invoke validation as its available
-          proceed = this.refs.activeComponent.isValidated();
-        }
+        // user is moving forward in steps, invoke validation as its available
+        proceed = this.activeComponent.isValidated();
       }
 
       return proceed;
@@ -342,10 +337,12 @@ var StepZilla = function (_Component) {
   }, {
     key: 'getClassName',
     value: function getClassName(className, i) {
-      var liClassName = className + "-" + this.state.navState.styles[i];
+      var liClassName = className + '-' + this.state.navState.styles[i];
 
       // if step ui based navigation is disabled, then dont highlight step
-      if (!this.props.stepsNavigation) liClassName += " no-hl";
+      if (!this.props.stepsNavigation) {
+        liClassName += ' no-hl';
+      }
 
       return liClassName;
     }
@@ -360,7 +357,7 @@ var StepZilla = function (_Component) {
       return this.props.steps.map(function (s, i) {
         return _react2.default.createElement(
           'li',
-          { className: _this5.getClassName("progtrckr", i), onClick: function onClick(evt) {
+          { className: _this5.getClassName('progtrckr', i), onClick: function onClick(evt) {
               _this5.jumpToStep(evt);
             }, key: i, value: i },
           _react2.default.createElement(
@@ -386,9 +383,8 @@ var StepZilla = function (_Component) {
 
       var props = this.props;
 
-      var compToRender = void 0;
-
       // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
+
       var cloneExtensions = {
         jumpToStep: function jumpToStep(t) {
           _this6.jumpToStep(t);
@@ -400,10 +396,12 @@ var StepZilla = function (_Component) {
       // can only update refs if its a regular React component (not a pure component), so lets check that
       if (componentPointer instanceof _react.Component || // unit test deteceted that instanceof Component can be in either of these locations so test both (not sure why this is the case)
       componentPointer.type && componentPointer.type.prototype instanceof _react.Component) {
-        cloneExtensions.ref = 'activeComponent';
+        cloneExtensions.ref = function (el) {
+          _this6.activeComponent = el;
+        };
       }
 
-      compToRender = _react2.default.cloneElement(componentPointer, cloneExtensions);
+      var compToRender = _react2.default.cloneElement(componentPointer, cloneExtensions);
 
       return _react2.default.createElement(
         'div',
@@ -462,10 +460,10 @@ StepZilla.defaultProps = {
   dontValidate: false,
   preventEnterSubmission: false,
   startAtStep: 0,
-  nextButtonText: "Next",
-  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
-  backButtonText: "Previous",
-  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
+  nextButtonText: 'Next',
+  nextButtonCls: 'btn btn-prev btn-primary btn-lg pull-right',
+  backButtonText: 'Previous',
+  backButtonCls: 'btn btn-next btn-primary btn-lg pull-left',
   hocValidationAppliedTo: []
 };
 
