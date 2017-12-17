@@ -89,8 +89,11 @@ export default class StepZilla extends Component {
   }
 
   // which step are we in?
-  checkNavState(currentStep) {
-    this.setState(this.getPrevNextBtnState(currentStep));
+  checkNavState(nextStep) {
+    if (this.props.onStepChange) {
+      this.props.onStepChange(nextStep);
+    }
+    this.setState(this.getPrevNextBtnState(nextStep));
   }
 
   // set the nav state
@@ -123,7 +126,7 @@ export default class StepZilla extends Component {
       this.setNavState(evt);
     }
     else { // the main navigation step ui is invoking a jump between steps
-      if (!this.props.stepsNavigation || evt.target.value == this.state.compState) { // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
+      if (!this.props.stepsNavigation || evt.target.value === this.state.compState) { // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
         evt.preventDefault();
         evt.stopPropagation();
 
@@ -372,5 +375,6 @@ StepZilla.propTypes = {
   nextButtonCls: PropTypes.string,
   backButtonCls: PropTypes.string,
   backButtonText: PropTypes.string,
-  hocValidationAppliedTo: PropTypes.array
+  hocValidationAppliedTo: PropTypes.array,
+  onStepChange: PropTypes.func
 }

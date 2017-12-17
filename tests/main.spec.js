@@ -1,5 +1,6 @@
 import React from 'react';
 import StepZilla from '../src/main';
+import sinon from 'sinon'
 const shallow = enzyme.shallow;
 
 const makeFakeSteps = (num, makePure) => {
@@ -83,7 +84,7 @@ describe('StepZilla', () => {
   });
 
 
-  describe('custom props based render', () => {
+  describe('default props based render', () => {
     describe('showSteps: true use case', () => {
       const { enzymeWrapper } = setup(2);
 
@@ -397,5 +398,40 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
       });
     });
+    
+    describe('onStepChange: not null use case', () => {
+        let onStepChange;
+        let enzymeWrapper;
+        
+        beforeEach(() => {
+            onStepChange = sinon.spy();
+            enzymeWrapper = setup(3, {
+                startAtStep: 1,
+                onStepChange
+            }).enzymeWrapper;
+        })
+    
+        it('should call onStepChange when clicked to next step', (done) => {
+            
+            enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
+    
+            // click above is promise driven so it's async, setTimeout is probably not the best way to do this but it will do for now
+            setTimeout(() => {
+                expect(onStepChange.calledWith(2)).to.be.true;
+                done();
+            }, 10);
+        });
+    
+        it('should call onStepChange when clicked to previous step', (done) => {
+            
+            enzymeWrapper.find('.footer-buttons #prev-button').simulate('click');
+            
+            // click above is promise driven so it's async, setTimeout is probably not the best way to do this but it will do for now
+            setTimeout(() => {
+                expect(onStepChange.calledWith(0)).to.be.true;
+                done();
+            }, 10);
+        });
+    })
   }); // end - custom props based render group
 });
