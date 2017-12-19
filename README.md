@@ -1,5 +1,5 @@
 # react stepzilla [![npm version](https://badge.fury.io/js/react-stepzilla.svg)](https://badge.fury.io/js/react-stepzilla)
-is a multi-step, wizard component for sequential data collection. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data-entry form it can tigger validation and only proceed if the data is valid.
+is a multi-step, wizard component for sequential data collection. It basically lets you throw a bunch of react components at it (data forms, text / html components etc) and it will take the user through those components in steps. If it's a data-entry form it can trigger validation and only proceed if the data is valid.
 
 #### :tada: whats new:
 ```
