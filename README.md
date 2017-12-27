@@ -111,6 +111,8 @@ example options usage:
 
 - *also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)*
 
+- *check out `src/examples/` for how `onStepChange` can be used to persist last known step state across browser reloads (using `startAtStep` pulled from session storage)*
+
 #### jumpToStep() utility
 - stepzilla injects an utility method called `jumpToStep` as a prop into all your react step components
 - this utility methods lets you jump between steps from inside your react component

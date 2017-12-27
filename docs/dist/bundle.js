@@ -22296,7 +22296,11 @@
 	            steps: steps,
 	            preventEnterSubmission: true,
 	            nextTextOnFinalActionStep: "Save",
-	            hocValidationAppliedTo: [3]
+	            hocValidationAppliedTo: [3],
+	            startAtStep: window.sessionStorage.getItem('step') ? parseFloat(window.sessionStorage.getItem('step')) : 0,
+	            onStepChange: function onStepChange(step) {
+	              return window.sessionStorage.setItem('step', step);
+	            }
 	          })
 	        )
 	      );
@@ -22443,8 +22447,12 @@
 
 	  }, {
 	    key: 'checkNavState',
-	    value: function checkNavState(currentStep) {
-	      this.setState(this.getPrevNextBtnState(currentStep));
+	    value: function checkNavState(nextStep) {
+	      if (this.props.onStepChange) {
+	        this.props.onStepChange(nextStep);
+	      }
+
+	      this.setState(this.getPrevNextBtnState(nextStep));
 	    }
 
 	    // set the nav state
@@ -22488,7 +22496,7 @@
 	      } else {
 	        var _ret = function () {
 	          // the main navigation step ui is invoking a jump between steps
-	          if (!_this3.props.stepsNavigation || evt.target.value == _this3.state.compState) {
+	          if (!_this3.props.stepsNavigation || evt.target.value === _this3.state.compState) {
 	            // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
 	            evt.preventDefault();
 	            evt.stopPropagation();
@@ -22698,6 +22706,8 @@
 	    value: function render() {
 	      var _this6 = this;
 
+	      var props = this.props;
+
 	      var compToRender = void 0;
 
 	      // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
@@ -22733,20 +22743,26 @@
 	          { style: this.props.showNavigation ? {} : this.hidden, className: 'footer-buttons' },
 	          _react2.default.createElement(
 	            'button',
-	            { style: this.state.showPreviousBtn ? {} : this.hidden,
-	              className: 'btn btn-prev btn-primary btn-lg pull-left',
+	            {
+	              style: this.state.showPreviousBtn ? {} : this.hidden,
+	              className: props.backButtonCls,
 	              onClick: function onClick() {
 	                _this6.previous();
-	              } },
+	              },
+	              id: 'prev-button'
+	            },
 	            this.props.backButtonText
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { style: this.state.showNextBtn ? {} : this.hidden,
-	              className: 'btn btn-next btn-primary btn-lg pull-right',
+	            {
+	              style: this.state.showNextBtn ? {} : this.hidden,
+	              className: props.nextButtonCls,
 	              onClick: function onClick() {
 	                _this6.next();
-	              } },
+	              },
+	              id: 'next-button'
+	            },
 	            this.state.nextStepText
 	          )
 	        )
@@ -22769,7 +22785,9 @@
 	  preventEnterSubmission: false,
 	  startAtStep: 0,
 	  nextButtonText: "Next",
+	  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
 	  backButtonText: "Previous",
+	  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
 	  hocValidationAppliedTo: []
 	};
 
@@ -22786,8 +22804,11 @@
 	  preventEnterSubmission: _propTypes2.default.bool,
 	  startAtStep: _propTypes2.default.number,
 	  nextButtonText: _propTypes2.default.string,
+	  nextButtonCls: _propTypes2.default.string,
+	  backButtonCls: _propTypes2.default.string,
 	  backButtonText: _propTypes2.default.string,
-	  hocValidationAppliedTo: _propTypes2.default.array
+	  hocValidationAppliedTo: _propTypes2.default.array,
+	  onStepChange: _propTypes2.default.func
 	};
 
 /***/ },
@@ -23890,7 +23911,11 @@
 	                      _react2.default.createElement('br', null),
 	                      'nextTextOnFinalActionStep="Save"',
 	                      _react2.default.createElement('br', null),
-	                      'hocValidationAppliedTo=[3]'
+	                      'hocValidationAppliedTo=[3]',
+	                      _react2.default.createElement('br', null),
+	                      'startAtStep=window.sessionStorage.getItem(\'step\') ? parseFloat(window.sessionStorage.getItem(\'step\')) : 0',
+	                      _react2.default.createElement('br', null),
+	                      'onStepChange=(step) => window.sessionStorage.setItem(\'step\', step)'
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -23921,6 +23946,10 @@
 	                      'nextButtonText=\'Next\'',
 	                      _react2.default.createElement('br', null),
 	                      'backButtonText=\'Previous\'',
+	                      _react2.default.createElement('br', null),
+	                      'nextButtonCls=\'btn btn-prev btn-primary btn-lg pull-right\'',
+	                      _react2.default.createElement('br', null),
+	                      'backButtonCls=\'btn btn-next btn-primary btn-lg pull-left\'',
 	                      _react2.default.createElement('br', null),
 	                      'nextTextOnFinalActionStep=\'[default value of nextButtonText]\'',
 	                      _react2.default.createElement('br', null),

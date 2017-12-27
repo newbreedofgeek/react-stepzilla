@@ -93,6 +93,7 @@ export default class StepZilla extends Component {
     if (this.props.onStepChange) {
       this.props.onStepChange(nextStep);
     }
+
     this.setState(this.getPrevNextBtnState(nextStep));
   }
 
