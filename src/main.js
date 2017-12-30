@@ -324,6 +324,7 @@ export default class StepZilla extends Component {
           {compToRender}
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
           <button
+            type="button"
             style={this.state.showPreviousBtn ? {} : this.hidden}
             className={props.backButtonCls}
             onClick={() => {this.previous()}}
@@ -332,6 +333,7 @@ export default class StepZilla extends Component {
             {this.props.backButtonText}
           </button>
           <button
+            type="button"
             style={this.state.showNextBtn ? {} : this.hidden}
             className={props.nextButtonCls}
             onClick={() => {this.next()}}
