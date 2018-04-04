@@ -2,7 +2,7 @@
 
 Hi Contributors, here is the workflow you should follow to contribute any updates/upgrades to StepZilla.
 
-1. Check out master branch
+1. Check out master branch, create your new branch that you will work on and raise a PR later
 2. Follow the [Dev steps here to run it locally](https://github.com/newbreedofgeek/react-stepzilla#run-and-view-example-in-browser) in live-update watch mode
 3. Make your code updates
 4. Smoke test it by running through the example app in the browser a few times
