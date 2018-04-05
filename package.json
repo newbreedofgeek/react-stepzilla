@@ -6,12 +6,13 @@
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "test": "node ./node_modules/gulp/bin/gulp.js test",
-    "test:watch": "node ./node_modules/gulp/bin/gulp.js test-watch",
+    "test": "npm run lint && node ./node_modules/gulp/bin/gulp.js test",
+    "test:watch": "npm run lint && node ./node_modules/gulp/bin/gulp.js test-watch",
     "test:coverage": "node ./node_modules/gulp/bin/gulp.js test-coverage",
     "prepublish": "npm run build",
     "example": "webpack-dev-server",
-    "build-example": "node ./node_modules/gulp/bin/gulp.js build-example"
+    "build-example": "node ./node_modules/gulp/bin/gulp.js build-example",
+    "lint": "node ./node_modules/.bin/eslint src/main.js"
   },
   "repository": {
     "type": "git",
@@ -41,7 +42,7 @@
     "css-loader": "^0.23.1",
     "del": "^2.2.2",
     "enzyme": "^2.7.0",
-    "eslint": "^3.17.1",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
