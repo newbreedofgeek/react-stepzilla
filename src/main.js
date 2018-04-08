@@ -45,7 +45,7 @@ export default class StepZilla extends Component {
     let styles = [];
 
     for (let i=0; i<length; i++) {
-      if (i < indx) {
+      if (i < indx || (indx === length - 1) ) {
         styles.push('done');
       }
       else if (i === indx) {

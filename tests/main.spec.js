@@ -180,7 +180,7 @@ describe('StepZilla', () => {
           expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-done')).to.be.true;
-          expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
+          expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-done')).to.be.true;
 
           done();
         }, 10);
@@ -395,7 +395,7 @@ describe('StepZilla', () => {
       });
 
       it('should start at the 3rd step (its a 0 based index)', () => {
-        expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-doing')).to.be.true;
+        expect(enzymeWrapper.find('.progtrckr').childAt(2).hasClass('progtrckr-done')).to.be.true;
       });
     });
     
