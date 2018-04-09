@@ -1,6 +1,6 @@
 {
   "name": "react-stepzilla",
-  "version": "4.7.1",
+  "version": "4.7.2",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
@@ -59,6 +59,8 @@
     "json-loader": "^0.5.4",
     "promise": "^7.1.1",
     "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-validation-mixin": "^5.4.0",
     "sinon": "^1.17.7",
@@ -68,8 +70,7 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-stream": "^3.2.0"
   },
-  "dependencies": {
-    "babel-loader": "^6.2.4",
+  "peerDependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }
