@@ -3,6 +3,7 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
 v4.5.0: ported to react and react-dom 15.5.4
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
 v4.2.0: now supporting pure, dumb components!
@@ -156,12 +157,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.6.0:
+Current coverage sitting at v4.7.2:
 ```
-Statements   : 86.02% ( 160/186 ), 11 ignored
-Branches     : 75.15% ( 124/165 ), 23 ignored
-Functions    : 82.98% ( 39/47 ), 4 ignored
-Lines        : 80.65% ( 100/124 )
+Statements   : 87.43% ( 160/183 ), 11 ignored
+Branches     : 76.07% ( 124/163 ), 23 ignored
+Functions    : 84.78% ( 39/46 ), 3 ignored
+Lines        : 83.33% ( 105/126 )
 ```
 
 ### dev todo
@@ -172,7 +173,7 @@ Lines        : 80.65% ( 100/124 )
 our brilliant community sometimes solves implementation issues themselves, head over to the [Useful Dev Tips](https://github.com/newbreedofgeek/react-stepzilla/wiki/Useful-Dev-Tips) page for a curated list of the most useful tips. For e.g. ***How to persist Step State on "Previous/Back" button click*** or ***How to hide navigation buttons in some steps***
 
 ### help us improve stepzilla?
-do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request.
+do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request, or ***upvote*** [existing community requests here](https://github.com/newbreedofgeek/react-stepzilla/issues?q=is%3Aissue+is%3Aopen+label%3A%22UpVotes+Needed%22)
 
 ### known issues
 - open bugs [are here](https://github.com/newbreedofgeek/react-stepzilla/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20label%3Abug)
