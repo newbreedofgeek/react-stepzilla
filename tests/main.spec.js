@@ -1,6 +1,6 @@
 import React from 'react';
 import StepZilla from '../src/main';
-import sinon from 'sinon'
+import sinon from 'sinon';
 const shallow = enzyme.shallow;
 
 const makeFakeSteps = (num, makePure) => {
@@ -115,6 +115,8 @@ describe('StepZilla', () => {
         });
 
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-doing')).to.be.true;
 
@@ -158,6 +160,8 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.footer-buttons #next-button').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-done')).to.be.true;
@@ -174,6 +178,8 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.footer-buttons #next-button').prop('style')).to.deep.equal({
             display: 'none'
           });
@@ -195,9 +201,13 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
           setTimeout(() => {
+            enzymeWrapper.update();
+
             expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({});
 
             done();
@@ -222,6 +232,8 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.footer-buttons #prev-button').text()).to.be.equal('Previous');
 
           done();
@@ -302,6 +314,8 @@ describe('StepZilla', () => {
         });
 
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
           expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
 
@@ -332,9 +346,13 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           enzymeWrapper.find('.footer-buttons #next-button').simulate('click');
 
           setTimeout(() => {
+            enzymeWrapper.update();
+
             expect(enzymeWrapper.find('.footer-buttons #prev-button').prop('style')).to.deep.equal({
               display: 'none'
             });
@@ -365,6 +383,8 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.footer-buttons #prev-button').text()).to.be.equal('MoveBack');
 
           done();
@@ -382,6 +402,8 @@ describe('StepZilla', () => {
 
         // click above is promise driven so it's async, setTimeout is probabaly not the best way to do this but it will do for now
         setTimeout(() => {
+          enzymeWrapper.update();
+
           expect(enzymeWrapper.find('.footer-buttons #next-button').text()).to.be.equal('Save');
 
           done();
@@ -417,6 +439,8 @@ describe('StepZilla', () => {
     
             // click above is promise driven so it's async, setTimeout is probably not the best way to do this but it will do for now
             setTimeout(() => {
+                enzymeWrapper.update();
+              
                 expect(onStepChange.calledWith(2)).to.be.true;
                 done();
             }, 10);
@@ -428,6 +452,8 @@ describe('StepZilla', () => {
             
             // click above is promise driven so it's async, setTimeout is probably not the best way to do this but it will do for now
             setTimeout(() => {
+                enzymeWrapper.update();
+                
                 expect(onStepChange.calledWith(0)).to.be.true;
                 done();
             }, 10);

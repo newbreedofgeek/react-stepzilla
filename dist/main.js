@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -176,72 +174,66 @@ var StepZilla = function (_Component) {
         // a child step wants to invoke a jump between steps. in this case 'evt' is the numeric step number and not the JS event
         this.setNavState(evt);
       } else {
-        var _ret = function () {
-          // the main navigation step ui is invoking a jump between steps
-          if (!_this3.props.stepsNavigation || evt.target.value === _this3.state.compState) {
-            // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
-            evt.preventDefault();
-            evt.stopPropagation();
+        // the main navigation step ui is invoking a jump between steps
+        if (!this.props.stepsNavigation || evt.target.value === this.state.compState) {
+          // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
+          evt.preventDefault();
+          evt.stopPropagation();
 
-            return {
-              v: void 0
-            };
+          return;
+        }
+
+        evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
+
+        var movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
+        var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
+        var proceed = false; // flag on if we should move on
+
+        this.abstractStepMoveAllowedToPromise(movingBack).then(function () {
+          var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+          // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
+          proceed = valid;
+
+          if (!movingBack) {
+            _this3.updateStepValidationFlag(proceed);
           }
 
-          evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
-
-          var movingBack = evt.target.value < _this3.state.compState; // are we trying to move back or front?
-          var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
-          var proceed = false; // flag on if we should move on
-
-          _this3.abstractStepMoveAllowedToPromise(movingBack).then(function () {
-            var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-            // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
-            proceed = valid;
-
+          if (proceed) {
             if (!movingBack) {
-              _this3.updateStepValidationFlag(proceed);
-            }
-
-            if (proceed) {
-              if (!movingBack) {
-                // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
-                passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
-                  if (i >= _this3.state.compState && i < evt.target.value) {
-                    a.push(c.validated);
-                  }
-                  return a;
-                }, []).some(function (c) {
-                  return c === false;
-                });
-              }
-            }
-          }).catch(function (e) {
-            // Promise based validation was a fail (i.e reject())
-            if (!movingBack) {
-              _this3.updateStepValidationFlag(false);
-            }
-          }).then(function () {
-            // this is like finally(), executes if error no no error
-            if (proceed && !passThroughStepsNotValid) {
-              if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
-                _this3.setNavState(_this3.props.steps.length);
-              } else {
-                _this3.setNavState(evt.target.value);
-              }
-            }
-          }).catch(function (e) {
-            if (e) {
-              // see note below called "CatchRethrowing"
-              // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
-              setTimeout(function () {
-                throw e;
+              // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+              passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
+                if (i >= _this3.state.compState && i < evt.target.value) {
+                  a.push(c.validated);
+                }
+                return a;
+              }, []).some(function (c) {
+                return c === false;
               });
             }
-          });
-        }();
-
-        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+          }
+        }).catch(function (e) {
+          // Promise based validation was a fail (i.e reject())
+          if (!movingBack) {
+            _this3.updateStepValidationFlag(false);
+          }
+        }).then(function () {
+          // this is like finally(), executes if error no no error
+          if (proceed && !passThroughStepsNotValid) {
+            if (evt.target.value === _this3.props.steps.length - 1 && _this3.state.compState === _this3.props.steps.length - 1) {
+              _this3.setNavState(_this3.props.steps.length);
+            } else {
+              _this3.setNavState(evt.target.value);
+            }
+          }
+        }).catch(function (e) {
+          if (e) {
+            // see note below called "CatchRethrowing"
+            // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
+            setTimeout(function () {
+              throw e;
+            });
+          }
+        });
       }
     }
 
