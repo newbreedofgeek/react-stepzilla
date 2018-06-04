@@ -3,6 +3,7 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v5.0.0: react 16.2.0 support
 v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
 v4.5.0: ported to react and react-dom 15.5.4
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
@@ -157,12 +158,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.7.2:
+Current coverage sitting at v5.0.0:
 ```
-Statements   : 87.43% ( 160/183 ), 11 ignored
-Branches     : 76.07% ( 124/163 ), 23 ignored
-Functions    : 84.78% ( 39/46 ), 3 ignored
-Lines        : 83.33% ( 105/126 )
+Statements   : 87.01% ( 154/177 ), 10 ignored
+Branches     : 73.83% ( 110/149 ), 16 ignored
+Functions    : 83.72% ( 36/43 ), 2 ignored
+Lines        : 83.2% ( 104/125 )
 ```
 
 ### dev todo
