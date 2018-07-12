@@ -4,15 +4,14 @@
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
-    "build": "npm run lint && node ./node_modules/gulp/bin/gulp.js build",
+    "build": "node ./node_modules/gulp/bin/gulp.js build",
     "lint": "node ./node_modules/gulp/bin/gulp.js lint",
-    "test": "npm run lint && node ./node_modules/gulp/bin/gulp.js test",
-    "test:watch": "npm run lint && node ./node_modules/gulp/bin/gulp.js test-watch",
+    "test": "node ./node_modules/gulp/bin/gulp.js test",
+    "test:watch": "node ./node_modules/gulp/bin/gulp.js test-watch",
     "test:coverage": "node ./node_modules/gulp/bin/gulp.js test-coverage",
     "prepublish": "npm run build",
     "example": "webpack-dev-server",
-    "build-example": "node ./node_modules/gulp/bin/gulp.js build-example",
-    "lint": "node ./node_modules/.bin/eslint src/main.js"
+    "build-example": "node ./node_modules/gulp/bin/gulp.js build-example"
   },
   "repository": {
     "type": "git",

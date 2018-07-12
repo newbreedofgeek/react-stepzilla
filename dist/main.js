@@ -172,14 +172,14 @@ var StepZilla = function (_Component) {
     value: function jumpToStep(evt) {
       var _this3 = this;
 
-      if (evt.target == undefined) {
+      if (typeof evt.target === 'undefined') {
         // a child step wants to invoke a jump between steps. in this case 'evt' is the numeric step number and not the JS event
         this.setNavState(evt);
       } else {
         var _ret = function () {
           // the main navigation step ui is invoking a jump between steps
+          // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
           if (!_this3.props.stepsNavigation || evt.target.value === _this3.state.compState) {
-            // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
             evt.preventDefault();
             evt.stopPropagation();
 
@@ -188,7 +188,8 @@ var StepZilla = function (_Component) {
             };
           }
 
-          evt.persist(); // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
+          // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
+          evt.persist();
 
           var movingBack = evt.target.value < _this3.state.compState; // are we trying to move back or front?
           var passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
@@ -196,7 +197,9 @@ var StepZilla = function (_Component) {
 
           _this3.abstractStepMoveAllowedToPromise(movingBack).then(function () {
             var valid = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-            // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync v
+
+            // validation was a success (promise or sync validation). In it was a Promise's resolve()
+            // ... then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync
             proceed = valid;
 
             if (!movingBack) {
@@ -205,7 +208,8 @@ var StepZilla = function (_Component) {
 
             if (proceed) {
               if (!movingBack) {
-                // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and 'some' that to get a decision on if we should allow moving forward
+                // looks like we are moving forward, 'reduce' a new array of step>validated values we need to check and
+                // ... 'some' that to get a decision on if we should allow moving forward
                 passThroughStepsNotValid = _this3.props.steps.reduce(function (a, c, i) {
                   if (i >= _this3.state.compState && i < evt.target.value) {
                     a.push(c.validated);
@@ -255,7 +259,8 @@ var StepZilla = function (_Component) {
       this.abstractStepMoveAllowedToPromise().then(function () {
         var proceed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
-        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined, so make it true. Or else 'proceed' will carry the true/false value from sync validation
+        // validation was a success (promise or sync validation). In it was a Promise's resolve() then proceed will be undefined,
+        // ... so make it true. Or else 'proceed' will carry the true/false value from sync validation
         _this4.updateStepValidationFlag(proceed);
 
         if (proceed) {
@@ -316,7 +321,7 @@ var StepZilla = function (_Component) {
           // the user is using a higer order component (HOC) for validation (e.g react-validation-mixin), this wraps the StepZilla steps as a HOC,
           // so use hocValidationAppliedTo to determine if this step needs the aync validation as per react-validation-mixin interface
           proceed = this.refs.activeComponent.refs.component.isValidated();
-        } else if (Object.keys(this.refs).length == 0 || typeof this.refs.activeComponent.isValidated == 'undefined') {
+        } else if (Object.keys(this.refs).length === 0 || typeof this.refs.activeComponent.isValidated === 'undefined') {
           // if its a form component, it should have implemeted a public isValidated class (also pure componenets wont even have refs - i.e. a empty object). If not then continue
           proceed = true;
         } else {
@@ -349,7 +354,9 @@ var StepZilla = function (_Component) {
       var liClassName = className + '-' + this.state.navState.styles[i];
 
       // if step ui based navigation is disabled, then dont highlight step
-      if (!this.props.stepsNavigation) liClassName += ' no-hl';
+      if (!this.props.stepsNavigation) {
+        liClassName += ' no-hl';
+      }
 
       return liClassName;
     }
@@ -390,9 +397,8 @@ var StepZilla = function (_Component) {
 
       var props = this.props;
 
-      var compToRender = void 0;
-
       // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
+
       var cloneExtensions = {
         jumpToStep: function jumpToStep(t) {
           _this6.jumpToStep(t);
@@ -407,7 +413,7 @@ var StepZilla = function (_Component) {
         cloneExtensions.ref = 'activeComponent';
       }
 
-      compToRender = _react2.default.cloneElement(componentPointer, cloneExtensions);
+      var compToRender = _react2.default.cloneElement(componentPointer, cloneExtensions);
 
       return _react2.default.createElement(
         'div',
