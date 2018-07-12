@@ -136,6 +136,11 @@ e.g.
 - the transpilation is run as an auto pre-publish task so it should usually be up to date when consumed via npm
 - `npm run build-example` builds and packs the example app into the 'docs' folder so it can be accessed via ghpages
 
+### dev with TDD
+- test driven development has been setup and its recommended you follow these steps when you are developing
+- follow steps below in `run and view example in browser` to launch the dev server that live reloads
+- in a seperate terminal run `npm run test:watch` to trigger TDD
+- now all code updates you make are sent through `lint` and `test` and you can monitor any quality regression in real time
 
 ### run and view example in browser
 A full example is found in the `src/examples` directory.

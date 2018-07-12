@@ -27,7 +27,7 @@ gulp.task('lint', function() {
 });
 
 // Test
-gulp.task('test', function() {
+gulp.task('test', ['lint'], function() {
   _registerBabel();
 
   return gulp.src(['./tests/**/*.spec.js'], {read: false})
@@ -39,8 +39,8 @@ gulp.task('test', function() {
 });
 
 // Live Test Watching
-gulp.task('test-watch', ['test'], function() {
-   gulp.watch(['./tests/**/*.spec.js', './src/main.js'], ['test']);
+gulp.task('test-watch', ['lint', 'test'], function() {
+   gulp.watch(['./tests/**/*.spec.js', './src/main.js'], ['lint', 'test']);
 });
 
 // Coverage
@@ -63,7 +63,7 @@ gulp.task('test-coverage', function () {
 });
 
 // Build
-gulp.task('build', ['clean'], function () {
+gulp.task('build', ['lint', 'clean'], function () {
   return gulp.src('./src/main.js')
     .pipe($.babel()) //this will also handle react transformations
     .pipe(gulp.dest('./dist'));
