@@ -216,7 +216,7 @@ var StepZilla = function (_Component) {
                 });
               }
             }
-          }).catch(function (e) {
+          }).catch(function () {
             // Promise based validation was a fail (i.e reject())
             if (!movingBack) {
               _this3.updateStepValidationFlag(false);
@@ -346,10 +346,10 @@ var StepZilla = function (_Component) {
   }, {
     key: 'getClassName',
     value: function getClassName(className, i) {
-      var liClassName = className + "-" + this.state.navState.styles[i];
+      var liClassName = className + '-' + this.state.navState.styles[i];
 
       // if step ui based navigation is disabled, then dont highlight step
-      if (!this.props.stepsNavigation) liClassName += " no-hl";
+      if (!this.props.stepsNavigation) liClassName += ' no-hl';
 
       return liClassName;
     }
@@ -364,7 +364,7 @@ var StepZilla = function (_Component) {
       return this.props.steps.map(function (s, i) {
         return _react2.default.createElement(
           'li',
-          { className: _this5.getClassName("progtrckr", i), onClick: function onClick(evt) {
+          { className: _this5.getClassName('progtrckr', i), onClick: function onClick(evt) {
               _this5.jumpToStep(evt);
             }, key: i, value: i },
           _react2.default.createElement(
@@ -466,10 +466,10 @@ StepZilla.defaultProps = {
   dontValidate: false,
   preventEnterSubmission: false,
   startAtStep: 0,
-  nextButtonText: "Next",
-  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
-  backButtonText: "Previous",
-  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
+  nextButtonText: 'Next',
+  nextButtonCls: 'btn btn-prev btn-primary btn-lg pull-right',
+  backButtonText: 'Previous',
+  backButtonCls: 'btn btn-next btn-primary btn-lg pull-left',
   hocValidationAppliedTo: []
 };
 

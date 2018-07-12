@@ -56,7 +56,7 @@ export default class StepZilla extends Component {
       }
     }
 
-    return { current: indx, styles }
+    return { current: indx, styles };
   }
 
   getPrevNextBtnState(currentStep) {
@@ -159,12 +159,12 @@ export default class StepZilla extends Component {
                   return a;
                 }, [])
                 .some((c) => {
-                  return c === false
-                })
+                  return c === false;
+                });
             }
           }
         })
-        .catch((e) => {
+        .catch(() => {
           // Promise based validation was a fail (i.e reject())
           if (!movingBack) {
             this.updateStepValidationFlag(false);
@@ -270,11 +270,11 @@ export default class StepZilla extends Component {
 
   // get the classmame of steps
   getClassName(className, i){
-    let liClassName = className + "-" + this.state.navState.styles[i];
+    let liClassName = className + '-' + this.state.navState.styles[i];
 
     // if step ui based navigation is disabled, then dont highlight step
     if (!this.props.stepsNavigation)
-        liClassName += " no-hl";
+        liClassName += ' no-hl';
 
     return liClassName;
   }
@@ -282,7 +282,7 @@ export default class StepZilla extends Component {
   // render the steps as stepsNavigation
   renderSteps() {
     return this.props.steps.map((s, i)=> (
-      <li className={this.getClassName("progtrckr", i)} onClick={(evt) => {this.jumpToStep(evt)}} key={i} value={i}>
+      <li className={this.getClassName('progtrckr', i)} onClick={(evt) => {this.jumpToStep(evt);}} key={i} value={i}>
           <em>{i+1}</em>
           <span>{this.props.steps[i].name}</span>
       </li>
@@ -312,7 +312,7 @@ export default class StepZilla extends Component {
     compToRender = React.cloneElement(componentPointer, cloneExtensions);
 
     return (
-      <div className="multi-step" onKeyDown={(evt) => {this.handleKeyDown(evt)}}>
+      <div className="multi-step" onKeyDown={(evt) => {this.handleKeyDown(evt);}}>
           {
               this.props.showSteps
                   ? <ol className="progtrckr">
@@ -326,7 +326,7 @@ export default class StepZilla extends Component {
           <button
             style={this.state.showPreviousBtn ? {} : this.hidden}
             className={props.backButtonCls}
-            onClick={() => {this.previous()}}
+            onClick={() => {this.previous();}}
             id="prev-button"
           >
             {this.props.backButtonText}
@@ -334,7 +334,7 @@ export default class StepZilla extends Component {
           <button
             style={this.state.showNextBtn ? {} : this.hidden}
             className={props.nextButtonCls}
-            onClick={() => {this.next()}}
+            onClick={() => {this.next();}}
             id="next-button"
           >
             {this.state.nextStepText}
@@ -353,10 +353,10 @@ StepZilla.defaultProps = {
   dontValidate: false,
   preventEnterSubmission: false,
   startAtStep: 0,
-  nextButtonText: "Next",
-  nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right",
-  backButtonText: "Previous",
-  backButtonCls: "btn btn-next btn-primary btn-lg pull-left",
+  nextButtonText: 'Next',
+  nextButtonCls: 'btn btn-prev btn-primary btn-lg pull-right',
+  backButtonText: 'Previous',
+  backButtonCls: 'btn btn-next btn-primary btn-lg pull-left',
   hocValidationAppliedTo: []
 };
 
@@ -378,4 +378,4 @@ StepZilla.propTypes = {
   backButtonText: PropTypes.string,
   hocValidationAppliedTo: PropTypes.array,
   onStepChange: PropTypes.func
-}
+};
