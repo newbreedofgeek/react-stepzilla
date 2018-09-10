@@ -122,8 +122,11 @@ export default class StepZilla extends Component {
       // a child step wants to invoke a jump between steps. in this case 'evt' is the numeric step number and not the JS event
       this.setNavState(evt);
     } else { // the main navigation step ui is invoking a jump between steps
-      // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) then ignore
-      if (!this.props.stepsNavigation || evt.target.value === this.state.compState) {
+      const movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
+      const lastStep = this.state.compState === (this.props.steps.length - 1);
+      // if stepsNavigation is turned off or user clicked on existing step again (on step 2 and clicked on 2 again) or prevBtnOnLastStep is hidden and we try to move back by top navigation then ignore
+      if (!this.props.stepsNavigation || evt.target.value === this.state.compState ||
+        (!this.props.prevBtnOnLastStep && lastStep)) {
         evt.preventDefault();
         evt.stopPropagation();
 
@@ -133,7 +136,6 @@ export default class StepZilla extends Component {
       // evt is a react event so we need to persist it as we deal with aync promises which nullifies these events (https://facebook.github.io/react/docs/events.html#event-pooling)
       evt.persist();
 
-      const movingBack = evt.target.value < this.state.compState; // are we trying to move back or front?
       let passThroughStepsNotValid = false; // if we are jumping forward, only allow that if inbetween steps are all validated. This flag informs the logic...
       let proceed = false; // flag on if we should move on
 
@@ -173,8 +175,7 @@ export default class StepZilla extends Component {
         .then(() => {
           // this is like finally(), executes if error no no error
           if (proceed && !passThroughStepsNotValid) {
-            if (evt.target.value === (this.props.steps.length - 1) &&
-              this.state.compState === (this.props.steps.length - 1)) {
+            if (evt.target.value === (this.props.steps.length - 1) && lastStep) {
               this.setNavState(this.props.steps.length);
             } else {
               this.setNavState(evt.target.value);
