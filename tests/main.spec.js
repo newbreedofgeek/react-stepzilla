@@ -31,7 +31,7 @@ const makeFakeSteps = (num, makePure) => {
     }
 
     steps.push({
-      name: `Step${i + 1}`,
+      content: `Step${i + 1}`,
       component: newComp
     });
   }
