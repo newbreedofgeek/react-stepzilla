@@ -30,16 +30,16 @@ npm install --save react-stepzilla
 ```
 var StepZilla = require('react-stepzilla')
 ```
-- define the list of all the components* you want to step through. The `content` indicates the content of the UI step and component is what loads.
+- define the list of all the components* you want to step through. The `name` indicates the content of the UI step and component is what loads.
 
 ```
 const steps =
     [
-      {content: 'Step 1', component: <Step1 />},
-      {content: 'Step 2', component: <Step2 />},
-      {content: 'Step 3', component: <Step3 />},
-      {content: 'Step 4', component: <Step4 />},
-      {content: 'Step 5', component: <Step5 />}
+      {name: 'Step 1', component: <Step1 />},
+      {name: 'Step 2', component: <Step2 />},
+      {name: 'Step 3', component: <Step3 />},
+      {name: 'Step 4', component: <Step4 />},
+      {name: 'Step 5', component: <Step5 />}
     ]
 ```
 *as of v4.2.0 you can also use Pure Components but they wont support validation, see Step2.js in the examples directory for more info.*

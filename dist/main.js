@@ -374,7 +374,7 @@ var StepZilla = function (_Component) {
           _react2.default.createElement(
             'span',
             null,
-            _this5.props.steps[i].content
+            _this5.props.steps[i].name
           )
         );
       });
@@ -473,7 +473,7 @@ StepZilla.defaultProps = {
 
 StepZilla.propTypes = {
   steps: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-    content: _propTypes2.default.object.isRequired,
+    name: _propTypes2.default.object.isRequired,
     component: _propTypes2.default.element.isRequired
   })).isRequired,
   showSteps: _propTypes2.default.bool,

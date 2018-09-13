@@ -22069,27 +22069,27 @@
 	    value: function render() {
 	      var _this2 = this;
 
-	      var steps = [{ content: 'Step1', component: _react2.default.createElement(_Step2.default, { getStore: function getStore() {
+	      var steps = [{ name: 'Step1', component: _react2.default.createElement(_Step2.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { content: 'Step2', component: _react2.default.createElement(_Step4.default, { getStore: function getStore() {
+	          } }) }, { name: 'Step2', component: _react2.default.createElement(_Step4.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { content: 'Step3', component: _react2.default.createElement(_Step6.default, { getStore: function getStore() {
+	          } }) }, { name: 'Step3', component: _react2.default.createElement(_Step6.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { content: 'step4', component: _react2.default.createElement(_Step8.default, { getStore: function getStore() {
+	          } }) }, { name: 'Step4', component: _react2.default.createElement(_Step8.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { content: 'Step5', component: _react2.default.createElement(_Step10.default, { getStore: function getStore() {
+	          } }) }, { name: 'Step5', component: _react2.default.createElement(_Step10.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
-	          } }) }, { content: 'Step6', component: _react2.default.createElement(_Step12.default, { getStore: function getStore() {
+	          } }) }, { name: 'Step6', component: _react2.default.createElement(_Step12.default, { getStore: function getStore() {
 	            return _this2.getStore();
 	          }, updateStore: function updateStore(u) {
 	            _this2.updateStore(u);
@@ -22501,7 +22501,7 @@
 	          _react2.default.createElement(
 	            'span',
 	            null,
-	            _this5.props.steps[i].content
+	            _this5.props.steps[i].name
 	          )
 	        );
 	      });
@@ -22600,7 +22600,7 @@
 
 	StepZilla.propTypes = {
 	  steps: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-	    content: _propTypes2.default.object.isRequired,
+	    name: _propTypes2.default.object.isRequired,
 	    component: _propTypes2.default.element.isRequired
 	  })).isRequired,
 	  showSteps: _propTypes2.default.bool,
