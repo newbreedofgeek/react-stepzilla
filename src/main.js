@@ -60,16 +60,10 @@ export default class StepZilla extends Component {
     // first set default values
     let showPreviousBtn = true;
     let showNextBtn = true;
-    let nextStepText = this.props.nextButtonText;
 
     // first step hide previous btn
     if (currentStep === 0) {
       showPreviousBtn = false;
-    }
-
-    // second to last step change next btn text if supplied as props
-    if (currentStep === this.props.steps.length - 2) {
-      nextStepText = this.props.nextTextOnFinalActionStep || nextStepText;
     }
 
     // last step hide next btn, hide previous btn if supplied as props
@@ -80,8 +74,7 @@ export default class StepZilla extends Component {
 
     return {
       showPreviousBtn,
-      showNextBtn,
-      nextStepText
+      showNextBtn
     };
   }
 
@@ -224,6 +217,17 @@ export default class StepZilla extends Component {
     }
   }
 
+  // determine next button text
+  determineNextButtonText() {
+    if (this.state.compState === (this.props.steps.length - 2)) {
+      if (this.props.nextTextOnFinalActionStep) {
+        return this.props.nextTextOnFinalActionStep;
+      }
+      return this.props.nextButtonText;
+    }
+    return this.props.nextButtonText;
+  }
+
   // update step's validation flag
   updateStepValidationFlag(val = true) {
     this.props.steps[this.state.compState].validated = val; // note: if a step component returns 'underfined' then treat as "true".
@@ -333,7 +337,7 @@ export default class StepZilla extends Component {
             onClick={() => { this.next(); }}
             id="next-button"
           >
-            {this.state.nextStepText}
+            {this.determineNextButtonText()}
           </button>
         </div>
       </div>
