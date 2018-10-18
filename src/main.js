@@ -358,7 +358,10 @@ StepZilla.defaultProps = {
 
 StepZilla.propTypes = {
   steps: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]).isRequired,
     component: PropTypes.element.isRequired
   })).isRequired,
   showSteps: PropTypes.bool,
