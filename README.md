@@ -28,7 +28,7 @@ npm install --save react-stepzilla
 ```
 - require into your project via
 ```
-var StepZilla = require('react-stepzilla')
+import StepZilla from "react-stepzilla";
 ```
 - define the list of all the components* you want to step through. The `name` indicates the title of the UI step and component is what loads.
 
