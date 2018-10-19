@@ -20,18 +20,20 @@ export default class Step5 extends Component {
 
   // This review screen had the 'Save' button, on clicking this is called
   isValidated() {
-    // typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
-    // but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
-    // ... for the resolve() to work out if we can move to the next step
-    // So here are the rules:
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // SYNC action (e.g. local JS form validation).. if you return:
-    // true/undefined: validation has passed. Move to next step.
-    // false: validation failed. Stay on current step
-    // ~~~~~~~~~~~~~~~~~~~~~~~~
-    // ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
-    // resolve(): validation/save has passed. Move to next step.
-    // reject(): validation/save failed. Stay on current step
+    /*
+    typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
+    but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
+    ... for the resolve() to work out if we can move to the next step
+    So here are the rules:
+    ~~~~~~~~~~~~~~~~~~~~~~~~
+    SYNC action (e.g. local JS form validation).. if you return:
+    true/undefined: validation has passed. Move to next step.
+    false: validation failed. Stay on current step
+    ~~~~~~~~~~~~~~~~~~~~~~~~
+    ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
+    resolve(): validation/save has passed. Move to next step.
+    reject(): validation/save failed. Stay on current step
+    */
 
     this.setState({
       saving: true
