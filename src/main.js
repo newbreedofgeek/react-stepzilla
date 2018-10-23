@@ -7,7 +7,6 @@ export default class StepZilla extends Component {
     super(props);
 
     this.state = {
-      ...this.getPrevNextBtnState(this.props.startAtStep),
       compState: this.props.startAtStep,
       navState: this.getNavStates(this.props.startAtStep, this.props.steps.length)
     };
@@ -56,7 +55,7 @@ export default class StepZilla extends Component {
     return { current: indx, styles };
   }
 
-  getPrevNextBtnState(currentStep) {
+  getPrevNextBtnLayout(currentStep) {
     // first set default values
     let showPreviousBtn = true;
     let showNextBtn = true;
@@ -90,8 +89,6 @@ export default class StepZilla extends Component {
     if (this.props.onStepChange) {
       this.props.onStepChange(nextStep);
     }
-
-    this.setState(this.getPrevNextBtnState(nextStep));
   }
 
   // set the nav state
@@ -289,6 +286,7 @@ export default class StepZilla extends Component {
   // main render of stepzilla container
   render() {
     const { props } = this;
+    const { nextStepText, showNextBtn, showPreviousBtn } = this.getPrevNextBtnLayout(this.state.compState);
 
     // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
     const cloneExtensions = {
@@ -320,7 +318,7 @@ export default class StepZilla extends Component {
           {compToRender}
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
           <button
-            style={this.state.showPreviousBtn ? {} : this.hidden}
+            style={showPreviousBtn ? {} : this.hidden}
             className={props.backButtonCls}
             onClick={() => { this.previous(); }}
             id="prev-button"
@@ -328,12 +326,12 @@ export default class StepZilla extends Component {
             {this.props.backButtonText}
           </button>
           <button
-            style={this.state.showNextBtn ? {} : this.hidden}
+            style={showNextBtn ? {} : this.hidden}
             className={props.nextButtonCls}
             onClick={() => { this.next(); }}
             id="next-button"
           >
-            {this.state.nextStepText}
+            {nextStepText}
           </button>
         </div>
       </div>
