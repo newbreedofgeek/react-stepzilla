@@ -69,14 +69,14 @@ export default class Step5 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 4: Review your Details and 'Save'</h1>
+                <h1>{this.props.t("step5Head")}</h1>
               </label>
             </div>
             <div className="form-group">
               <div className="col-md-12 control-label">
                 <div className="col-md-12 txt">
                   <div className="col-md-4">
-                    Gender
+                    {this.props.t("step5Gender")}
                   </div>
                   <div className="col-md-4">
                     {this.props.getStore().gender}
@@ -84,7 +84,7 @@ export default class Step5 extends Component {
                 </div>
                 <div className="col-md-12 txt">
                   <div className="col-md-4">
-                    Email
+                    {this.props.t("step5Email")}
                   </div>
                   <div className="col-md-4">
                     {this.props.getStore().email}
@@ -92,16 +92,16 @@ export default class Step5 extends Component {
                 </div>
                 <div className="col-md-12 txt">
                   <div className="col-md-4">
-                    Emergency Email
+                    {this.props.t("step5EmergencyEmail")}
                   </div>
                   <div className="col-md-4">
                     {this.props.getStore().emailEmergency}
                   </div>
                 </div>
                 <div className="col-md-12 eg-jump-lnk">
-                  <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
+                  <a href="#" onClick={() => this.jumpToStep(1)}>{this.props.t("step5JumpTo1")}</a>
                 </div>
-                <h2 className={savingCls}>Saving to Cloud, pls wait (by the way, we are using a Promise to do this :)...</h2>
+                <h2 className={savingCls}>{this.props.t("step5Promise")}</h2>
               </div>
             </div>
           </form>

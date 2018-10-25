@@ -29,11 +29,11 @@ export default class Step6 extends Component {
                   (this.state.savedToCloud)
                   ?
                     <div>
-                      <h1>Thanks!</h1>
-                      <h2>Data was successfully saved to cloud...</h2>
+                      <h1>{this.props.t("step6Head")}</h1>
+                      <h2>{this.props.t("step6DataUploaded")}</h2>
                     </div>
                   :
-                    <h1>You have updated data, go <a onClick={() => {this.props.jumpToStep(4)}}>back</a> and Save again!</h1>
+                    <h1>{this.props.t("step6GoBack1")} <a onClick={() => {this.props.jumpToStep(4)}}>{this.props.t("step6GoBack2")}</a> {this.props.t("step6GoBack3")}</h1>
                 }
               </label>
               </div>

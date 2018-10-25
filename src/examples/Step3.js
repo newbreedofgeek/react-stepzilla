@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-export default class Step3 extends Component {
+class Step3 extends Component {
   constructor(props) {
     super(props);
 
@@ -64,8 +64,8 @@ export default class Step3 extends Component {
 
   _validationErrors(val) {
     const errMsgs = {
-      genderValMsg: val.genderVal ? '' : 'A gender selection is required',
-      emailValMsg: val.emailVal ? '' : 'A valid email is required'
+      genderValMsg: val.genderVal ? '' : this.props.t("step3GenderVal"),
+      emailValMsg: val.emailVal ? '' : this.props.t("step3EmailVal")
     }
     return errMsgs;
   }
@@ -103,17 +103,17 @@ export default class Step3 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 3: Basic JavaScript Validation Example</h1>
+                <h1>{this.props.t("step3Head")}</h1>
               </label>
             </div>
             <div className="row content">
               <div className="col-md-12">
-                This example component has a form that uses local standard basic JavaScript validation.
+                {this.props.t("step3JavaScriptValidation")}
               </div>
             </div>
             <div className="form-group col-md-12 content form-block-holder">
                 <label className="control-label col-md-4">
-                  Gender
+                  {this.props.t("step3Gender")}
                 </label>
                 <div className={notValidClasses.genderCls}>
                   <select
@@ -123,10 +123,10 @@ export default class Step3 extends Component {
                     required
                     defaultValue={this.state.gender}
                     onBlur={this.validationCheck}>
-                      <option value="">Please select</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
+                      <option value="">{this.props.t("step3PleaseSelect")}</option>
+                      <option value={this.props.t("step3Male")}>{this.props.t("step3Male")}</option>
+                      <option value={this.props.t("step3Female")}>{this.props.t("step3Female")}</option>
+                      <option value={this.props.t("step3Other")}>{this.props.t("step3Other")}</option>
                   </select>
                   <div className={notValidClasses.genderValGrpCls}>{this.state.genderValMsg}</div>
                 </div>
@@ -154,3 +154,5 @@ export default class Step3 extends Component {
     )
   }
 }
+
+export default Step3;
