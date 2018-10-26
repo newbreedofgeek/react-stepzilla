@@ -3,6 +3,7 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v4.8.0: multiple examples. includes a cool demo of i18n - Internationalization and localization (tnx @tomtoxx)
 v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
 v4.5.0: ported to react and react-dom 15.5.4
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
