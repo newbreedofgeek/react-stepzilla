@@ -105,7 +105,7 @@
 
   .lib-version {
     font-size: 12px;
-    background-color: rgba(255, 255, 0, 0.38);
+    background-color: rgba(255, 255, 0, 1);
     position: absolute;
     right: 10px;
     top: 10px;
@@ -140,6 +140,37 @@
   html ol.progtrckr li.progtrckr-todo:before {
     background-color: #f2f9ff;
   }
+
+  #exList {
+    background-color: #333;
+    padding: 8px;
+    text-align: center;
+    color: #fff;
+  }
+
+ #exList .title {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 5px;
+  }
+
+  #exList .eg {
+    display: inline-block;
+    padding: 5px;
+    border: solid 1px;
+    border-radius: 3px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  #exList .eg.sel {
+    background-color: #000;
+  }
+
+  .container {
+    display: none;
+  }
   </style>
 </head>
 <body>
@@ -148,7 +179,14 @@
   <![endif]-->
   <div class="lib-version">v4.7.3</div>
 
+  <div id="exList">
+    <div class="title">Other Example Example Implementations</div>
+    <div class="eg base" onclick="showExample()">Base - Vanilla</div>
+    <div class="eg i18n" onclick="showExample('i18n')">i18n - Internationalization and localization</div>
+  </div>
+
   <div id="root" class="container"></div>
+  <div id="rooti18n" class="container"></div>
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -156,5 +194,28 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <script src="dist/bundle.js"></script>
+
+  <script>
+    $(() => {
+      showExample();
+    })
+    
+    const showExample = (eg) => {
+      switch(eg) {
+        case 'i18n':
+          $('.container').hide();
+          $('#rooti18n').show();
+          $('#exList .eg').removeClass('sel');
+          $('#exList .eg.i18n').addClass('sel');
+          break;
+        default:
+          $('.container').hide();
+          $('#root').show();
+          $('#exList .eg').removeClass('sel');
+          $('#exList .eg.base').addClass('sel');
+          break;
+      }
+    }
+  </script>
 </body>
 </html>

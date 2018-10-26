@@ -94,12 +94,3 @@ ol.progtrckr li.progtrckr-done:before {
 ol.progtrckr li.progtrckr-done:hover:before {
   color: #333;
 }
-
-.languageButtons button {
-  margin: 5px;
-  border: 1px solid #5cb85c;
-  font-size: 18px;
-  color: #fff;
-  border-radius: 25px;
-  background: #cccccc;
-}

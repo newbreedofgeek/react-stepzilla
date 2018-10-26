@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-export default class Step1 extends Component {
+class Step1 extends Component {
   constructor(props) {
     super(props);
 
@@ -23,13 +23,13 @@ export default class Step1 extends Component {
           <form id="Form" className="form-horizontal">
             <div className="form-group">
               <label className="col-md-12 control-label">
-                <h1>Step 1: Welcome to the official React StepZilla Example</h1>
-                <h3>Source, Installation Instructions and Docs can be found here: <a href="https://github.com/newbreedofgeek/react-stepzilla" target="_blank">https://github.com/newbreedofgeek/react-stepzilla</a></h3>
+                <h1>{this.props.t("step1Head")}</h1>
+                <h3>{this.props.t("step1SourceDocs")} <a href="https://github.com/newbreedofgeek/react-stepzilla" target="_blank">{this.props.t("repoUrl")}</a></h3>
               </label>
               <div className="row">
                 <div className="col-md-12">
                   <div className="col-md-6">
-                    <h3>This example uses this custom config (which overwrites the default config):</h3>
+                    <h3>{this.props.t("step1CustomConfig")}</h3>
                     <code>
                         preventEnterSubmission=true<br />
                         nextTextOnFinalActionStep="Save"<br />
@@ -39,7 +39,7 @@ export default class Step1 extends Component {
                     </code>
                   </div>
                   <div className="col-md-6">
-                    <h3>The default config settings are...</h3>
+                    <h3>{this.props.t("step1DefaultConfig")}</h3>
                     <code>
                       showSteps=true<br />
                       showNavigation=true<br />
@@ -65,3 +65,5 @@ export default class Step1 extends Component {
     )
   }
 }
+
+export default Step1;
