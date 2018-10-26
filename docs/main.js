@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -36,10 +34,10 @@ var StepZilla = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (StepZilla.__proto__ || Object.getPrototypeOf(StepZilla)).call(this, props));
 
-    _this.state = _extends({}, _this.getPrevNextBtnState(_this.props.startAtStep), {
+    _this.state = {
       compState: _this.props.startAtStep,
       navState: _this.getNavStates(_this.props.startAtStep, _this.props.steps.length)
-    });
+    };
 
     _this.hidden = {
       display: 'none'
@@ -93,8 +91,8 @@ var StepZilla = function (_Component) {
       return { current: indx, styles: styles };
     }
   }, {
-    key: 'getPrevNextBtnState',
-    value: function getPrevNextBtnState(currentStep) {
+    key: 'getPrevNextBtnLayout',
+    value: function getPrevNextBtnLayout(currentStep) {
       // first set default values
       var showPreviousBtn = true;
       var showNextBtn = true;
@@ -131,8 +129,6 @@ var StepZilla = function (_Component) {
       if (this.props.onStepChange) {
         this.props.onStepChange(nextStep);
       }
-
-      this.setState(this.getPrevNextBtnState(nextStep));
     }
 
     // set the nav state
@@ -389,7 +385,13 @@ var StepZilla = function (_Component) {
 
       var props = this.props;
 
+      var _getPrevNextBtnLayout = this.getPrevNextBtnLayout(this.state.compState),
+          nextStepText = _getPrevNextBtnLayout.nextStepText,
+          showNextBtn = _getPrevNextBtnLayout.showNextBtn,
+          showPreviousBtn = _getPrevNextBtnLayout.showPreviousBtn;
+
       // clone the step component dynamically and tag it as activeComponent so we can validate it on next. also bind the jumpToStep piping method
+
 
       var cloneExtensions = {
         jumpToStep: function jumpToStep(t) {
@@ -424,7 +426,7 @@ var StepZilla = function (_Component) {
           _react2.default.createElement(
             'button',
             {
-              style: this.state.showPreviousBtn ? {} : this.hidden,
+              style: showPreviousBtn ? {} : this.hidden,
               className: props.backButtonCls,
               onClick: function onClick() {
                 _this6.previous();
@@ -436,14 +438,14 @@ var StepZilla = function (_Component) {
           _react2.default.createElement(
             'button',
             {
-              style: this.state.showNextBtn ? {} : this.hidden,
+              style: showNextBtn ? {} : this.hidden,
               className: props.nextButtonCls,
               onClick: function onClick() {
                 _this6.next();
               },
               id: 'next-button'
             },
-            this.state.nextStepText
+            nextStepText
           )
         )
       );
