@@ -50,8 +50,8 @@ class Step1 extends Component {
                       startAtStep=0<br />
                       nextButtonText='Next'<br />
                       backButtonText='Previous'<br />
-                      nextButtonCls='btn btn-prev btn-primary btn-lg pull-right'<br />
-                      backButtonCls='btn btn-next btn-primary btn-lg pull-left'<br />
+                      nextButtonCls='btn btn-next btn-primary btn-lg pull-right'<br />
+                      backButtonCls='btn btn-prev btn-primary btn-lg pull-left'<br />
                       nextTextOnFinalActionStep='[default value of nextButtonText]'<br />
                       hocValidationAppliedTo: []
                     </code>

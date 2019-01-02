@@ -82,11 +82,11 @@ nextButtonText: "Siguiente"
 // specify the back button text (if not given it default to "Previous")
 backButtonText: "Espalda"
 
-// specify the next button class (if not given it defaults to "btn btn-prev btn-primary btn-lg" which depends on bootstrap)
-nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right"
+// specify the next button class (if not given it defaults to "btn btn-next btn-primary btn-lg" which depends on bootstrap)
+nextButtonCls: "btn btn-next btn-primary btn-lg pull-right"
 
-// specify the back button text (if not given it default to "btn btn-next btn-primary btn-lg")
-backButtonCls: "btn btn-next btn-primary btn-lg pull-left"
+// specify the back button text (if not given it default to "btn btn-prev btn-primary btn-lg")
+backButtonCls: "btn btn-prev btn-primary btn-lg pull-left"
 
 // specify what the next button text should be in the step before the last (This is usually the last "Actionable" step. You can use this option to change the Next button to say Save - if you save the form data collected in previous steps)
 nextTextOnFinalActionStep: "Save"
