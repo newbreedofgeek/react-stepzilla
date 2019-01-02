@@ -22618,9 +22618,9 @@
 	  preventEnterSubmission: false,
 	  startAtStep: 0,
 	  nextButtonText: 'Next',
-	  nextButtonCls: 'btn btn-prev btn-primary btn-lg pull-right',
+	  nextButtonCls: 'btn btn-next btn-primary btn-lg pull-right',
 	  backButtonText: 'Previous',
-	  backButtonCls: 'btn btn-next btn-primary btn-lg pull-left',
+	  backButtonCls: 'btn btn-prev btn-primary btn-lg pull-left',
 	  hocValidationAppliedTo: []
 	};
 
@@ -23783,9 +23783,9 @@
 	                      _react2.default.createElement('br', null),
 	                      'backButtonText=\'Previous\'',
 	                      _react2.default.createElement('br', null),
-	                      'nextButtonCls=\'btn btn-prev btn-primary btn-lg pull-right\'',
+	                      'nextButtonCls=\'btn btn-next btn-primary btn-lg pull-right\'',
 	                      _react2.default.createElement('br', null),
-	                      'backButtonCls=\'btn btn-next btn-primary btn-lg pull-left\'',
+	                      'backButtonCls=\'btn btn-prev btn-primary btn-lg pull-left\'',
 	                      _react2.default.createElement('br', null),
 	                      'nextTextOnFinalActionStep=\'[default value of nextButtonText]\'',
 	                      _react2.default.createElement('br', null),
@@ -31984,7 +31984,7 @@
 /* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+	/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
 	//
 	// Permission is hereby granted, free of charge, to any person obtaining a
 	// copy of this software and associated documentation files (the
@@ -32059,15 +32059,15 @@
 	// Returns a modified function which warns once by default.
 	// If --no-deprecation is set, then it is a no-op.
 	exports.deprecate = function(fn, msg) {
+	  if (typeof process !== 'undefined' && process.noDeprecation === true) {
+	    return fn;
+	  }
+
 	  // Allow for deprecating things in the process of starting up.
-	  if (isUndefined(global.process)) {
+	  if (typeof process === 'undefined') {
 	    return function() {
 	      return exports.deprecate(fn, msg).apply(this, arguments);
 	    };
-	  }
-
-	  if (process.noDeprecation === true) {
-	    return fn;
 	  }
 
 	  var warned = false;
@@ -32688,7 +32688,7 @@
 	}
 	exports.callbackify = callbackify;
 
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(3)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 232 */
@@ -45214,7 +45214,7 @@
 /* 304 */
 /***/ (function(module, exports) {
 
-	module.exports = {"_args":[[{"raw":"joi@^10.2.2","scope":null,"escapedName":"joi","name":"joi","rawSpec":"^10.2.2","spec":">=10.2.2 <11.0.0","type":"range"},"/Users/mark.paul/Documents/Source/Software/react-stepzilla"]],"_from":"joi@>=10.2.2 <11.0.0","_id":"joi@10.6.0","_inCache":true,"_location":"/joi","_nodeVersion":"6.11.0","_npmOperationalInternal":{"host":"s3://npm-registry-packages","tmp":"tmp/joi-10.6.0.tgz_1497548465053_0.7665833418723196"},"_npmUser":{"name":"marsup","email":"nicolas@morel.io"},"_npmVersion":"5.0.3","_phantomChildren":{},"_requested":{"raw":"joi@^10.2.2","scope":null,"escapedName":"joi","name":"joi","rawSpec":"^10.2.2","spec":">=10.2.2 <11.0.0","type":"range"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/joi/-/joi-10.6.0.tgz","_shasum":"52587f02d52b8b75cdb0c74f0b164a191a0e1fc2","_shrinkwrap":null,"_spec":"joi@^10.2.2","_where":"/Users/mark.paul/Documents/Source/Software/react-stepzilla","bugs":{"url":"https://github.com/hapijs/joi/issues"},"dependencies":{"hoek":"4.x.x","isemail":"2.x.x","items":"2.x.x","topo":"2.x.x"},"description":"Object schema validation","devDependencies":{"code":"4.x.x","hapitoc":"1.x.x","lab":"13.x.x"},"directories":{},"dist":{"integrity":"sha512-hBF3LcqyAid+9X/pwg+eXjD2QBZI5eXnBFJYaAkH4SK3mp9QSRiiQnDYlmlz5pccMvnLcJRS4whhDOTCkmsAdQ==","shasum":"52587f02d52b8b75cdb0c74f0b164a191a0e1fc2","tarball":"https://registry.npmjs.org/joi/-/joi-10.6.0.tgz"},"engines":{"node":">=4.0.0"},"gitHead":"069bb6c04063cba202544dacf9da3bbe21fa3074","homepage":"https://github.com/hapijs/joi","keywords":["hapi","schema","validation"],"license":"BSD-3-Clause","main":"lib/index.js","maintainers":[{"name":"hueniverse","email":"eran@hammer.io"},{"name":"marsup","email":"nicolas@morel.io"},{"name":"nlf","email":"quitlahok@gmail.com"},{"name":"wyatt","email":"wpreul@gmail.com"}],"name":"joi","optionalDependencies":{},"readme":"ERROR: No README data found!","repository":{"type":"git","url":"git://github.com/hapijs/joi.git"},"scripts":{"test":"lab -t 100 -a code -L","test-cov-html":"lab -r html -o coverage.html -a code","test-debug":"lab -a code","toc":"hapitoc","version":"npm run toc && git add API.md README.md"},"version":"10.6.0"}
+	module.exports = {"_from":"joi@^10.2.2","_id":"joi@10.6.0","_inBundle":false,"_integrity":"sha512-hBF3LcqyAid+9X/pwg+eXjD2QBZI5eXnBFJYaAkH4SK3mp9QSRiiQnDYlmlz5pccMvnLcJRS4whhDOTCkmsAdQ==","_location":"/joi","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"joi@^10.2.2","name":"joi","escapedName":"joi","rawSpec":"^10.2.2","saveSpec":null,"fetchSpec":"^10.2.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/joi/-/joi-10.6.0.tgz","_shasum":"52587f02d52b8b75cdb0c74f0b164a191a0e1fc2","_spec":"joi@^10.2.2","_where":"/Users/CLICKONDEV1/code/websites/jpylisela/react-stepzilla","bugs":{"url":"https://github.com/hapijs/joi/issues"},"bundleDependencies":false,"dependencies":{"hoek":"4.x.x","isemail":"2.x.x","items":"2.x.x","topo":"2.x.x"},"deprecated":"This version is no longer maintained. Please upgrade to the latest version.","description":"Object schema validation","devDependencies":{"code":"4.x.x","hapitoc":"1.x.x","lab":"13.x.x"},"engines":{"node":">=4.0.0"},"homepage":"https://github.com/hapijs/joi","keywords":["hapi","schema","validation"],"license":"BSD-3-Clause","main":"lib/index.js","name":"joi","repository":{"type":"git","url":"git://github.com/hapijs/joi.git"},"scripts":{"test":"lab -t 100 -a code -L","test-cov-html":"lab -r html -o coverage.html -a code","test-debug":"lab -a code","toc":"hapitoc","version":"npm run toc && git add API.md README.md"},"version":"10.6.0"}
 
 /***/ }),
 /* 305 */
@@ -49633,9 +49633,9 @@
 	                      _react2.default.createElement('br', null),
 	                      'backButtonText=\'Previous\'',
 	                      _react2.default.createElement('br', null),
-	                      'nextButtonCls=\'btn btn-prev btn-primary btn-lg pull-right\'',
+	                      'nextButtonCls=\'btn btn-next btn-primary btn-lg pull-right\'',
 	                      _react2.default.createElement('br', null),
-	                      'backButtonCls=\'btn btn-next btn-primary btn-lg pull-left\'',
+	                      'backButtonCls=\'btn btn-prev btn-primary btn-lg pull-left\'',
 	                      _react2.default.createElement('br', null),
 	                      'nextTextOnFinalActionStep=\'[default value of nextButtonText]\'',
 	                      _react2.default.createElement('br', null),
@@ -50702,16 +50702,22 @@
 	  }
 	}
 
+	var initializedLanguageOnce = false;
+	var initializedStoreOnce = false;
+
 	function initSSR(props, setIsInitialSSR) {
 	  // nextjs / SSR: getting data from next.js or other ssr stack
-	  if (props.initialI18nStore) {
+	  if (!initializedStoreOnce && props.initialI18nStore) {
 	    props.i18n.services.resourceStore.data = props.initialI18nStore;
 	    if (setIsInitialSSR) props.i18n.options.isInitialSSR = true;
 	    if (props.i18nOptions) props.i18nOptions.wait = false; // we got all passed down already
+
+	    initializedStoreOnce = true;
 	  }
 
-	  if (props.initialLanguage) {
+	  if (!initializedLanguageOnce && props.initialLanguage) {
 	    props.i18n.changeLanguage(props.initialLanguage);
+	    initializedLanguageOnce = true;
 	  }
 	} // --------------
 	// loadNamespaces
@@ -51422,7 +51428,7 @@
 /* 368 */
 /***/ (function(module, exports) {
 
-	/** @license React v16.6.0
+	/** @license React v16.7.0
 	 * react-is.production.min.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -51432,17 +51438,18 @@
 	 */
 
 	'use strict';Object.defineProperty(exports,"__esModule",{value:!0});
-	var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.concurrent_mode"):60111,m=b?Symbol.for("react.forward_ref"):60112,n=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.memo"):60115,r=b?Symbol.for("react.lazy"):
-	60116;function t(a){if("object"===typeof a&&null!==a){var p=a.$$typeof;switch(p){case c:switch(a=a.type,a){case l:case e:case g:case f:return a;default:switch(a=a&&a.$$typeof,a){case k:case m:case h:return a;default:return p}}case d:return p}}}function u(a){return t(a)===l}exports.typeOf=t;exports.AsyncMode=l;exports.ConcurrentMode=l;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=m;exports.Fragment=e;exports.Profiler=g;exports.Portal=d;
-	exports.StrictMode=f;exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===l||a===g||a===f||a===n||"object"===typeof a&&null!==a&&(a.$$typeof===r||a.$$typeof===q||a.$$typeof===h||a.$$typeof===k||a.$$typeof===m)};exports.isAsyncMode=function(a){return u(a)};exports.isConcurrentMode=u;exports.isContextConsumer=function(a){return t(a)===k};exports.isContextProvider=function(a){return t(a)===h};
-	exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return t(a)===m};exports.isFragment=function(a){return t(a)===e};exports.isProfiler=function(a){return t(a)===g};exports.isPortal=function(a){return t(a)===d};exports.isStrictMode=function(a){return t(a)===f};
+	var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?Symbol.for("react.memo"):
+	60115,r=b?Symbol.for("react.lazy"):60116;function t(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case h:return a;default:return u}}case r:case q:case d:return u}}}function v(a){return t(a)===m}exports.typeOf=t;exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;
+	exports.Fragment=e;exports.Lazy=r;exports.Memo=q;exports.Portal=d;exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||"object"===typeof a&&null!==a&&(a.$$typeof===r||a.$$typeof===q||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n)};exports.isAsyncMode=function(a){return v(a)||t(a)===l};exports.isConcurrentMode=v;exports.isContextConsumer=function(a){return t(a)===k};
+	exports.isContextProvider=function(a){return t(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return t(a)===n};exports.isFragment=function(a){return t(a)===e};exports.isLazy=function(a){return t(a)===r};exports.isMemo=function(a){return t(a)===q};exports.isPortal=function(a){return t(a)===d};exports.isProfiler=function(a){return t(a)===g};exports.isStrictMode=function(a){return t(a)===f};
+	exports.isSuspense=function(a){return t(a)===p};
 
 
 /***/ }),
 /* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.6.0
+	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.7.0
 	 * react-is.development.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -51472,6 +51479,7 @@
 	var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
 	var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
 	var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
+	var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
 	var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
 	var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
 	var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
@@ -51540,16 +51548,17 @@
 	function typeOf(object) {
 	  if (typeof object === 'object' && object !== null) {
 	    var $$typeof = object.$$typeof;
-
 	    switch ($$typeof) {
 	      case REACT_ELEMENT_TYPE:
 	        var type = object.type;
 
 	        switch (type) {
+	          case REACT_ASYNC_MODE_TYPE:
 	          case REACT_CONCURRENT_MODE_TYPE:
 	          case REACT_FRAGMENT_TYPE:
 	          case REACT_PROFILER_TYPE:
 	          case REACT_STRICT_MODE_TYPE:
+	          case REACT_SUSPENSE_TYPE:
 	            return type;
 	          default:
 	            var $$typeofType = type && type.$$typeof;
@@ -51563,6 +51572,8 @@
 	                return $$typeof;
 	            }
 	        }
+	      case REACT_LAZY_TYPE:
+	      case REACT_MEMO_TYPE:
 	      case REACT_PORTAL_TYPE:
 	        return $$typeof;
 	    }
@@ -51571,17 +51582,20 @@
 	  return undefined;
 	}
 
-	// AsyncMode alias is deprecated along with isAsyncMode
-	var AsyncMode = REACT_CONCURRENT_MODE_TYPE;
+	// AsyncMode is deprecated along with isAsyncMode
+	var AsyncMode = REACT_ASYNC_MODE_TYPE;
 	var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
 	var ContextConsumer = REACT_CONTEXT_TYPE;
 	var ContextProvider = REACT_PROVIDER_TYPE;
 	var Element = REACT_ELEMENT_TYPE;
 	var ForwardRef = REACT_FORWARD_REF_TYPE;
 	var Fragment = REACT_FRAGMENT_TYPE;
-	var Profiler = REACT_PROFILER_TYPE;
+	var Lazy = REACT_LAZY_TYPE;
+	var Memo = REACT_MEMO_TYPE;
 	var Portal = REACT_PORTAL_TYPE;
+	var Profiler = REACT_PROFILER_TYPE;
 	var StrictMode = REACT_STRICT_MODE_TYPE;
+	var Suspense = REACT_SUSPENSE_TYPE;
 
 	var hasWarnedAboutDeprecatedIsAsyncMode = false;
 
@@ -51593,7 +51607,7 @@
 	      lowPriorityWarning$1(false, 'The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
 	    }
 	  }
-	  return isConcurrentMode(object);
+	  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
 	}
 	function isConcurrentMode(object) {
 	  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
@@ -51613,14 +51627,23 @@
 	function isFragment(object) {
 	  return typeOf(object) === REACT_FRAGMENT_TYPE;
 	}
-	function isProfiler(object) {
-	  return typeOf(object) === REACT_PROFILER_TYPE;
+	function isLazy(object) {
+	  return typeOf(object) === REACT_LAZY_TYPE;
+	}
+	function isMemo(object) {
+	  return typeOf(object) === REACT_MEMO_TYPE;
 	}
 	function isPortal(object) {
 	  return typeOf(object) === REACT_PORTAL_TYPE;
 	}
+	function isProfiler(object) {
+	  return typeOf(object) === REACT_PROFILER_TYPE;
+	}
 	function isStrictMode(object) {
 	  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+	}
+	function isSuspense(object) {
+	  return typeOf(object) === REACT_SUSPENSE_TYPE;
 	}
 
 	exports.typeOf = typeOf;
@@ -51631,9 +51654,12 @@
 	exports.Element = Element;
 	exports.ForwardRef = ForwardRef;
 	exports.Fragment = Fragment;
-	exports.Profiler = Profiler;
+	exports.Lazy = Lazy;
+	exports.Memo = Memo;
 	exports.Portal = Portal;
+	exports.Profiler = Profiler;
 	exports.StrictMode = StrictMode;
+	exports.Suspense = Suspense;
 	exports.isValidElementType = isValidElementType;
 	exports.isAsyncMode = isAsyncMode;
 	exports.isConcurrentMode = isConcurrentMode;
@@ -51642,9 +51668,12 @@
 	exports.isElement = isElement;
 	exports.isForwardRef = isForwardRef;
 	exports.isFragment = isFragment;
-	exports.isProfiler = isProfiler;
+	exports.isLazy = isLazy;
+	exports.isMemo = isMemo;
 	exports.isPortal = isPortal;
+	exports.isProfiler = isProfiler;
 	exports.isStrictMode = isStrictMode;
+	exports.isSuspense = isSuspense;
 	  })();
 	}
 
@@ -51688,6 +51717,8 @@
 	var _react = _interopRequireWildcard(__webpack_require__(1));
 
 	var _createReactContext = _interopRequireDefault(__webpack_require__(371));
+
+	var _hoistNonReactStatics = _interopRequireDefault(__webpack_require__(366));
 
 	var defaultOptions = {
 	  wait: false,
@@ -51759,6 +51790,10 @@
 	    return WithContext;
 	  };
 	}
+
+	function getDisplayName(component) {
+	  return component.displayName || component.name || 'Component';
+	}
 	/* eslint-disable react/no-multi-comp */
 
 
@@ -51812,7 +51847,10 @@
 	      return WithMergedOptions;
 	    }(_react.Component);
 
-	    return withContext()(WithMergedOptions);
+	    var WithMergedOptionsWithContext = withContext()(WithMergedOptions);
+	    WithMergedOptionsWithContext.WrappedComponent = WrappedComponent;
+	    WithMergedOptionsWithContext.displayName = "WithMergedOptions(".concat(getDisplayName(WrappedComponent), ")");
+	    return (0, _hoistNonReactStatics.default)(WithMergedOptionsWithContext, WrappedComponent);
 	  };
 	}
 
@@ -52102,6 +52140,10 @@
 	    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(NamespacesConsumerComponent).call(this, props));
 
 	    if (!props.i18n) {
+	      _this.state = {
+	        i18nLoadedAt: null,
+	        ready: false
+	      };
 	      return (0, _possibleConstructorReturn2.default)(_this, (0, _utils.warnOnce)('You will need pass in an i18next instance either by props, using I18nextProvider or by using i18nextReactModule. Learn more https://react.i18next.com/components/overview#getting-the-i-18-n-function-into-the-flow'));
 	    } // nextjs / SSR: getting data from next.js or other ssr stack
 
@@ -52258,7 +52300,13 @@
 	          defaultNS = _this$props5.defaultNS,
 	          reportNS = _this$props5.reportNS,
 	          i18nOptions = _this$props5.i18nOptions;
-	      var ready = this.state.ready;
+
+	      var _ref = this.state || {
+	        ready: false
+	      },
+	          ready = _ref.ready; // fallback if state is null...unknown edge case https://github.com/i18next/react-i18next/issues/615
+
+
 	      var t = this.t;
 	      if (!ready && i18nOptions.wait) return null; // remove ssr flag set by provider - first render was done from now on wait if set to wait
 
@@ -52795,13 +52843,6 @@
 	  }
 
 	  (0, _createClass2.default)(I18nextProvider, [{
-	    key: "componentWillReceiveProps",
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.i18n !== nextProps.i18n) {
-	        throw new Error('[react-i18next][I18nextProvider]does not support changing the i18n object.');
-	      }
-	    }
-	  }, {
 	    key: "render",
 	    value: function render() {
 	      var _this$props = this.props,
@@ -53389,7 +53430,7 @@
 
 	    var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : noop;
 
-	    if (!this.options.resources) {
+	    if (!this.options.resources || this.options.partialBundledLanguages) {
 	      if (this.language && this.language.toLowerCase() === 'cimode') return callback(); // avoid loading resources for cimode
 
 	      var toLoad = [];
@@ -55328,6 +55369,7 @@
 	    pluralSeparator: '_',
 	    contextSeparator: '_',
 
+	    partialBundledLanguages: false, // allow bundling certain languages that are not remotely fetched
 	    saveMissing: false, // enable to send missing values
 	    updateMissing: false, // enable to update default values if different from translated value (only useful on initial development, or when keeping code as source of truth)
 	    saveMissingTo: 'fallback', // 'current' || 'all'
@@ -55829,7 +55871,7 @@
 	  lookup: function lookup(options) {
 	    var found = void 0;
 	    if (typeof window !== 'undefined') {
-	      var language = window.location.pathname.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
+	      var language = window.location.href.match(/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/gi);
 	      if (language instanceof Array) {
 	        if (typeof options.lookupFromSubdomainIndex === 'number') {
 	          found = language[options.lookupFromSubdomainIndex].replace('http://', '').replace('https://', '').replace('.', '');
