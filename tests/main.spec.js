@@ -1,7 +1,7 @@
 import React from 'react';
 import StepZilla from '../src/main';
 import sinon from 'sinon'
-import { shallow } from 'enzyme';
+const shallow = enzyme.shallow;
 
 const makeFakeSteps = (num, makePure) => {
   let steps = [];
@@ -88,10 +88,6 @@ describe('StepZilla', () => {
     describe('showSteps: true use case', () => {
       const { enzymeWrapper } = setup(2);
 
-      console.log('AenzymeWrapper')
-        console.log(enzymeWrapper)
-        console.log('AenzymeWrapper')
-
       it('should render showSteps based header', () => {
         expect(enzymeWrapper.find('.progtrckr')).to.have.length(1);
       });
@@ -109,10 +105,6 @@ describe('StepZilla', () => {
       it('should jump to 2nd step when clicking the 1st step icon in header', (done) => {
         expect(enzymeWrapper.find('.progtrckr').childAt(0).hasClass('progtrckr-doing')).to.be.true;
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
-
-        console.log('enzymeWrapper')
-        console.log(enzymeWrapper)
-        console.log('enzymeWrapper')
 
         // simulate the click, and mock the event with target to 1 (i.e. jump to step 1 from 0)
         enzymeWrapper.find('.progtrckr-doing .progtrckr-doing').simulate('click', {
