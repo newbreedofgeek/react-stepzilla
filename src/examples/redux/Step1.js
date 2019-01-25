@@ -8,7 +8,9 @@ export default class Step1 extends Component {
   }
 
   // not required as this component has no forms or user entry
-  isValidated() {}
+  isValidated() {
+    console.log('isValidated works as well...');
+  }
 
   render() {
     return (
@@ -21,6 +23,9 @@ export default class Step1 extends Component {
               </label>
               <div className="row">
                 <div className="col-md-12">
+                  <div className="intro">
+                    This example implementation shows StepZilla working with Redux as the datastore. Soruce code is in 'examples/redux'.
+                  </div>
                   <div className="btn btn-info" onClick={this.props.saySomething}> Say Hello via Redux Action </div>
                   { this.props.whatsUp !== '' && <div className="btn btn-warning" onClick={this.props.clearSaid}> Clear Hello </div> }
                   <h2>{ this.props.whatsUp }</h2>

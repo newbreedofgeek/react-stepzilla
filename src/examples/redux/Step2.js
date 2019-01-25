@@ -12,6 +12,9 @@ const Step2 = ({ activeStep, saySomething, clearSaid, whatsUp }) => (
               </label>
               <div className="row">
                 <div className="col-md-12">
+                  <div className="intro">
+                    This example implementation shows StepZilla working with Redux as the datastore. Soruce code is in 'examples/redux'.
+                  </div>
                   <div className="btn btn-info" onClick={saySomething}> Say Hello via Redux Action </div>
                   { whatsUp !== '' && <div className="btn btn-warning" onClick={clearSaid}> Clear Hello </div> }
                   <h2>{ whatsUp }</h2>
