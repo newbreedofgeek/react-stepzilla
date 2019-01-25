@@ -3,11 +3,10 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v5.0.0: ported to react and react-dom 16.4.1. Redux demo implementation (finally!)
 v4.8.0: multiple examples. includes a cool demo of i18n - Internationalization and localization (tnx @tomtoxx)
 v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
-v4.5.0: ported to react and react-dom 15.5.4
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
-v4.2.0: now supporting pure, dumb components!
 ```
 
 ### what does it do?
@@ -163,12 +162,12 @@ A full example is found in the `src/examples` directory.
 - all code is run against coverage, not just the unit tested modules
 - test coverage improvement is currently a work in progress
 
-Current coverage sitting at v4.7.2:
+Current coverage sitting at v5.0.0:
 ```
-Statements   : 87.43% ( 160/183 ), 11 ignored
-Branches     : 76.07% ( 124/163 ), 23 ignored
-Functions    : 84.78% ( 39/46 ), 3 ignored
-Lines        : 83.33% ( 105/126 )
+Statements   : 86.39% ( 146/169 ), 4 ignored
+Branches     : 73.1% ( 106/145 ), 13 ignored
+Functions    : 83.33% ( 35/42 ), 1 ignored
+Lines        : 82.93% ( 102/123 )
 ```
 
 ### dev todo
