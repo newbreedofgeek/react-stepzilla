@@ -177,16 +177,18 @@
   <!--[if lt IE 8]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div class="lib-version">v4.8.0</div>
+  <div class="lib-version">v5.0.0</div>
 
   <div id="exList">
     <div class="title">Other Example Implementations</div>
     <div class="eg base" onclick="showExample()">Base - Vanilla</div>
     <div class="eg i18n" onclick="showExample('i18n')">i18n - Internationalization and localization</div>
+    <div class="eg redux" onclick="showExample('redux')">Redux</div>
   </div>
 
   <div id="root" class="container"></div>
   <div id="rooti18n" class="container"></div>
+  <div id="rootRedux" class="container"></div>
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -207,6 +209,12 @@
           $('#rooti18n').show();
           $('#exList .eg').removeClass('sel');
           $('#exList .eg.i18n').addClass('sel');
+          break;
+        case 'redux':
+          $('.container').hide();
+          $('#rootRedux').show();
+          $('#exList .eg').removeClass('sel');
+          $('#exList .eg.redux').addClass('sel');
           break;
         default:
           $('.container').hide();

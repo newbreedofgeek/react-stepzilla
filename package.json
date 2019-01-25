@@ -1,6 +1,6 @@
 {
   "name": "react-stepzilla",
-  "version": "4.8.0",
+  "version": "5.0.0",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "scripts": {
@@ -40,7 +40,8 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "del": "^2.2.2",
-    "enzyme": "^2.7.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.8.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -61,11 +62,12 @@
     "json-loader": "^0.5.4",
     "promise": "^7.1.1",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-i18next": "^8.1.0",
-    "react-addons-test-utils": "^15.5.1",
+    "react-redux": "^6.0.0",
     "react-validation-mixin": "^5.4.0",
+    "redux": "^4.0.1",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
@@ -74,9 +76,8 @@
     "webpack-stream": "^3.2.0"
   },
   "peerDependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
