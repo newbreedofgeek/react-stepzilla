@@ -21,3 +21,17 @@ ReactDOM.render(
   , document.getElementById('rooti18n')
 );
 // E: i18n - Internationalization and localization example
+
+// S: Redux example
+import ExampleRedux from './redux/Example';
+import { createStore} from 'redux'
+import { Provider } from 'react-redux';
+import reducer from './redux/reducer';
+
+const store = createStore(reducer);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ExampleRedux />
+  </Provider>, document.getElementById('rootRedux'));
+// E: Redux example

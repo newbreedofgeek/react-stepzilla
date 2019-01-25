@@ -1,7 +1,7 @@
 import React from 'react';
 import StepZilla from '../src/main';
 import sinon from 'sinon'
-const shallow = enzyme.shallow;
+import { shallow } from 'enzyme';
 
 const makeFakeSteps = (num, makePure) => {
   let steps = [];
