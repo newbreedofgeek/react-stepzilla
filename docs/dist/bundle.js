@@ -24629,6 +24629,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            {
+	              type: 'button',
 	              style: showPreviousBtn ? {} : this.hidden,
 	              className: props.backButtonCls,
 	              onClick: function onClick() {
@@ -24641,6 +24642,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            {
+	              type: 'button',
 	              style: showNextBtn ? {} : this.hidden,
 	              className: props.nextButtonCls,
 	              onClick: function onClick() {
