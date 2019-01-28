@@ -79,7 +79,7 @@ startAtStep: [stepIndex]
 nextButtonText: "Siguiente"
 
 // specify the back button text (if not given it default to "Previous")
-backButtonText: "Espalda"
+backButtonText: "Atrás"
 
 // specify the next button class (if not given it defaults to "btn btn-prev btn-primary btn-lg" which depends on bootstrap)
 nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right"
