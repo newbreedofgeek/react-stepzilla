@@ -426,6 +426,7 @@ var StepZilla = function (_Component) {
           _react2.default.createElement(
             'button',
             {
+              type: 'button',
               style: showPreviousBtn ? {} : this.hidden,
               className: props.backButtonCls,
               onClick: function onClick() {
@@ -438,6 +439,7 @@ var StepZilla = function (_Component) {
           _react2.default.createElement(
             'button',
             {
+              type: 'button',
               style: showNextBtn ? {} : this.hidden,
               className: props.nextButtonCls,
               onClick: function onClick() {
