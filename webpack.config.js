@@ -1,11 +1,18 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/examples/App.js',
+  mode: 'development',
   output: {
-    path: './src/examples/dist',
-    filename: './src/examples/dist/bundle.js'
+    path: path.resolve(__dirname, 'src/examples/dist'),
+    filename: 'bundle.js',
+    publicPath: '/src/examples/dist/'
+  },
+  devServer: {
+    openPage: 'src/examples/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -17,12 +24,13 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json-loader',
+        type: 'javascript/auto'
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ['.js', '.json']
   },
   node: {
     net: 'empty',

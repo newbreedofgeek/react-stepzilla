@@ -29,9 +29,9 @@ export default class StepZilla extends Component {
       } else {
         // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
         // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
-        i.validated = (typeof i.component.type === 'undefined' ||
-          (typeof i.component.type.prototype.isValidated === 'undefined' &&
-            !this.isStepAtIndexHOCValidationBased(idx))) ? true : false;
+        i.validated = (typeof i.component.type === 'undefined'
+          || (typeof i.component.type.prototype.isValidated === 'undefined'
+            && !this.isStepAtIndexHOCValidationBased(idx))) ? true : false;
       }
 
       return i;
@@ -170,8 +170,8 @@ export default class StepZilla extends Component {
         .then(() => {
           // this is like finally(), executes if error no no error
           if (proceed && !passThroughStepsNotValid) {
-            if (evt.target.value === (this.props.steps.length - 1) &&
-              this.state.compState === (this.props.steps.length - 1)) {
+            if (evt.target.value === (this.props.steps.length - 1)
+              && this.state.compState === (this.props.steps.length - 1)) {
               this.setNavState(this.props.steps.length);
             } else {
               this.setNavState(evt.target.value);
@@ -298,8 +298,9 @@ export default class StepZilla extends Component {
     const componentPointer = this.props.steps[this.state.compState].component;
 
     // can only update refs if its a regular React component (not a pure component), so lets check that
-    if (componentPointer instanceof Component || // unit test deteceted that instanceof Component can be in either of these locations so test both (not sure why this is the case)
-        (componentPointer.type && componentPointer.type.prototype instanceof Component)) {
+    if (componentPointer instanceof Component
+      || (componentPointer.type && componentPointer.type.prototype instanceof Component)) {
+      // unit test deteceted that instanceof Component can be in either of these locations so test both (not sure why this is the case)
       cloneExtensions.ref = 'activeComponent';
     }
 
@@ -309,10 +310,10 @@ export default class StepZilla extends Component {
       <div className="multi-step" onKeyDown={(evt) => { this.handleKeyDown(evt); }}>
           {
               this.props.showSteps
-                  ? <ol className="progtrckr">
-                      {this.renderSteps()}
-                  </ol>
-              : <span></span>
+                ? <ol className="progtrckr">
+                    {this.renderSteps()}
+                </ol>
+                : <span></span>
           }
 
           {compToRender}
