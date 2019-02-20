@@ -5,20 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-require("core-js/modules/es7.symbol.async-iterator");
-
-require("core-js/modules/es6.symbol");
-
-require("core-js/modules/es6.object.set-prototype-of");
-
-require("core-js/modules/es6.function.name");
-
-require("core-js/modules/web.dom.iterable");
-
-require("core-js/modules/es6.array.iterator");
-
-require("core-js/modules/es6.object.keys");
-
 var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
