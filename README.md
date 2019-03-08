@@ -157,10 +157,11 @@ A full example is found in the `src/examples` directory.
 - run the `npm run test:watch` command run test in watch mode
 
 ### code test coverage
-- test coverage is done via istanbul
-- run the `npm run test:coverage` command to generate full coverage report (shown in terminal and as lcov report in coverage directory)
-- all code is run against coverage, not just the unit tested modules
-- test coverage improvement is currently a work in progress
+- ~~test coverage is done via istanbul~~
+- ~~run the `npm run test:coverage` command to generate full coverage report (shown in terminal and as lcov report in coverage directory)~~
+- ~~all code is run against coverage, not just the unit tested modules~~
+- ~~test coverage improvement is currently a work in progress~~
+- Note: As of v5.0.1 (the gulp / webpack upgrade) istanbul no longer works. We will replace with a new coverage tool soon.
 
 Current coverage sitting at v5.0.0:
 ```
