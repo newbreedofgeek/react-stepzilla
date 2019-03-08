@@ -3,6 +3,7 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v6.0.0: dev tools updated to latest versions for security and stability (webpack, gulp, babel, node env)
 v5.0.0: ported to react and react-dom 16.4.1. Redux demo implementation (finally!)
 v4.8.0: multiple examples. includes a cool demo of i18n - Internationalization and localization (tnx @tomtoxx)
 v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
