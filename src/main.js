@@ -29,9 +29,11 @@ export default class StepZilla extends Component {
       } else {
         // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
         // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
-        i.validated = (typeof i.component.type === 'undefined'
-          || (typeof i.component.type.prototype.isValidated === 'undefined'
-            && !this.isStepAtIndexHOCValidationBased(idx))) ? true : false;
+        i.validated = (i.validated = (typeof i.component.type === 'undefined' || typeof i.component.type.prototype === 'undefined')
+          			? false
+          			: (typeof i.component.type.prototype.isValidated === 'undefined' && !this.isStepAtIndexHOCValidationBased(idx))
+          			  ? true
+          			  : false
       }
 
       return i;
