@@ -1,0 +1,5 @@
+/* only example specific CSS goes here - pls do not write any CSS that overwrite the ../css/main.css example css */
+
+.btn, .intro {
+  margin: 10px;
+}

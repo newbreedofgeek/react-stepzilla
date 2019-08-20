@@ -1,7 +1,7 @@
 import React from 'react';
 import StepZilla from '../src/main';
 import sinon from 'sinon'
-const shallow = enzyme.shallow;
+import { shallow } from 'enzyme';
 
 const makeFakeSteps = (num, makePure) => {
   let steps = [];
@@ -107,7 +107,7 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
 
         // simulate the click, and mock the event with target to 1 (i.e. jump to step 1 from 0)
-        enzymeWrapper.find('.progtrckr-doing .progtrckr-doing').simulate('click', {
+        enzymeWrapper.find('.progtrckr').childAt(0).simulate('click', {
           target: {
             value: 1
           },
@@ -293,7 +293,7 @@ describe('StepZilla', () => {
         expect(enzymeWrapper.find('.progtrckr').childAt(1).hasClass('progtrckr-todo')).to.be.true;
 
         // simulate the click, and mock the event with target to 1 (i.e. jump to step 1 from 0)
-        enzymeWrapper.find('.progtrckr-doing .progtrckr-doing').simulate('click', {
+        enzymeWrapper.find('.progtrckr').childAt(0).simulate('click', {
           target: {
             value: 1
           },

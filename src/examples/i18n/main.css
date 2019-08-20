@@ -1,0 +1,10 @@
+/* only example specific CSS goes here - pls do not write any CSS that overwrite the ../css/main.css example css */
+
+.languageButtons button {
+  margin: 5px;
+  border: 1px solid #5cb85c;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 25px;
+  background: #cccccc;
+}

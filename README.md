@@ -3,9 +3,11 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
-v4.5.0: ported to react and react-dom 15.5.4
+v6.0.0: dev tools updated to latest versions for security and stability (webpack, gulp, babel, node env)
+v5.0.0: ported to react and react-dom 16.4.1. Redux demo implementation (finally!)
+v4.8.0: multiple examples. includes a cool demo of i18n - Internationalization and localization (tnx @tomtoxx)
+v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
 v4.3.0: now supporting higer order component based validation via react-validation-mixin!
-v4.2.0: now supporting pure, dumb components!
 ```
 
 ### what does it do?
@@ -27,7 +29,7 @@ npm install --save react-stepzilla
 ```
 - require into your project via
 ```
-var StepZilla = require('react-stepzilla')
+import StepZilla from "react-stepzilla";
 ```
 - define the list of all the components* you want to step through. The `name` indicates the title of the UI step and component is what loads.
 
@@ -78,7 +80,7 @@ startAtStep: [stepIndex]
 nextButtonText: "Siguiente"
 
 // specify the back button text (if not given it default to "Previous")
-backButtonText: "Espalda"
+backButtonText: "Atrás"
 
 // specify the next button class (if not given it defaults to "btn btn-prev btn-primary btn-lg" which depends on bootstrap)
 nextButtonCls: "btn btn-prev btn-primary btn-lg pull-right"
@@ -135,6 +137,11 @@ e.g.
 - the transpilation is run as an auto pre-publish task so it should usually be up to date when consumed via npm
 - `npm run build-example` builds and packs the example app into the 'docs' folder so it can be accessed via ghpages
 
+### dev with TDD
+- test driven development has been setup and its recommended you follow these steps when you are developing
+- follow steps below in `run and view example in browser` to launch the dev server that live reloads
+- in a seperate terminal run `npm run test:watch` to trigger TDD
+- now all code updates you make are sent through `lint` and `test` and you can monitor any quality regression in real time
 
 ### run and view example in browser
 A full example is found in the `src/examples` directory.
@@ -151,17 +158,18 @@ A full example is found in the `src/examples` directory.
 - run the `npm run test:watch` command run test in watch mode
 
 ### code test coverage
-- test coverage is done via istanbul
-- run the `npm run test:coverage` command to generate full coverage report (shown in terminal and as lcov report in coverage directory)
-- all code is run against coverage, not just the unit tested modules
-- test coverage improvement is currently a work in progress
+- ~~test coverage is done via istanbul~~
+- ~~run the `npm run test:coverage` command to generate full coverage report (shown in terminal and as lcov report in coverage directory)~~
+- ~~all code is run against coverage, not just the unit tested modules~~
+- ~~test coverage improvement is currently a work in progress~~
+- Note: As of v5.0.1 (the gulp / webpack upgrade) istanbul no longer works. We will replace with a new coverage tool soon.
 
-Current coverage sitting at v4.6.0:
+Current coverage sitting at v5.0.0:
 ```
-Statements   : 86.02% ( 160/186 ), 11 ignored
-Branches     : 75.15% ( 124/165 ), 23 ignored
-Functions    : 82.98% ( 39/47 ), 4 ignored
-Lines        : 80.65% ( 100/124 )
+Statements   : 86.39% ( 146/169 ), 4 ignored
+Branches     : 73.1% ( 106/145 ), 13 ignored
+Functions    : 83.33% ( 35/42 ), 1 ignored
+Lines        : 82.93% ( 102/123 )
 ```
 
 ### dev todo
@@ -172,7 +180,7 @@ Lines        : 80.65% ( 100/124 )
 our brilliant community sometimes solves implementation issues themselves, head over to the [Useful Dev Tips](https://github.com/newbreedofgeek/react-stepzilla/wiki/Useful-Dev-Tips) page for a curated list of the most useful tips. For e.g. ***How to persist Step State on "Previous/Back" button click*** or ***How to hide navigation buttons in some steps***
 
 ### help us improve stepzilla?
-do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request.
+do you have any ideas for new features or improvements to stepzilla? we would love to hear from you. head over to the [issues section here](https://github.com/newbreedofgeek/react-stepzilla/issues) and raise a new thread about what you would like. make sure you include some use cases for your request, or ***upvote*** [existing community requests here](https://github.com/newbreedofgeek/react-stepzilla/issues?q=is%3Aissue+is%3Aopen+label%3A%22UpVotes+Needed%22)
 
 ### known issues
 - open bugs [are here](https://github.com/newbreedofgeek/react-stepzilla/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20label%3Abug)
