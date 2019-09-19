@@ -40,13 +40,13 @@ export default class StepZilla extends Component {
   getNavStates(indx, length) {
     const styles = [];
 
-    for (let i=0; i<length; i++) {
+    for (let i = 0; i < length; i++) {
       if (i < indx || (!this.props.prevBtnOnLastStep && (indx === length - 1))) {
-        styles.push("done");
+        styles.push('done');
       } else if (i === indx) {
-        styles.push("doing");
+        styles.push('doing');
       } else {
-        styles.push("todo");
+        styles.push('todo');
       }
     }
 

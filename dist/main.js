@@ -84,7 +84,7 @@ function (_Component) {
       var styles = [];
 
       for (var i = 0; i < length; i++) {
-        if (i < indx) {
+        if (i < indx || !this.props.prevBtnOnLastStep && indx === length - 1) {
           styles.push('done');
         } else if (i === indx) {
           styles.push('doing');

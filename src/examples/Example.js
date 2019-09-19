@@ -65,7 +65,6 @@ export default class Example extends Component {
             onStepChange={step =>
               window.sessionStorage.setItem("step", step)
             }
-            prevBtnOnLastStep={false}
           />
         </div>
       </div>
