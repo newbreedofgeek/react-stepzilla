@@ -50,24 +50,18 @@ export default class Example extends Component {
     ]
 
     return (
-      <div className="example">
-        <div className="step-progress">
+      <div className='example'>
+        <div className='step-progress'>
           <StepZilla
             steps={steps}
             preventEnterSubmission={true}
             nextTextOnFinalActionStep={"Save"}
             hocValidationAppliedTo={[3]}
-            startAtStep={
-              window.sessionStorage.getItem("step")
-                ? parseFloat(window.sessionStorage.getItem("step"))
-                : 0
-            }
-            onStepChange={step =>
-              window.sessionStorage.setItem("step", step)
-            }
-          />
+            startAtStep={window.sessionStorage.getItem('step') ? parseFloat(window.sessionStorage.getItem('step')) : 0}
+            onStepChange={(step) => window.sessionStorage.setItem('step', step)}
+           />
         </div>
       </div>
-    );
+    )
   }
 }
