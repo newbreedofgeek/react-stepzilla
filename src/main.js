@@ -29,7 +29,7 @@ export default class StepZilla extends Component {
       } else {
         // check if isValidated was exposed in the step, if yes then set initial state as not validated (false) or vice versa
         // if HOCValidation is used for the step then mark it as "requires to be validated. i.e. false"
-        i.validated = i.component.type && i.component.type.prototype && i.component.type.prototype.isValidated && this.isStepAtIndexHOCValidationBased(idx) ? false : true;
+        i.validated = i.component.type && i.component.type.prototype && i.component.type.prototype.isValidated && !this.isStepAtIndexHOCValidationBased(idx) ? false : true;
       }
 
       return i;
@@ -50,7 +50,7 @@ export default class StepZilla extends Component {
       }
     }
 
-    return { current: indx, styles };
+    return { styles };
   }
 
   getPrevNextBtnLayout(currentStep) {
