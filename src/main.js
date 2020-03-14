@@ -50,7 +50,7 @@ export default class StepZilla extends Component {
       }
     }
 
-    return { current: indx, styles };
+    return { styles };
   }
 
   getPrevNextBtnLayout(currentStep) {

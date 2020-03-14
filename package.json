@@ -1,6 +1,6 @@
 {
   "name": "react-stepzilla",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "engines": {
@@ -13,6 +13,7 @@
     "test:watch": "node ./node_modules/gulp/bin/gulp.js test-watch",
     "prepublish": "npm run build",
     "example": "webpack-dev-server --open",
+    "start": "npm run example",
     "build-example": "node ./node_modules/gulp/bin/gulp.js build-example"
   },
   "repository": {

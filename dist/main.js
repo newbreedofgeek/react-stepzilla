@@ -94,7 +94,6 @@ function (_Component) {
       }
 
       return {
-        current: indx,
         styles: styles
       };
     }
