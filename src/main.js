@@ -275,8 +275,8 @@ export default class StepZilla extends Component {
   renderSteps() {
     return this.props.steps.map((s, i) => (
       <li className={this.getClassName('progtrckr', i)} onClick={(evt) => { this.jumpToStep(evt); }} key={i} value={i}>
-          <em>{i + 1}</em>
-          <span>{this.props.steps[i].name}</span>
+        <em>{i + 1}</em>
+        <span>{this.props.steps[i].name}</span>
       </li>
     ));
   }
@@ -306,15 +306,15 @@ export default class StepZilla extends Component {
 
     return (
       <div className="multi-step" onKeyDown={(evt) => { this.handleKeyDown(evt); }}>
-          {
-              this.props.showSteps
-                ? <ol className="progtrckr">
-                    {this.renderSteps()}
-                </ol>
-                : <span></span>
-          }
+        {
+          this.props.showSteps
+            ? <ol className="progtrckr">
+              {this.renderSteps()}
+            </ol>
+            : <span></span>
+        }
 
-          {compToRender}
+        {compToRender}
         <div style={this.props.showNavigation ? {} : this.hidden} className="footer-buttons">
           <button
             type="button"
@@ -370,10 +370,16 @@ StepZilla.propTypes = {
   dontValidate: PropTypes.bool,
   preventEnterSubmission: PropTypes.bool,
   startAtStep: PropTypes.number,
-  nextButtonText: PropTypes.string,
+  nextButtonText: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
   nextButtonCls: PropTypes.string,
   backButtonCls: PropTypes.string,
-  backButtonText: PropTypes.string,
+  backButtonText: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
   hocValidationAppliedTo: PropTypes.array,
   onStepChange: PropTypes.func
 };
