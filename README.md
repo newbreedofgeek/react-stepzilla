@@ -23,7 +23,7 @@ something like this of course:
 Full example usage code is available in the `src/examples` directory. Have a look at a [live working version here](https://newbreedofgeek.github.io/react-stepzilla/)
 
 
-## get started (how to use in your apps)
+## get started (how to use it in your apps)
 - run
 ```
 npm install --save react-stepzilla

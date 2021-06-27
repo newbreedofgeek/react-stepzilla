@@ -41,7 +41,7 @@ const HooksWithValidation = forwardRef(({jumpToStep}, ref) => {
               {!valid && <><br /><br /><span className="red">If you want to move to the "Next" step you need change the validation state to TRUE. This demonstrates how a modern Hooks based React component can use the <u>isValidated</u> method to instruct StepZilla to proceed to "Next". Use the button below to toggle it to TRUE.</span></>}
               <br /><br />
               <div className="btn btn-info" onClick={toggleValidState} style={{marginLeft: '0'}}>Toggle Validation State</div>
-              {uiError && <div class="val-err-tooltip" style={{marginTop: '1rem', display: 'table'}}>You need to use the the toggle button above to set validation state to TRUE to proceed</div>}
+              {uiError && <div className="val-err-tooltip" style={{marginTop: '1rem', display: 'table'}}>You need to use the the toggle button above to set validation state to TRUE to proceed</div>}
             </div>
             <div className="col-md-12 eg-jump-lnk">
               <a href="#" onClick={() => jumpToStep(0)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
