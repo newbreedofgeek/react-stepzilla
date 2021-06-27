@@ -1,10 +1,10 @@
 {
   "name": "react-stepzilla",
-  "version": "6.0.3",
+  "version": "7.0.0",
   "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
   "main": "./dist/main.js",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=12.0.0"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
@@ -39,13 +39,13 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "del": "^2.2.2",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.8.0",
+    "enzyme": "^3.11.0",
     "eslint": "^5.12.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.15.0",
@@ -65,8 +65,8 @@
     "json-loader": "^0.5.7",
     "promise": "^7.1.1",
     "prop-types": "^15.5.8",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-i18next": "^8.1.0",
     "react-redux": "^6.0.0",
     "react-validation-mixin": "^5.4.0",
@@ -80,8 +80,7 @@
     "webpack-stream": "^5.2.1"
   },
   "peerDependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
-  },
-  "dependencies": {}
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }

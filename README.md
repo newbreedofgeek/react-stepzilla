@@ -3,14 +3,15 @@ is a multi-step, wizard component for sequential data collection. It basically l
 
 #### :tada: whats new:
 ```
+v7.0.0: React hooks support! (finally)
 v6.0.0: dev tools updated to latest versions for security and stability (webpack, gulp, babel, node env)
 v5.0.0: ported to react and react-dom 16.4.1. Redux demo implementation (finally!)
 v4.8.0: multiple examples. includes a cool demo of i18n - Internationalization and localization (tnx @tomtoxx)
 v4.7.2: optimised react, react-dom dependency loading (peerDependencies)
-v4.3.0: now supporting higer order component based validation via react-validation-mixin!
+v4.3.0: now supporting higher order component based validation via react-validation-mixin!
 ```
 
-### what does it do?
+### what can it do?
 something like this of course:
 
 ![react-stepzilla](https://raw.githubusercontent.com/newbreedofgeek/react-stepzilla/master/stepzilla-eg.png)
@@ -22,7 +23,7 @@ something like this of course:
 Full example usage code is available in the `src/examples` directory. Have a look at a [live working version here](https://newbreedofgeek.github.io/react-stepzilla/)
 
 
-### get started
+## get started (how to use in your apps)
 - run
 ```
 npm install --save react-stepzilla
@@ -43,7 +44,7 @@ const steps =
       {name: 'Step 5', component: <Step5 />}
     ]
 ```
-*as of v4.2.0 you can also use Pure Components but they wont support validation, see Step2.js in the examples directory for more info.*
+*as of v7.0.0 you can use React Hooks based function components that also support custom state based validation using the `isValidated` method (see Step5.js in the examples directory). Note that Pure Components (functions without state or refs) can also be used but they wont support validation, see Step2.js in the examples directory for more info.*
 
 - and now render it out somewhere in your app
 ```
@@ -106,16 +107,7 @@ example options usage:
 </div>
 ```
 
-
-- *if one of your components is a form that requires validation before moving to the next component, then that component needs to implement a `isValidated()` public method which validates the form and returns true/false if the data is valid. For an e.g. on this have a look at the `src/examples/Step3` component.*
-
-- *validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step5` component.*
-
-- *also if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)*
-
-- *check out `src/examples/` for how `onStepChange` can be used to persist last known step state across browser reloads (using `startAtStep` pulled from session storage)*
-
-#### jumpToStep() utility
+### jumpToStep() utility
 - stepzilla injects an utility method called `jumpToStep` as a prop into all your react step components
 - this utility methods lets you jump between steps from inside your react component
 e.g.
@@ -123,14 +115,23 @@ e.g.
 - check out `src/examples/Step2` for an actual usage example
 - important!! this jumpToStep() utility method will not validate data! so use with caution. its only meant to be a utility to break from the standard flow of steps
 
-#### step validation
-- your individual react steps can implement some checks to prevent moving onto the next step, this is called "validation" in stepzilla.
-- to use this feature, you need to implement a public `isValidated()` method in your react step component.
-- this `isValidated()` method can return a static `true/false` (true to proceed and false to prevent). It can also return a `Promise` which in turn should `resolve` or `reject` (which maps to the static `true/false`  behaviour)
-- stepzilla also supports advanced form validation via `react-validation-mixin`
-- check out sample code in the `src/examples` directory. (Step3.js and Step4.js show you all this in action)
 
-### dev
+### step validation & the isValidated() utility
+each component step can expose a local `isValidated` method that will be invoked during runtime by StepZilla to determine if we can go to next step. This utility is available to Class based component and Hooks components.
+
+- to use this feature, you need to implement a `isValidated()` method in your react step component.
+- this `isValidated()` method should return a bool `true/false` (true to proceed and false to prevent). It can also return a `Promise` which in turn should `resolve` or `reject` (which maps to the static `true/false`  behaviour)
+- if your step is a from, note that stepzilla also supports advanced form validation via `react-validation-mixin`
+- validation can also be Async and therefore Promise based. This is useful if you do server side validation or you want to save data to a server and only proceed if it was a success. For an e.g. on this have a look at the `src/examples/Step5` component.
+- for class components, check out sample code in the `src/examples` directory. (Step3.js and Step4.js show you all this in action)
+- for hooks components, you will need to use the `forwardRef` and the `useImperativeHandle` primitives to make this work, a full example is in `src/examples/Step5.js`
+
+### styling & custom step change logic
+- if you want some default style, copy the source from `src/css/main.css` code into your project (the above look in the picture also requires bootstrap)
+
+- check out `src/examples/` for how `onStepChange` can be used to persist last known step state across browser reloads (using `startAtStep` pulled from session storage)
+
+## dev (upgrade core library)
 - all node source is in src/main.js
 - you need to install dependencies first `npm install`
 - make any changes and run `npm run build` to transpile the jsx into `dist`
@@ -173,8 +174,8 @@ Lines        : 82.93% ( 102/123 )
 ```
 
 ### dev todo
-- ~~write the tests~~
 - improve code coverage
+- migrate to jest
 
 ### community dev tips
 our brilliant community sometimes solves implementation issues themselves, head over to the [Useful Dev Tips](https://github.com/newbreedofgeek/react-stepzilla/wiki/Useful-Dev-Tips) page for a curated list of the most useful tips. For e.g. ***How to persist Step State on "Previous/Back" button click*** or ***How to hide navigation buttons in some steps***
