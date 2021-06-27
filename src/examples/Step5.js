@@ -1,112 +1,56 @@
-'use strict';
+import React, {useState, forwardRef, useImperativeHandle} from 'react';
 
-import React, { Component } from 'react';
-import Promise from 'promise';
-
-export default class Step5 extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      saving: false
-    };
-
-    this.isValidated = this.isValidated.bind(this);
+// We need to wrap component in `forwardRef` in order to gain
+// access to the ref object that is assigned using the `ref` prop.
+// This ref is passed as the second parameter to the function component.
+const HooksWithValidation = forwardRef(({jumpToStep}, ref) => {
+  const [valid, setValid] = useState(false);
+  const [uiError, setUiError] = useState(false);
+  
+  const toggleValidState = () => {
+    setUiError(false);
+    setValid(!valid);
   }
 
-  componentDidMount() {}
+  // The component instance will be extended
+  // with whatever you return from the callback passed
+  // as the second argument
+  useImperativeHandle(ref, () => ({
+    isValidated() {
+      if (!valid) {
+        setUiError(true);
+        return false;
+      } else {
+        // all good, let's proceed
+        return true;
+      }
+    }
+  }));
 
-  componentWillUnmount() {}
-
-  // This review screen had the 'Save' button, on clicking this is called
-  isValidated() {
-    /*
-    typically this method needs to return true or false (to indicate if the local forms are validated, so StepZilla can move to the next step),
-    but in this example we simulate an ajax request which is async. In the case of async validation or server saving etc. return a Promise and StepZilla will wait
-    ... for the resolve() to work out if we can move to the next step
-    So here are the rules:
-    ~~~~~~~~~~~~~~~~~~~~~~~~
-    SYNC action (e.g. local JS form validation).. if you return:
-    true/undefined: validation has passed. Move to next step.
-    false: validation failed. Stay on current step
-    ~~~~~~~~~~~~~~~~~~~~~~~~
-    ASYNC return (server side validation or saving data to server etc).. you need to return a Promise which can resolve like so:
-    resolve(): validation/save has passed. Move to next step.
-    reject(): validation/save failed. Stay on current step
-    */
-
-    this.setState({
-      saving: true
-    });
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.setState({
-          saving: true
-        });
-
-        this.props.updateStore({savedToCloud: true});  // Update store here (this is just an example, in reality you will do it via redux or flux)
-
-        // call resolve() to indicate that server validation or other aync method was a success.
-        // ... only then will it move to the next step. reject() will indicate a fail
-        resolve();
-        // reject(); // or reject
-      }, 5000);
-    });
-  }
-
-  jumpToStep(toStep) {
-    // We can explicitly move to a step (we -1 as its a zero based index)
-    this.props.jumpToStep(toStep-1); // The StepZilla library injects this jumpToStep utility into each component
-  }
-
-  render() {
-    const savingCls = this.state.saving ? 'saving col-md-12 show' : 'saving col-md-12 hide';
-
-    return (
-      <div className="step step5 review">
-        <div className="row">
-          <form id="Form" className="form-horizontal">
-            <div className="form-group">
-              <label className="col-md-12 control-label">
-                <h1>Step 4: Review your Details and 'Save'</h1>
-              </label>
+  return <div className="step step5">
+    <div className="row">
+      <form id="Form" className="form-horizontal">
+        <div className="form-group">
+          <label className="col-md-12 control-label">
+            <h1>Step 5: A React Hooks Component Example (with state based validation)</h1>
+          </label>
+          <div className="row content">
+            <div className="col-md-12">
+              <br />
+              <span>My validation state is {valid.toString().toUpperCase()}.</span>
+              {!valid && <><br /><br /><span className="red">If you want to move to the "Next" step you need change the validation state to TRUE. This demonstrates how a modern Hooks based React component can use the <u>isValidated</u> method to instruct StepZilla to proceed to "Next". Use the button below to toggle it to TRUE.</span></>}
+              <br /><br />
+              <div className="btn btn-info" onClick={toggleValidState} style={{marginLeft: '0'}}>Toggle Validation State</div>
+              {uiError && <div class="val-err-tooltip" style={{marginTop: '1rem', display: 'table'}}>You need to use the the toggle button above to set validation state to TRUE to proceed</div>}
             </div>
-            <div className="form-group">
-              <div className="col-md-12 control-label">
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Gender
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().gender}
-                  </div>
-                </div>
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Email
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().email}
-                  </div>
-                </div>
-                <div className="col-md-12 txt">
-                  <div className="col-md-4">
-                    Emergency Email
-                  </div>
-                  <div className="col-md-4">
-                    {this.props.getStore().emailEmergency}
-                  </div>
-                </div>
-                <div className="col-md-12 eg-jump-lnk">
-                  <a href="#" onClick={() => this.jumpToStep(1)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
-                </div>
-                <h2 className={savingCls}>Saving to Cloud, pls wait (by the way, we are using a Promise to do this :)...</h2>
-              </div>
+            <div className="col-md-12 eg-jump-lnk">
+              <a href="#" onClick={() => jumpToStep(0)}>e.g. showing how we use the jumpToStep method helper method to jump back to step 1</a>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    )
-  }
-}
+      </form>
+    </div>
+  </div>
+});
+
+export default HooksWithValidation;

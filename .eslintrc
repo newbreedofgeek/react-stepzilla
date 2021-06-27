@@ -25,3 +25,4 @@ rules:
   arrow-body-style: 0
   arrow-parens: 0
   no-lonely-if: 0
+  no-use-before-define: 0
