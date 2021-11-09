@@ -286,6 +286,9 @@ function StepZilla(props) {
 
 
   var renderSteps = function renderSteps() {
+    var pointerEventsNone = {
+      pointerEvents: 'none'
+    };
     return props.steps.map(function (s, i) {
       return _react.default.createElement("li", {
         className: getClassName('progtrckr', i),
@@ -294,7 +297,11 @@ function StepZilla(props) {
         },
         key: i,
         value: i
-      }, _react.default.createElement("em", null, i + 1), _react.default.createElement("span", null, props.steps[i].name));
+      }, _react.default.createElement("em", {
+        style: pointerEventsNone
+      }, i + 1), _react.default.createElement("span", {
+        style: pointerEventsNone
+      }, props.steps[i].name));
     });
   };
 
