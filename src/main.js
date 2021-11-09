@@ -261,10 +261,11 @@ export default function StepZilla(props) {
 
   // render the steps as stepsNavigation
   const renderSteps = () => {
+    const pointerEventsNone = { pointerEvents: 'none' };
     return props.steps.map((s, i) => (
       <li className={getClassName('progtrckr', i)} onClick={(evt) => { jumpToStep(evt); }} key={i} value={i}>
-          <em>{i + 1}</em>
-          <span>{props.steps[i].name}</span>
+          <em style={pointerEventsNone}>{i + 1}</em>
+          <span style={pointerEventsNone}>{props.steps[i].name}</span>
       </li>
     ));
   };
