@@ -43,7 +43,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "chai": "^3.5.0",
-    "css-loader": "^0.23.1",
+    "css-loader": "^6.7.2",
     "del": "^2.2.2",
     "enzyme": "^3.11.0",
     "eslint": "^5.12.1",
